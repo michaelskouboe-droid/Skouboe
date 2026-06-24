@@ -1,1 +1,81 @@
 tekst_mønster,kategori
+BUDGET SARA,Løn/indkomst
+BUDGETKONTO MCHAEL,Løn/indkomst
+LØNOVERFØRSEL,Løn/indkomst
+BØRNE- OG UNGEYDELSE,Løn/indkomst
+UDBYTTE,Løn/indkomst
+FRA NEMKONTO,Løn/indkomst
+FRA LØNKONTO,Løn/indkomst
+BUDGETKONTO,Opsparing/overførsel til andre konti (ikke forbrug)
+MADKONTO,Opsparing/overførsel til andre konti (ikke forbrug)
+MADPENGE,Opsparing/overførsel til andre konti (ikke forbrug)
+FERIEKONTO,Opsparing/overførsel til andre konti (ikke forbrug)
+RENOVERINGSKONTO,Opsparing/overførsel til andre konti (ikke forbrug)
+OPSPARING,Opsparing/overførsel til andre konti (ikke forbrug)
+FONDS,Opsparing/overførsel til andre konti (ikke forbrug)
+AKTIE OPSPARING,Opsparing/overførsel til andre konti (ikke forbrug)
+INVESTERING,Opsparing/overførsel til andre konti (ikke forbrug)
+DEGIRO,Opsparing/overførsel til andre konti (ikke forbrug)
+OVERFØRSEL,Opsparing/overførsel til andre konti (ikke forbrug)
+OVERFØRT YDELSE,Opsparing/overførsel til andre konti (ikke forbrug)
+UDB ATM,Kontanthævning
+HUSLEJE,Husleje/Realkredit
+TOTALKREDIT,Husleje/Realkredit
+REALKREDITLÅN,Husleje/Realkredit
+DCC ENERGI,El/Vand/Varme
+EVIDA,El/Vand/Varme
+ANDEL ENERGI,El/Vand/Varme
+NOVAFOS,El/Vand/Varme
+FJERNVARME,El/Vand/Varme
+NATURGASFYR,El/Vand/Varme
+FORSIKRING,Forsikring
+GENTOFTE KOMMUNE,Daginstitution/SFO/Kommune
+A-KASSE,A-kasse
+BILLÅN,Billån/afdrag
+RENGØRING,Rengøring (fast)
+B-SKAT,Skat
+SKATTESTYRELSEN,Skat
+YOUSEE,Internet/Mobil
+TDC,Internet/Mobil
+TELIA,Internet/Mobil
+TELENOR,Internet/Mobil
+STOFA,Internet/Mobil
+NEMLIG.COM,Dagligvarer
+NETTO,Dagligvarer
+REMA 1000,Dagligvarer
+KIWI,Dagligvarer
+MENY,Dagligvarer
+COOP,Dagligvarer
+FØTEX,Dagligvarer
+KVICKLY,Dagligvarer
+WOLT,Restauranter/Take-away
+LAGKAGEHUSET,Restauranter/Take-away
+EMMERYS,Restauranter/Take-away
+MADKLUBBEN,Restauranter/Take-away
+AIRBNB,Rejser/Ferie
+AGODA,Rejser/Ferie
+MOLSLINJEN,Rejser/Ferie
+SAS,Rejser/Ferie
+YSTAD SALTSJOBAD,Rejser/Ferie
+KIDS-WORLD,Børn (tøj/legetøj)
+JOLLYROOM,Børn (tøj/legetøj)
+SPEJDER SPORT,Fritid/Sport
+SVØMMEKLUB,Fritid/Sport
+ABILICA,Fritid/Sport
+MATAS,Sundhed
+PROFIL OPTIK,Sundhed
+FERTILITY,Sundhed
+VVS,Bolig (reparation/renovering/indretning)
+SILVAN,Bolig (reparation/renovering/indretning)
+BAUHAUS,Bolig (reparation/renovering/indretning)
+IKEA,Bolig (reparation/renovering/indretning)
+TESLA,Bil (drift)
+PARKERING,Transport/rejse (dagstur)
+OERESUNDSBROEN,Transport/rejse (dagstur)
+NETFLIX,Abonnementer (streaming/digitalt)
+APPLE.COM/BILL,Abonnementer (streaming/digitalt)
+LINKEDIN,Abonnementer (streaming/digitalt)
+TV2 DK,Abonnementer (streaming/digitalt)
+FRISOER,Personlig pleje
+KONTO- OG KUNDEGEBYR,Gebyrer
+MOBILEPAY,MobilePay (øvrigt/privat)
