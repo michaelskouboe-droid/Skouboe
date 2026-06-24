@@ -39,6 +39,30 @@ mapping i `data/category-rules.csv` (opret den hvis den ikke findes, med kolonne
 `tekst_mønster,kategori`), så brug og udbygge den, så kategoriseringen bliver mere
 præcis over tid.
 
+**"Øvrigt" skal holdes lav.** En stor uklassificeret post gør rapporten ubrugelig.
+Før hver gennemgang: find de største enkeltposter der falder i "Øvrigt" og tilføj
+regler for dem i `data/category-rules.csv` i stedet for at lade dem stå uklassificeret.
+Mål: "Øvrigt" bør udgøre under ca. 20-25% af de samlede udgifter i en måned — hvis det
+er højere, prioriter kategorisering af de største poster før resten af rapporten skrives.
+
+**Eksklusion af intern omfordeling og værdipapirhandel (kategori `_internal_transfer`):**
+Husholdningen har flere sammenkædede konti (løn-, budget-, opsparings- og diverse
+formålskonti) samt et investeringsdepot. Følgende skal trækkes helt ud af cashflow-
+beregningen, da det ikke er reelt forbrug eller indtægt:
+- Overførsler mellem egne konti (Nemkonto, Lønkonto, Opsparing, Renoveringskonto,
+  Madkonto, Budgetkonto, "Budget <navn>")
+- Værdipapirhandel og depot-aktivitet: "Hdl.", "Udbytte", "Fonds", "Depot gebyr",
+  "Aktiekøb", "Aktie opsparing", "Investering"
+- Undtagelse: løntekster der indeholder "lønoverførsel" er ægte indtægt og skal ALDRIG
+  ekskluderes, selv hvis de matcher et af mønstrene ovenfor.
+
+**Kategori-sum bug at undgå:** Når du summerer beløb pr. kategori til søjlediagrammet,
+sum kun udgiftssiden (negative beløb) pr. kategori. Bland ikke positive beløb (f.eks.
+tilbagebetalinger, MobilePay-modtagelser, børnepenge) ind i samme sum som udgifter for
+en kategori som "Øvrigt" — det kan give en useriøs/negativ sum. Uklassificerede
+positive beløb skal i stedet vises i et separat "anden indtægt"-felt, ikke trækkes fra
+udgiftskategorien.
+
 ## 3. Beregn cashflow og udvikling
 
 - Sum af indtægter, faste omkostninger, variabelt forbrug, og nettoresultat for perioden.
@@ -46,6 +70,14 @@ præcis over tid.
   udvikling over tid pr. kategori.
 - Fremhæv afvigelser: kategorier der stiger/falder >15% fra deres historiske gennemsnit,
   eller enkeltstående usædvanligt store transaktioner.
+
+**Historisk perspektiv (ikke kun måned-mod-måned):** Beregn for hver hovedkategori et
+historisk gennemsnit over en længere baseline-periode (12 måneder, eller alt
+tilgængelig historik hvis kortere). Sammenlign den aktuelle måned mod dette gennemsnit
+(ikke kun mod forrige måned) og marker kategorier der afviger >20% fra deres egen
+historiske norm som "skiller sig ud". Vis en 12-måneders sparkline/trendlinje pr.
+hovedkategori, så brugeren kan se om en afvigelse er et engangsudsving (f.eks.
+kvartalsvis realkreditbetaling) eller en ny vedvarende tendens.
 
 ## 4. Benchmark mod en dansk familie med 2 børn
 
