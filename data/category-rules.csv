@@ -1,1 +1,83 @@
 tekst_mønster,kategori
+husleje,Husleje/bolig
+realkredit,Realkredit/lån
+nordea kredit,Realkredit/lån
+totalkredit,Realkredit/lån
+nykredit,Realkredit/lån
+forsikring,Forsikring
+gf forsikring,Forsikring
+dcc energi,El/vand/varme
+andel energi,El/vand/varme
+norlys,El/vand/varme
+fjernvarme,El/vand/varme
+orsted,El/vand/varme
+ørsted,El/vand/varme
+yousee,Internet/mobil/abonnement
+tdc,Internet/mobil/abonnement
+telia,Internet/mobil/abonnement
+telenor,Internet/mobil/abonnement
+stofa,Internet/mobil/abonnement
+sfo,Daginstitution/SFO
+vuggestue,Daginstitution/SFO
+børnehave,Daginstitution/SFO
+kids-world,Daginstitution/SFO
+netflix,Streaming/abonnement
+hbo,Streaming/abonnement
+disney,Streaming/abonnement
+spotify,Streaming/abonnement
+viaplay,Streaming/abonnement
+tv 2 dk,Streaming/abonnement
+flowkey,Streaming/abonnement
+foetex,Dagligvarer
+føtex,Dagligvarer
+netto,Dagligvarer
+rema,Dagligvarer
+lidl,Dagligvarer
+coop,Dagligvarer
+meny,Dagligvarer
+irma,Dagligvarer
+kvickly,Dagligvarer
+bilka,Dagligvarer
+nemlig,Dagligvarer
+hellofresh,Dagligvarer
+aarstiderne,Dagligvarer
+lagkagehuset,Restaurant/cafe
+emmerys,Restaurant/cafe
+coffee collective,Restaurant/cafe
+bodenhoffs,Restaurant/cafe
+gasoline grill,Restaurant/cafe
+kødbilen,Restaurant/cafe
+shell,Transport
+q8,Transport
+circle k,Transport
+parken,Transport
+parkering,Transport
+dsb,Transport
+metro,Transport
+movia,Transport
+tesla,Bil/cykel
+cykelpartner,Bil/cykel
+h&m,Tøj
+zalando,Tøj
+asos,Tøj
+apple,Digitale tjenester
+google play,Digitale tjenester
+steam,Digitale tjenester
+ticketco,Fritid/rejser
+kino,Fritid/rejser
+hotels.com,Fritid/rejser
+airbnb,Fritid/rejser
+flightnetwrk,Fritid/rejser
+recreation.gov,Fritid/rejser
+transportfornsw,Fritid/rejser
+apotek,Sundhed
+nokas atm,Kontanthævning
+automat danske bank,Kontanthævning
+lønoverførsel,Lønindtægt
+nemkonto,_internal_transfer
+lønkonto,_internal_transfer
+opsparing,_internal_transfer
+renoveringskonto,_internal_transfer
+madkonto,_internal_transfer
+budgetkonto,_internal_transfer
+hdl.,_internal_transfer
