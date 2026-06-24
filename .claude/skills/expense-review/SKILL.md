@@ -65,21 +65,52 @@ Giv 3-5 konkrete, prioriterede forslag til at reducere omkostninger, baseret på
 - Stigende trends
 - Abonnementer/faste omkostninger der ikke er blevet brugt for nylig (hvis det kan ses)
 
-## 6. Skriv rapporten
+## 6. Byg rapporten som visuel HTML — ikke som tekstblokke
 
-Gem rapporten som Markdown i `reports/YYYY-MM-DD-forbrugsgennemgang.md` med sektionerne:
-1. Cashflow-overblik (periode, indtægt, faste omk., variabelt forbrug, netto)
-2. Udvikling over tid (sammenlignet med tidligere perioder)
-3. Afvigelser der kræver opmærksomhed
-4. Benchmark vs. dansk familie med 2 børn (med kildehenvisning)
-5. Optimeringsforslag
+Rapporten skal kunne overskues på under 30 sekunder, med mulighed for at folde
+detaljer ud. Brug HTML + inline CSS (ingen eksterne billeder/chart-APIs, da data
+er finansielle og private — byg visualiseringer som rene `<div>`-bjælker/farver).
+
+Gem den fulde HTML i `reports/YYYY-MM-DD-forbrugsgennemgang.html` og brug samme
+indhold som `htmlBody` i Gmail-udkastet. Følg denne struktur:
+
+**A. Overblik (altid synligt, ingen scrolling for at forstå helheden)**
+- 4 KPI-"kort" side om side (brug en HTML-tabel eller flex-div med `display:inline-block`,
+  da Gmail har begrænset CSS-støtte): Indtægt, Faste omkostninger, Variabelt forbrug, Netto.
+  Hvert kort: stort tal + lille delta vs. forrige periode (grøn ▲/rød ▼ med procent).
+- Et lille badge/ikon-linje med op til 3 vigtigste afvigelser ("⚠️ Transport +28%
+  vs. sidste periode"), kun de vigtigste — ikke en fuld liste.
+
+**B. Visuel kategori-fordeling**
+- For hver kategori: en bjælke bygget af en `<div>` med `background` og `width:XX%`
+  der viser andel af totalt forbrug, plus beløb. Farvekod efter benchmark-status:
+  grøn = under/på niveau med benchmark, gul = let over, rød = markant over (>20%).
+- Brug samme bjælke-stil til at vise trend over de sidste 3-4 perioder per kategori
+  (en række af korte bjælker = simpel "sparkline" i CSS).
+
+**C. Drill-down detaljer (skal være foldet sammen som udgangspunkt)**
+Brug `<details><summary>...</summary>...</details>` for hver sektion herunder, så
+e-mailen er kort ved første åbning, men detaljerne er ét klik væk:
+- "Se alle transaktioner pr. kategori"
+- "Se fuld benchmark-sammenligning med kilde"
+- "Se beregningsgrundlag for optimeringsforslag"
+(Gmail folder `<details>` sammen visuelt i de fleste klienter, men hvis det ikke
+understøttes, er det acceptabelt at det falder tilbage til synligt — vigtigst er
+at overblikket (A+B) står først og er kort.)
+
+**D. Optimeringsforslag**
+- Vis som en kort, nummereret liste med fed overskrift per forslag og én linje
+  begrundelse — ikke lange afsnit. Detaljeret begrundelse hører under drill-down (C).
+
+Skriv så lidt løbende tekst som muligt — foretræk tal, bjælker, farver og korte
+labels over sætninger. Brug dansk sprog og danske tal-/valutaformater (kr., 1.234,56).
 
 ## 7. Send til brugeren
 
 Opret et Gmail-udkast (`mcp__Gmail__create_draft`) til michaelskouboe@gmail.com med
-emnet "Forbrugsgennemgang <dato>" og rapportens indhold som brødtekst (brug htmlBody
-for pæn formatering). Gmail-integrationen kan kun oprette udkast, ikke sende
-automatisk — informer brugeren om, at udkastet ligger klar til afsendelse.
+emnet "Forbrugsgennemgang <dato>" og den visuelle HTML-rapport fra trin 6 som
+`htmlBody`. Gmail-integrationen kan kun oprette udkast, ikke sende automatisk —
+informer brugeren om, at udkastet ligger klar til afsendelse.
 
 ## Noter
 
