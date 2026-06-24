@@ -60,7 +60,7 @@ cykelpartner,Bil/cykel
 h&m,Tøj
 zalando,Tøj
 asos,Tøj
-apple,Digitale tjenester
+apple.com,Digitale tjenester
 google play,Digitale tjenester
 steam,Digitale tjenester
 ticketco,Fritid/rejser
@@ -135,3 +135,246 @@ duty-free,Fritid/rejser
 svømmeklub,Fritid/rejser
 svommeklub,Fritid/rejser
 børne- og ungeydelse,Offentlig ydelse (indtægt)
+hus projekt,_internal_transfer
+fejl indbetaling,_internal_transfer
+fejl ca og bmw,_internal_transfer
+fejl madkort,_internal_transfer
+udligning mastercard,_internal_transfer
+ferie (mad-konto),_internal_transfer
+manglende real,_internal_transfer
+overført rente,_internal_transfer
+overførsel 5470,_internal_transfer
+54931253355,_internal_transfer
+68800001081958,_internal_transfer
+stichting degiro,_internal_transfer
+ekspres 5292,_internal_transfer
+udlæg,_internal_transfer
+konto- og kundegebyr,Bankgebyr
+depot, gebyr,_internal_transfer
+bs evida service,El/vand/varme
+evida,El/vand/varme
+seas-nve,El/vand/varme
+falsing,El/vand/varme
+naturgasfyr,Husholdning
+bs atp,Skat/offentlig
+b-skat,Skat/offentlig
+restskat,Skat/offentlig
+skat restskat,Skat/offentlig
+sktst,Skat/offentlig
+skattestyrelsen,Skat/offentlig
+am bidrag,Skat/offentlig
+bil lån,Bil/cykel
+billån,Bil/cykel
+bmw,Bil/cykel
+thansen,Bil/cykel
+bilservice,Bil/cykel
+falck danmark,Bil/cykel
+takecharge,Bil/cykel
+rentalcars,Bil/cykel
+avis kastrup,Bil/cykel
+forretning: avis,Bil/cykel
+ladcyklen,Bil/cykel
+mobilepay sara skou,_internal_transfer
+mobilepay rengøring,Husholdning
+rengørings,Husholdning
+mobilepay: cs megasto,Husholdning
+ægfrysning,Sundhed
+fertility center,Sundhed
+tandplejecenter,Sundhed
+profil optik,Sundhed
+forsia selvrisiko,Forsikring
+privatsikring,Forsikring
+forretning: sas,Fritid/rejser
+flybillet,Fritid/rejser
+kiwi.com,Fritid/rejser
+bravofly,Fritid/rejser
+etr.flybillet,Fritid/rejser
+agoda.com,Fritid/rejser
+hotell,Fritid/rejser
+gaustablikk,Fritid/rejser
+ysb ab,Fritid/rejser
+ysb.se,Fritid/rejser
+lopesan,Fritid/rejser
+plateia,Fritid/rejser
+sport pepi kitzspor,Fritid/rejser
+kslys,Fritid/rejser
+power mall,Fritid/rejser
+gaucho,Fritid/rejser
+smile,Fritid/rejser
+auo,Fritid/rejser
+khun,Fritid/rejser
+bp change,Fritid/rejser
+ticketmaster,Fritid/rejser
+restaurant jordnaer,Restaurant/cafe
+bernstorff slot,Restaurant/cafe
+the kirchen food,Restaurant/cafe
+locale 21,Restaurant/cafe
+thelemon.dk,Restaurant/cafe
+gulvlageret,Husholdning
+bygxtra,Husholdning
+silvan,Husholdning
+carl ras,Husholdning
+vvs-shoppen,Husholdning
+vvs søberg,Husholdning
+dk-indeklima,Husholdning
+billig vvs,Husholdning
+knud larsen byg,Husholdning
+kakelgiganten,Husholdning
+georg jensen,Gaver/interiør
+moreland.dk,Gaver/interiør
+gubi stole,Gaver/interiør
+listefabrik,Gaver/interiør
+vinduer kælder,Husholdning
+hulmursisolering,Husholdning
+terasseindkøb,Husholdning
+asbest,Husholdning
+el arbejde,Husholdning
+karsten - facade,Husholdning
+vinkælder dør,Husholdning
+rottefænger,Husholdning
+advokat,Diverse
+genux executive,Diverse
+jollyroom,Børn/babyudstyr
+ønskebørn,Børn/babyudstyr
+kids-world,Daginstitution/SFO
+jespersplanteskole,Husholdning
+zwift,Streaming/abonnement
+flowkey,Streaming/abonnement
+linkedin,Digitale tjenester
+claude.ai,Digitale tjenester
+computersalg,Digitale tjenester
+proshop.dk,Fritid/rejser
+abilica,Fritid/rejser
+thomann,Fritid/rejser
+boozt.com,Tøj
+bestseller,Tøj
+spejder sport,Tøj
+mobilepay jesper mor,Diverse
+mobilepay simon,Diverse
+mobilepay ellen hass,Diverse
+mobilepay karsten sm,Diverse
+mobilepay sissel fug,Diverse
+mobilepay boontawee,Diverse
+mobilepay omnicarser,Diverse
+mobilepay rasmus tho,Diverse
+mobilepay aakanden g,Daginstitution/SFO
+mobilepay aagaard ma,Diverse
+mobilepay virum fris,Restaurant/cafe
+mobilepay martin kaa,Diverse
+mobilepay bjarne and,Diverse
+mobilepay vvs søberg,Husholdning
+mobilepay ryby,Diverse
+thomas gundel bids,Diverse
+ekstra michael,_internal_transfer
+ekatra michael,_internal_transfer
+michael ekstra husle,_internal_transfer
+til klaver,_internal_transfer
+vaskemaskine,Husholdning
+flisermøde,Husholdning
+fliser,Husholdning
+tilskud til kjole,Børn/babyudstyr
+skiferie forældre,Fritid/rejser
+rejse michael,_internal_transfer
+lån til michael,_internal_transfer
+to sara,_internal_transfer
+ekstra mad,Husholdning
+bryllupskage,Restaurant/cafe
+blackfriday mesh,Digitale tjenester
+sommerferie,Fritid/rejser
+vinterferie,Fritid/rejser
+forbrug mic,_internal_transfer
+cypern barsel,_internal_transfer
+mobilepay: rengøring,Husholdning
+plantinavia,Husholdning
+ferie rejse,_internal_transfer
+aircold.dk,Husholdning
+keratech.dk,Sundhed
+shop.alcatraz,Husholdning
+hotel goldener berg,Fritid/rejser
+automat 201 danske bank,Kontanthævning
+automat 594 danske bank,Kontanthævning
+mobilepay: ryby,Diverse
+stihl,Husholdning
+ekstra michaek,_internal_transfer
+frishop.dk,Sundhed
+10-4.dk,Husholdning
+pulsure.dk,Fritid/rejser
+mobilepay martin kaa,Diverse
+pismo coast,Fritid/rejser
+mobilepay simon mari,Diverse
+mobilepay bjarne and,Diverse
+mobilepay mobilepay,Diverse
+mobilepay sara skou,_internal_transfer
+microsoft,Digitale tjenester
+neye.dk,Bil/cykel
+kave home,Gaver/interiør
+depositum barnedåb,Diverse
+atomwine.dk,Restaurant/cafe
+plantning af hæk,Husholdning
+bygmax,Husholdning
+xl-byg,Husholdning
+cewe,Gaver/interiør
+falck vejhjælp,Bil/cykel
+friluftsland,Fritid/rejser
+mobilepay wolt,Restaurant/cafe
+mobilepay digital co,Diverse
+7-11,Restaurant/cafe
+med24.dk,Sundhed
+raiffeisenbank,Fritid/rejser
+mobilepay ikea,Husholdning
+ikea,Husholdning
+wtc - euro,Diverse
+the platinum samui,Fritid/rejser
+decolux.dk,Gaver/interiør
+zettle,Fritid/rejser
+hytte i sydney,Fritid/rejser
+gtklub,Fritid/rejser
+terrasseindkøb,Husholdning
+havehandel.dk,Husholdning
+mobilepay nicolai,Diverse
+kaiser sport,Sundhed
+mobilepay benedicte,Diverse
+iz *poze,Tøj
+ikea 094,Husholdning
+polo ralph lauren,Tøj
+goenergi,El/vand/varme
+bauhaus,Husholdning
+klartilfest,Diverse
+nokia,Digitale tjenester
+forretning: wolt,Restaurant/cafe
+mobilepay wolt,Restaurant/cafe
+forretning: harald,Husholdning
+apple central world,Fritid/rejser
+homemate a/s,Husholdning
+deerest copenha,Restaurant/cafe
+gruppo,Restaurant/cafe
+forretning: maxi,Dagligvarer
+ica maxi,Dagligvarer
+ica stormarknad,Dagligvarer
+v4r,Fritid/rejser
+hotel vejlefjord,Fritid/rejser
+forretning: retour,Restaurant/cafe
+joe  the juice,Restaurant/cafe
+gausta,Fritid/rejser
+iz *asia wellness,Sundhed
+polo factory,Tøj
+forretning: polo,Tøj
+ystad saltsjobad,Fritid/rejser
+hjortespringbadet,Fritid/rejser
+tandlaegerne,Sundhed
+mobilepay sara skou,_internal_transfer
+rmwilliams,Tøj
+forretning: the kitchen,Restaurant/cafe
+fritz wassmer,Fritid/rejser
+billigmaskinleje,Husholdning
+p bøde,Bil/cykel
+motorafgift,Bil/cykel
+royal copenhagen outle,Gaver/interiør
+køreel og sten,Husholdning
+forretning: normal,Tøj
+sumup,Restaurant/cafe
+duty free shops,Fritid/rejser
+vibholm guld,Gaver/interiør
+ugg australi,Tøj
+forretning: original,Tøj
+boathouse group,Restaurant/cafe
