@@ -79,6 +79,23 @@ historiske norm som "skiller sig ud". Vis en 12-måneders sparkline/trendlinje p
 hovedkategori, så brugeren kan se om en afvigelse er et engangsudsving (f.eks.
 kvartalsvis realkreditbetaling) eller en ny vedvarende tendens.
 
+**Dagligvarer pr. forretning (fast del af hver gennemgang):** Dagligvarer er et af de
+områder familien kan ændre på kort bane, og brugeren vil løbende kunne se *hvor* pengene
+går hen, ikke kun det samlede beløb. For hver gennemgang:
+- Match dagligvare-transaktioner mod kædenavn (Nemlig, Netto, Føtex, Rema, Lidl, Coop,
+  Meny, Irma, Kvickly, Bilka osv. — udbyg `data/category-rules.csv` med flere kæder
+  efter behov).
+- Vis en bjælke pr. forretning for seneste 12 måneder: beløb, andel af total dagligvarer,
+  og antal køb. Farvekod: rød = online levering (Nemlig o.l. — typisk dyrere pr. vare pga.
+  leveringsgebyr/minimumskøb), gul = mellem/specialbutik, grøn = discount/fysisk indkøb.
+- Beregn snit pr. køb pr. forretning (beløb/antal) for at vise om en kæde bruges til få
+  store indkøb eller mange små.
+- Fremhæv i en kort tekstboks hvis online levering udgør en stor andel (>30%) af
+  dagligvareforbruget, med et konkret besparelsesoverslag hvis en del af forbruget
+  flyttes til discountbutik.
+- Indsæt sektionen direkte i overblikket (ikke kun i en foldet drill-down), da dette er
+  et prioriteret fokusområde for brugeren.
+
 ## 4. Benchmark mod en dansk familie med 2 børn
 
 Slå op i offentlige danske kilder for et referencebudget for en familie med 2 børn,
