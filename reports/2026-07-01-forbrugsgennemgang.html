@@ -1,426 +1,634 @@
 <!DOCTYPE html>
-<html><head><meta charset="utf-8"><title>Forbrugsgennemgang jun 2026</title></head>
-<body style="font-family:Arial,sans-serif;max-width:700px;margin:0 auto;padding:16px;color:#24292f;background:#fff;">
-  <h2 style="margin:0 0 2px 0;">Forbrugsgennemgang</h2>
-  <div style="color:#57606a;font-size:13px;margin-bottom:16px;">Periode: juni 2026 · sammenlignet med maj 2026 og 12-måneders historik · genereret 01-07-2026</div>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forbrugsgennemgang — Juni 2026</title>
+<style>
+:root {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --card2: #243044;
+  --border: #334155;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --accent: #38bdf8;
+  --green: #22c55e;
+  --yellow: #eab308;
+  --red: #ef4444;
+  --orange: #f97316;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; padding: 20px; }
+h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+.subtitle { color: var(--muted); font-size: 12px; margin-bottom: 20px; }
+.section-title { font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin: 24px 0 12px; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.grid4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+@media(max-width:700px) { .grid4 { grid-template-columns: repeat(2,1fr); } .grid2 { grid-template-columns: 1fr; } }
+.kpi-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+.kpi-value { font-size: 26px; font-weight: 700; margin: 4px 0 2px; }
+.kpi-delta { font-size: 11px; font-weight: 600; }
+.badge { display: inline-block; border-radius: 6px; padding: 4px 10px; font-size: 12px; font-weight: 600; margin: 3px 4px 3px 0; }
+.badge-warn { background: rgba(239,68,68,.15); border: 1px solid rgba(239,68,68,.4); color: var(--red); }
+.badge-ok { background: rgba(34,197,94,.12); border: 1px solid rgba(34,197,94,.35); color: var(--green); }
+.badge-info { background: rgba(56,189,248,.1); border: 1px solid rgba(56,189,248,.3); color: var(--accent); }
+.amort-card { background: rgba(56,189,248,.06); border: 1px solid rgba(56,189,248,.25); border-radius: 10px; padding: 14px; margin-bottom: 14px; }
+.amort-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.amort-row:last-child { border-bottom: none; }
+.bar-row { display: flex; align-items: center; gap: 10px; margin: 7px 0; }
+.bar-label { width: 170px; font-size: 13px; flex-shrink: 0; }
+.bar-track { flex: 1; background: rgba(255,255,255,.06); border-radius: 4px; height: 14px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 4px; }
+.bar-amount { width: 85px; text-align: right; font-size: 13px; flex-shrink: 0; }
+.bar-delta { width: 68px; text-align: right; font-size: 11px; font-weight: 600; flex-shrink: 0; }
+.spark { display: inline-flex; align-items: flex-end; gap: 2px; height: 20px; }
+.spark-bar { width: 7px; background: var(--accent); opacity: 0.5; border-radius: 2px 2px 0 0; }
+.hush-row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.hush-row:last-child { border-bottom: none; }
+.tab-btn { padding: 6px 14px; border-radius: 6px; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; font-size: 12px; font-weight: 600; transition: all .15s; }
+.tab-btn.active { background: var(--accent); border-color: var(--accent); color: #0f172a; }
+.merch-row { display: flex; align-items: center; gap: 8px; margin: 5px 0; }
+.merch-label { width: 200px; font-size: 12px; flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.merch-bar { flex: 1; background: rgba(255,255,255,.06); border-radius: 3px; height: 12px; overflow: hidden; }
+.merch-fill { height: 100%; border-radius: 3px; background: var(--accent); opacity: .7; }
+.merch-amt { width: 75px; text-align: right; font-size: 12px; color: var(--muted); flex-shrink: 0; }
+.bm-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.bm-table th { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .05em; padding: 6px 8px; text-align: left; border-bottom: 1px solid var(--border); }
+.bm-table td { padding: 7px 8px; border-bottom: 1px solid rgba(51,65,85,.5); }
+.opt-item { padding: 10px 0; border-bottom: 1px solid var(--border); }
+.opt-item:last-child { border-bottom: none; }
+.opt-num { color: var(--accent); font-weight: 700; margin-right: 6px; }
+.opt-title { font-weight: 600; }
+.opt-reason { color: var(--muted); font-size: 12px; margin-top: 2px; }
+details summary { cursor: pointer; color: var(--muted); font-size: 12px; padding: 8px 0; }
+details summary:hover { color: var(--text); }
+details[open] summary { color: var(--accent); }
+.tx-row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 12px; border-bottom: 1px solid rgba(51,65,85,.4); }
+.footer { color: var(--muted); font-size: 11px; margin-top: 30px; text-align: center; }
+svg text { font-family: inherit; }
+</style>
+</head>
+<body>
 
-  <div style="font-size:13px;background:#e6f4ea;border:1px solid #a8d5b5;border-radius:8px;padding:10px 14px;margin-bottom:14px;">
-    ✅ Positivt nettoresultat — første positive måned siden april 2026. Juni giver et positivt nettoresultat på <b>8.963 kr</b> takket være lønoverførsel på 119.398 kr. Realkredit på 48.884 kr er den kvartalsvise Q2-betaling (apr-jun) — ikke en reel månedlig stigning.
+<h1>Forbrugsgennemgang</h1>
+<div class="subtitle">Juni 2026 &nbsp;·&nbsp; Amortiseret visning &nbsp;·&nbsp; Genereret 01-07-2026</div>
+
+<!-- ===== A. KPI CARDS ===== -->
+<div class="section-title">Månedsoverblik — amortiseret</div>
+<div class="grid4" style="margin-bottom:10px;">
+  <div class="card">
+    <div class="kpi-label">Indtægt</div>
+    <div class="kpi-value" style="color:var(--green)">134.561 kr</div>
+    <div class="kpi-delta" style="color:var(--muted)">▲ 20% vs. 12-md. snit</div>
   </div>
+  <div class="card">
+    <div class="kpi-label">Faste omk. (amortis.)</div>
+    <div class="kpi-value">23.550 kr</div>
+    <div class="kpi-delta" style="color:var(--green)">▼ 44% vs. ikke-amortis.</div>
+  </div>
+  <div class="card">
+    <div class="kpi-label">Variabelt forbrug</div>
+    <div class="kpi-value" style="color:var(--orange)">69.460 kr</div>
+    <div class="kpi-delta" style="color:var(--red)">▲ 16% vs. 12-md. snit</div>
+  </div>
+  <div class="card" style="border-color: rgba(34,197,94,.4); background: rgba(34,197,94,.06);">
+    <div class="kpi-label">Netto (amortiseret)</div>
+    <div class="kpi-value" style="color:var(--green)">+41.551 kr</div>
+    <div class="kpi-delta" style="color:var(--green)">Positiv måned ✓</div>
+  </div>
+</div>
+<div style="font-size:11px;color:var(--muted);margin-bottom:16px;">
+  Ikke-amortiseret (faktisk): Faste 56.139 kr · Netto +8.963 kr &nbsp;|&nbsp; Amortisering fjerner Q2-realkredit (48.884 kr) og fordeler 16.295 kr/md over 3 måneder.
+</div>
 
-  <!-- KPI KORT -->
-  <table cellpadding="0" cellspacing="0" style="width:100%;margin-bottom:16px;">
-    <tr>
-      <td width="25%" style="padding:4px;">
-        <table cellpadding="0" cellspacing="0" style="width:100%;border:1px solid #d0d7de;border-radius:8px;">
-          <tr><td style="padding:10px 12px;">
-            <div style="font-size:12px;color:#57606a;text-transform:uppercase;letter-spacing:.04em;">Indtægt</div>
-            <div style="font-size:20px;font-weight:700;color:#24292f;margin-top:2px;">134.561 kr</div>
-            <div style="margin-top:2px;"><span style="color:#c0392b;font-size:11px;font-weight:600;">▲ 72%</span> vs. maj</div>
-          </td></tr>
-        </table>
-      </td>
-      <td width="25%" style="padding:4px;">
-        <table cellpadding="0" cellspacing="0" style="width:100%;border:1px solid #d0d7de;border-radius:8px;">
-          <tr><td style="padding:10px 12px;">
-            <div style="font-size:12px;color:#57606a;text-transform:uppercase;letter-spacing:.04em;">Faste omk.</div>
-            <div style="font-size:20px;font-weight:700;color:#24292f;margin-top:2px;">56.139 kr</div>
-            <div style="margin-top:2px;"><span style="color:#c0392b;font-size:11px;font-weight:600;">▲ 5%</span> vs. maj</div>
-          </td></tr>
-        </table>
-      </td>
-      <td width="25%" style="padding:4px;">
-        <table cellpadding="0" cellspacing="0" style="width:100%;border:1px solid #d0d7de;border-radius:8px;">
-          <tr><td style="padding:10px 12px;">
-            <div style="font-size:12px;color:#57606a;text-transform:uppercase;letter-spacing:.04em;">Variabelt</div>
-            <div style="font-size:20px;font-weight:700;color:#24292f;margin-top:2px;">69.460 kr</div>
-            <div style="margin-top:2px;"><span style="color:#c0392b;font-size:11px;font-weight:600;">▲ 43%</span> vs. maj</div>
-          </td></tr>
-        </table>
-      </td>
-      <td width="25%" style="padding:4px;">
-        <table cellpadding="0" cellspacing="0" style="width:100%;border:1px solid #d0d7de;border-radius:8px;">
-          <tr><td style="padding:10px 12px;">
-            <div style="font-size:12px;color:#57606a;text-transform:uppercase;letter-spacing:.04em;">Netto</div>
-            <div style="font-size:20px;font-weight:700;color:#1a7f37;margin-top:2px;">+8.963 kr</div>
-            <div style="margin-top:2px;"><span style="color:#c0392b;font-size:11px;font-weight:600;">▲ 138%</span> vs. maj</div>
-          </td></tr>
-        </table>
-      </td>
-    </tr>
+<!-- ===== B. WARNINGS ===== -->
+<div style="margin-bottom:18px;">
+  <span class="badge badge-warn">⚠️ Fritid/rejser +64% vs. snit — flights + svømmeklub</span>
+  <span class="badge badge-warn">⚠️ Transport +169% vs. snit — Scandlines + vignette</span>
+  <span class="badge badge-warn">⚠️ Dagligvarer 9.494 kr — 40% over benchmark (6.800 kr)</span>
+  <span class="badge badge-ok">✅ Tøj ▼21% vs. snit</span>
+  <span class="badge badge-ok">✅ Sundhed normaliseret ▼18%</span>
+</div>
+
+<!-- ===== C. AMORTIZATION INFO CARD ===== -->
+<div class="amort-card">
+  <div style="font-size:12px;font-weight:700;color:var(--accent);margin-bottom:8px;">⚡ Kvartalsvise betalinger — amortiseret i alle grafer</div>
+  <div class="amort-row">
+    <div>
+      <div style="font-weight:600;">BS Totalkredit A/S &nbsp;<span style="font-size:11px;color:var(--muted);font-weight:400;">Q2 (apr–jun 2026)</span></div>
+      <div style="font-size:11px;color:var(--muted);">Realkreditbidrag + rente for 2 lån — periode 01.04.26–30.06.26</div>
+    </div>
+    <div style="text-align:right;">
+      <div style="color:var(--red);font-weight:600;">Betalt: 48.884 kr</div>
+      <div style="color:var(--accent);font-size:11px;">Amortiseret: 16.295 kr/md × 3</div>
+    </div>
+  </div>
+  <div class="amort-row">
+    <div>
+      <div style="font-weight:600;">Ledernes Hovedorganisation &nbsp;<span style="font-size:11px;color:var(--muted);font-weight:400;">Q3 (jul–sep 2026)</span></div>
+      <div style="font-size:11px;color:var(--muted);">A-kasse + efterløn + fagforening — betalt 01-07-2026</div>
+    </div>
+    <div style="text-align:right;">
+      <div style="color:var(--red);font-weight:600;">Betalt: 3.708 kr</div>
+      <div style="color:var(--accent);font-size:11px;">Amortiseret: 1.236 kr/md × 3</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== D. 13-MONTH CASHFLOW CHART ===== -->
+<div class="section-title">Cashflow — 13 måneder (amortiseret)</div>
+<div class="card" style="margin-bottom:18px;">
+  <svg id="cashflow-chart" width="100%" viewBox="0 0 780 220" style="display:block;"></svg>
+  <div style="display:flex;gap:18px;margin-top:10px;font-size:11px;">
+    <span><span style="display:inline-block;width:10px;height:10px;background:#38bdf8;border-radius:2px;margin-right:4px;"></span>Indtægt</span>
+    <span><span style="display:inline-block;width:10px;height:10px;background:#f97316;border-radius:2px;margin-right:4px;"></span>Udgifter (amortiseret)</span>
+    <span style="color:var(--muted);">Tal = nettoresultat i t.kr.</span>
+  </div>
+</div>
+
+<!-- ===== E. CATEGORY BREAKDOWN ===== -->
+<div class="section-title">Forbrug pr. kategori — juni 2026 (amortiseret)</div>
+<div class="card" style="margin-bottom:18px;">
+  <div style="font-size:11px;color:var(--muted);margin-bottom:10px;">
+    <span style="color:var(--red);">■</span> markant over benchmark &nbsp;
+    <span style="color:var(--yellow);">■</span> let over &nbsp;
+    <span style="color:var(--green);">■</span> under/på niveau &nbsp;
+    <span style="color:#64748b;">■</span> intet benchmark &nbsp;
+    <span style="color:var(--muted);">&#9646;&#9646;&#9646;&#9646;&#9646;&#9646; = sparkline seneste 6 md.</span>
+  </div>
+  <div id="cat-bars"></div>
+</div>
+
+<!-- ===== F. HUSHOLDNING EXPANDED ===== -->
+<div class="section-title">Husholdning — detaljeret <span style="font-weight:400;font-size:11px;color:var(--muted);">Møbler · Rengøring · Byggematerialer · Haveartikler · VVS</span></div>
+<div class="card" style="margin-bottom:18px;border-color:rgba(249,115,22,.3);">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+    <div>
+      <div style="font-size:18px;font-weight:700;color:var(--orange);">21.344 kr</div>
+      <div style="font-size:11px;color:var(--muted);">▲ 42% vs. 12-md. snit (snit: ~15.000 kr/md)</div>
+    </div>
+    <div style="font-size:11px;color:var(--muted);text-align:right;">
+      Husholdning = indkøb til hjemmet,<br>rengøring, byggematerialer, haveartikler
+    </div>
+  </div>
+  <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;">TOP TRANSAKTIONER — JUNI 2026</div>
+  <div class="hush-row"><span>MobilePay: CS Megastore (legetøj/husholdningsartikler)</span><span style="color:var(--orange);font-weight:600;">4.116 kr</span></div>
+  <div class="hush-row"><span>MobilePay: Rengøring (× 3 gange, 1.160 kr/gang)</span><span style="color:var(--orange);font-weight:600;">3.481 kr</span></div>
+  <div class="hush-row"><span>Jem&amp;Fix Herlev (× 2 køb)</span><span style="color:var(--orange);font-weight:600;">2.585 kr</span></div>
+  <div class="hush-row"><span>Flügger A/S Maling — Allerød</span><span style="color:var(--orange);font-weight:600;">1.775 kr</span></div>
+  <div class="hush-row"><span>Davidsen Allerød + Silvan</span><span style="color:var(--orange);font-weight:600;">1.225 kr</span></div>
+  <div class="hush-row" style="color:var(--muted);font-style:italic;"><span>Øvrige husholdning (inkl. lønkonto-transaktioner)</span><span>8.162 kr</span></div>
+</div>
+
+<!-- ===== G. MERCHANT SPENDING ===== -->
+<div class="section-title">Forbrug pr. forretning</div>
+<div class="card" style="margin-bottom:18px;">
+  <div style="margin-bottom:12px;">
+    <button class="tab-btn active" onclick="showTab('month')" id="tab-month">Denne måned</button>
+    <button class="tab-btn" onclick="showTab('year')" id="tab-year">Seneste 12 måneder</button>
+  </div>
+  <div id="merch-month"></div>
+  <div id="merch-year" style="display:none;"></div>
+</div>
+
+<!-- ===== H. GROCERY BY STORE CHART ===== -->
+<div class="section-title">Dagligvarer pr. forretning pr. måned — seneste 12 måneder</div>
+<div class="card" style="margin-bottom:18px;">
+  <svg id="grocery-chart" width="100%" viewBox="0 0 780 260" style="display:block;"></svg>
+  <div id="grocery-legend" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;font-size:11px;"></div>
+  <div style="margin-top:16px;border-top:1px solid var(--border);padding-top:14px;">
+    <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px;">JUNI 2026 — BREAKDOWN PR. KÆDE</div>
+    <div id="grocery-bars-current"></div>
+    <div style="background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:8px;padding:10px;margin-top:10px;font-size:12px;">
+      <strong style="color:var(--red);">⚠️ Nemlig udgør 61% af dagligvareforbruget i juni.</strong>
+      Online levering koster typisk 15–20% mere end fysisk discount-indkøb.
+      Potentiel månedlig besparelse ved at flytte 50% til Netto/Rema: <strong>~450–650 kr/md</strong>.
+    </div>
+  </div>
+</div>
+
+<!-- ===== I. BENCHMARK ===== -->
+<div class="section-title">Benchmark — dansk familie med 2 børn</div>
+<div class="card" style="margin-bottom:18px;">
+  <table class="bm-table">
+    <thead><tr><th>Kategori</th><th>Dit forbrug</th><th>Benchmark</th><th>Forskel</th></tr></thead>
+    <tbody id="bm-rows"></tbody>
   </table>
+  <div style="font-size:10px;color:var(--muted);margin-top:8px;">Kilde: Forbrugerrådet Tænk Penge, Standardbudget 2024 (2 voksne + 2 børn, Gentofte-prisniveau)</div>
+</div>
 
-  <!-- BADGES -->
-  <div style="margin-bottom:16px;font-size:12px;">
-    <span style="background:#fdecea;border:1px solid #f3c4bc;border-radius:4px;padding:3px 8px;margin-right:6px;">⚠️ Realkredit +139% vs. snit — kvartalsvis Q2-betaling</span>
-    <span style="background:#fdecea;border:1px solid #f3c4bc;border-radius:4px;padding:3px 8px;margin-right:6px;">⚠️ Fritid/rejser +64% vs. snit</span>
-    <span style="background:#e6f4ea;border:1px solid #a8d5b5;border-radius:4px;padding:3px 8px;">✅ Sundhed normaliseret (-18%)</span>
+<!-- ===== J. SUGGESTIONS ===== -->
+<div class="section-title">Optimeringsforslag</div>
+<div class="card" style="margin-bottom:18px;">
+  <div class="opt-item">
+    <div><span class="opt-num">1.</span><span class="opt-title">Skær Nemlig.com andelen til maks. 30% af dagligvarer</span></div>
+    <div class="opt-reason">Nemlig udgør 61% (6.582 kr) i juni. Potentiel besparelse: 450–650 kr/md ved flytning til Netto/Rema.</div>
   </div>
-
-  <!-- 13 MÅNEDER CHART -->
-  <h3 style="margin:0 0 6px 0;font-size:15px;">Cashflow seneste 13 måneder</h3>
-  <div style="font-size:11px;color:#8b949e;margin-bottom:6px;">
-    <span style="display:inline-block;width:10px;height:10px;background:#4a86e8;margin-right:4px;"></span>Indtægt&nbsp;&nbsp;
-    <span style="display:inline-block;width:10px;height:10px;background:#e8a33d;margin-right:4px;"></span>Udgifter&nbsp;&nbsp;
-    Tal = nettoresultat i tusinder
+  <div class="opt-item">
+    <div><span class="opt-num">2.</span><span class="opt-title">Konsolider husholdningsindkøb — plan for husrenoveringer</span></div>
+    <div class="opt-reason">Husholdning varierer 8.000–22.000 kr/md. Opgørelse over planlagte projekter (maling, gulv, VVS) vil muliggøre bedre budgetstyring.</div>
   </div>
-  <table cellpadding="0" cellspacing="0" style="width:100%;margin-bottom:18px;"><tr>
-    <td style="text-align:center;padding:0 2px;vertical-align:bottom;">
-          <table cellpadding="0" cellspacing="0" style="width:20px;"><tr><td height="37" style="height:37px;line-height:1px;font-size:1px;">&nbsp;</td></tr><tr><td height="19" bgcolor="#4a86e8" style="height:19px;background:#4a86e8;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-          <table cellpadding="0" cellspacing="0" style="width:20px;"><tr><td height="9" style="height:9px;line-height:1px;font-size:1px;">&nbsp;</td></tr><tr><td height="47" bgcolor="#e8a33d" style="height:47px;background:#e8a33d;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-          <div style="font-size:8px;#c0392b;margin-top:2px;">-71k</div>
-          <div style="font-size:8px;color:#8b949e;margin-top:1px;" style='color:#8b949e;'>Jun 25</div>
-        </td><td style="text-align:center;padding:0 2px;vertical-align:bottom;">
-          <table cellpadding="0" cellspacing="0" style="width:20px;"><tr><td height="35" style="height:35px;line-height:1px;font-size:1px;">&nbsp;</td></tr><tr><td height="21" bgcolor="#4a86e8" style="height:21px;background:#4a86e8;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-          <table cellpadding="0" cellspacing="0" style="width:20px;"><tr><td height="11" style="height:11px;line-height:1px;font-size:1px;">&nbsp;</td></tr><tr><td height="45" bgcolor="#e8a33d" style="height:45px;background:#e8a33d;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-          <div style="font-size:8px;#c0392b;margin-top:2px;">-59k</div>
-          <div style="font-size:8px;color:#8b949e;margin-top:1px;" style='color:#8b949e;'>Jul 25</div>
-        </td><td style="text-align:center;padding:0 2px;vertical-align:bottom;">
-          <table cellpadding="0" cellspacing="0" style="width:20px;"><tr><td height="34" style="height:34px;line-height:1px;font-size:1px;">&nbsp;</td></tr><tr><td height="22" bgcolor="#4a86e8" style="height:22px;background:#4a86e8;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-          <table cellpadding="0" cellspacing="0" style="width:20px;"><tr><td height="17" style="height:17px;line-height:1px;font-size:1px;">&nbsp;</td></tr><tr><td height="39" bgcolor="#e8a33d" style="height:39px;background:#e8a33d;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-          <div style="font-size:8px;#c0392b;margin-top:2px;">-42k</div>
-          <div style="font-size:8px;color:#8b949e;margin-top:1px;" style='color:#8b949e;'>Aug 25</div>
-        </td><td style="text-align:center;padding:0 2px;vertical-align:bottom;">
-          <table cellpadding="0" cellspacing="0" style="width:20px;"><tr><td height="40" style="height:40px;line-height:1px;font-size:1px;">&nbsp;</td></tr><tr><td height="16" bgcolor="#4a86e8" style="height:16px;background:#4a86e8;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-          <table cellpadding="0" cellspacing="0" style="width:20px;"><tr><td height="11" style="height:11px;line-height:1px;font-size:1px;">&nbsp;</td></tr><tr><td height="45" bgcolor="#e8a33d" style="height:45px;background:#e8a33d;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-          <div style="font-size:8px;#c0392b;margin-top:2px;">-70k</div>
-          <div style="font-size:8px;color:#8b949e;margin-top:1px;" style='color:#8b949e;'>Sep 25</div>
-        </td><td style="text-align:center;padding:0 2px;vertical-align:bottom;">
-          <table cellpadding="0" cellspacing="0" style="width:20px;"><tr><td height="33" style="height:33px;line-height:1px;font-size:1px;">&nbsp;</td></tr><tr><td height="23" bgcolor="#4a86e8" style="height:23px;background:#4a86e8;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-          <table cellpadding="0" cellspacing="0" style="width:20px;"><tr><td height="27" style="height:27px;line-height:1px;font-size:1px;">&nbsp;</td></tr><tr><td height="29" bgcolor="#e8a33d" style="height:29px;background:#e8a33d;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-          <div style="font-size:8px;#c0392b;margin-top:2px;">-13k</div>
-          <div style="font-size:8px;color:#8b949e;margin-top:1px;" style='color:#8b949e;'>Okt 25</div>
-        </td><td style="text-align:center;padding:0 2px;vertical-align:bottom;">
-          <table cellpadding="0" cellspacing="0" style="width:20px;"><tr><td height="35" style="height:35px;line-height:1px;font-size:1px;">&nbsp;</td></tr><tr><td height="21" bgcolor="#4a86e8" style="height:21px;background:#4a86e8;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-          <table cellpadding="0" cellspacing="0" style="width:20px;"><tr><td height="19" style="height:19px;line-height:1px;font-size:1px;">&nbsp;</td></tr><tr><td height="37" bgcolor="#e8a33d" style="height:37px;background:#e8a33d;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-          <div style="font-size:8px;#c0392b;margin-top:2px;">-40k</div>
-          <div style="font-size:8px;color:#8b949e;margin-top:1px;" style='color:#8b949e;'>Nov 25</div>
-        </td><td style="text-align:center;padding:0 2px;vertical-align:bottom;">
-          <table cellpadding="0" cellspacing="0" style="width:20px;"><tr><td height="36" style="height:36px;line-height:1px;font-size:1px;">&nbsp;</td></tr><tr><td height="20" bgcolor="#4a86e8" style="height:20px;background:#4a86e8;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-          <table cellpadding="0" cellspacing="0" style="width:20px;"><tr><td height="2" style="height:2px;line-height:1px;font-size:1px;">&nbsp;</td></tr><tr><td height="54" bgcolor="#e8a33d" style="height:54px;background:#e8a33d;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-          <div style="font-size:8px;#c0392b;margin-top:2px;">-86k</div>
-          <div style="font-size:8px;color:#8b949e;margin-top:1px;" style='color:#8b949e;'>Dec 25</div>
-        </td><td style="text-align:center;padding:0 2px;vertical-align:bottom;">
-          <table cellpadding="0" cellspacing="0" style="width:20px;"><tr><td height="37" style="height:37px;line-height:1px;font-size:1px;">&nbsp;</td></tr><tr><td height="19" bgcolor="#4a86e8" style="height:19px;background:#4a86e8;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-          <table cellpadding="0" cellspacing="0" style="width:20px;"><tr><td height="25" style="height:25px;line-height:1px;font-size:1px;">&nbsp;</td></tr><tr><td height="31" bgcolor="#e8a33d" style="height:31px;background:#e8a33d;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-          <div style="font-size:8px;#c0392b;margin-top:2px;">-32k</div>
-          <div style="font-size:8px;color:#8b949e;margin-top:1px;" style='color:#8b949e;'>Jan 26</div>
-        </td><td style="text-align:center;padding:0 2px;vertical-align:bottom;">
-          <table cellpadding="0" cellspacing="0" style="width:20px;"><tr><td height="25" style="height:25px;line-height:1px;font-size:1px;">&nbsp;</td></tr><tr><td height="31" bgcolor="#4a86e8" style="height:31px;background:#4a86e8;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-          <table cellpadding="0" cellspacing="0" style="width:20px;"><tr><td height="0" style="height:0px;line-height:1px;font-size:1px;">&nbsp;</td></tr><tr><td height="56" bgcolor="#e8a33d" style="height:56px;background:#e8a33d;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-          <div style="font-size:8px;#c0392b;margin-top:2px;">-61k</div>
-          <div style="font-size:8px;color:#8b949e;margin-top:1px;" style='color:#8b949e;'>Feb 26</div>
-        </td><td style="text-align:center;padding:0 2px;vertical-align:bottom;">
-          <table cellpadding="0" cellspacing="0" style="width:20px;"><tr><td height="34" style="height:34px;line-height:1px;font-size:1px;">&nbsp;</td></tr><tr><td height="22" bgcolor="#4a86e8" style="height:22px;background:#4a86e8;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-          <table cellpadding="0" cellspacing="0" style="width:20px;"><tr><td height="7" style="height:7px;line-height:1px;font-size:1px;">&nbsp;</td></tr><tr><td height="49" bgcolor="#e8a33d" style="height:49px;background:#e8a33d;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-          <div style="font-size:8px;#c0392b;margin-top:2px;">-68k</div>
-          <div style="font-size:8px;color:#8b949e;margin-top:1px;" style='color:#8b949e;'>Mar 26</div>
-        </td><td style="text-align:center;padding:0 2px;vertical-align:bottom;">
-          <table cellpadding="0" cellspacing="0" style="width:20px;"><tr><td height="3" style="height:3px;line-height:1px;font-size:1px;">&nbsp;</td></tr><tr><td height="53" bgcolor="#4a86e8" style="height:53px;background:#4a86e8;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-          <table cellpadding="0" cellspacing="0" style="width:20px;"><tr><td height="32" style="height:32px;line-height:1px;font-size:1px;">&nbsp;</td></tr><tr><td height="24" bgcolor="#e8a33d" style="height:24px;background:#e8a33d;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-          <div style="font-size:8px;#1a7f37;margin-top:2px;">+74k</div>
-          <div style="font-size:8px;color:#8b949e;margin-top:1px;" style='color:#8b949e;'>Apr 26</div>
-        </td><td style="text-align:center;padding:0 2px;vertical-align:bottom;">
-          <table cellpadding="0" cellspacing="0" style="width:20px;"><tr><td height="25" style="height:25px;line-height:1px;font-size:1px;">&nbsp;</td></tr><tr><td height="31" bgcolor="#4a86e8" style="height:31px;background:#4a86e8;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-          <table cellpadding="0" cellspacing="0" style="width:20px;"><tr><td height="15" style="height:15px;line-height:1px;font-size:1px;">&nbsp;</td></tr><tr><td height="41" bgcolor="#e8a33d" style="height:41px;background:#e8a33d;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-          <div style="font-size:8px;#c0392b;margin-top:2px;">-24k</div>
-          <div style="font-size:8px;color:#8b949e;margin-top:1px;" style='color:#8b949e;'>Maj 26</div>
-        </td><td style="text-align:center;padding:0 2px;vertical-align:bottom;">
-          <table cellpadding="0" cellspacing="0" style="width:20px;"><tr><td height="2" style="height:2px;line-height:1px;font-size:1px;">&nbsp;</td></tr><tr><td height="54" bgcolor="#4a86e8" style="height:54px;background:#4a86e8;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-          <table cellpadding="0" cellspacing="0" style="width:20px;"><tr><td height="6" style="height:6px;line-height:1px;font-size:1px;">&nbsp;</td></tr><tr><td height="50" bgcolor="#e8a33d" style="height:50px;background:#e8a33d;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-          <div style="font-size:8px;#1a7f37;margin-top:2px;">+9k</div>
-          <div style="font-size:8px;color:#8b949e;margin-top:1px;" style='font-weight:700;color:#24292f;'>Jun 26</div>
-        </td>
-  </tr></table>
-
-  <!-- KATEGORI FORDELING -->
-  <h3 style="margin:0 0 6px 0;font-size:15px;">Forbrug pr. kategori — juni 2026</h3>
-  <div style="font-size:11px;color:#8b949e;margin-bottom:6px;">Grøn = under/på benchmark · gul = let over · rød = markant over · grå = intet benchmark</div>
-  <table cellpadding="0" cellspacing="0" style="width:100%;margin-bottom:18px;">
-    <tr>
-      <td style="padding:4px 0;font-size:13px;color:#24292f;white-space:nowrap;width:155px;">Realkredit/lån <span style="font-size:10px;color:#8b949e;">(kvartalsvis Q2)</span></td>
-      <td style="width:100%;padding:4px 0;">
-        <table cellpadding="0" cellspacing="0" style="width:100%;"><tr><td width="100%" height="16" bgcolor="#c0392b" style="height:16px;background:#c0392b;line-height:1px;font-size:1px;">&nbsp;</td><td width="0%" height="16" bgcolor="#eaeef2" style="height:16px;background:#eaeef2;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-      </td>
-      <td style="padding:4px 0 4px 10px;font-size:13px;color:#24292f;white-space:nowrap;text-align:right;">48.884 kr</td>
-      <td style="padding:4px 0 4px 6px;font-size:11px;white-space:nowrap;"><span style="color:#c0392b;font-size:11px;font-weight:600;">▲ 139%</span></td>
-    </tr><tr>
-      <td style="padding:4px 0;font-size:13px;color:#24292f;white-space:nowrap;width:155px;">Husholdning</td>
-      <td style="width:100%;padding:4px 0;">
-        <table cellpadding="0" cellspacing="0" style="width:100%;"><tr><td width="44%" height="16" bgcolor="#6e7781" style="height:16px;background:#6e7781;line-height:1px;font-size:1px;">&nbsp;</td><td width="56%" height="16" bgcolor="#eaeef2" style="height:16px;background:#eaeef2;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-      </td>
-      <td style="padding:4px 0 4px 10px;font-size:13px;color:#24292f;white-space:nowrap;text-align:right;">21.344 kr</td>
-      <td style="padding:4px 0 4px 6px;font-size:11px;white-space:nowrap;"><span style="color:#c0392b;font-size:11px;font-weight:600;">▲ 42%</span></td>
-    </tr><tr>
-      <td style="padding:4px 0;font-size:13px;color:#24292f;white-space:nowrap;width:155px;">Fritid/rejser</td>
-      <td style="width:100%;padding:4px 0;">
-        <table cellpadding="0" cellspacing="0" style="width:100%;"><tr><td width="42%" height="16" bgcolor="#c0392b" style="height:16px;background:#c0392b;line-height:1px;font-size:1px;">&nbsp;</td><td width="58%" height="16" bgcolor="#eaeef2" style="height:16px;background:#eaeef2;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-      </td>
-      <td style="padding:4px 0 4px 10px;font-size:13px;color:#24292f;white-space:nowrap;text-align:right;">20.565 kr</td>
-      <td style="padding:4px 0 4px 6px;font-size:11px;white-space:nowrap;"><span style="color:#c0392b;font-size:11px;font-weight:600;">▲ 64%</span></td>
-    </tr><tr>
-      <td style="padding:4px 0;font-size:13px;color:#24292f;white-space:nowrap;width:155px;">Dagligvarer</td>
-      <td style="width:100%;padding:4px 0;">
-        <table cellpadding="0" cellspacing="0" style="width:100%;"><tr><td width="19%" height="16" bgcolor="#c0392b" style="height:16px;background:#c0392b;line-height:1px;font-size:1px;">&nbsp;</td><td width="81%" height="16" bgcolor="#eaeef2" style="height:16px;background:#eaeef2;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-      </td>
-      <td style="padding:4px 0 4px 10px;font-size:13px;color:#24292f;white-space:nowrap;text-align:right;">9.494 kr</td>
-      <td style="padding:4px 0 4px 6px;font-size:11px;white-space:nowrap;"><span style="color:#c0392b;font-size:11px;font-weight:600;">▲ 4%</span></td>
-    </tr><tr>
-      <td style="padding:4px 0;font-size:13px;color:#24292f;white-space:nowrap;width:155px;">Øvrigt</td>
-      <td style="width:100%;padding:4px 0;">
-        <table cellpadding="0" cellspacing="0" style="width:100%;"><tr><td width="13%" height="16" bgcolor="#6e7781" style="height:16px;background:#6e7781;line-height:1px;font-size:1px;">&nbsp;</td><td width="87%" height="16" bgcolor="#eaeef2" style="height:16px;background:#eaeef2;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-      </td>
-      <td style="padding:4px 0 4px 10px;font-size:13px;color:#24292f;white-space:nowrap;text-align:right;">6.179 kr</td>
-      <td style="padding:4px 0 4px 6px;font-size:11px;white-space:nowrap;"><span style="color:#1a7f37;font-size:11px;font-weight:600;">▼ 66%</span></td>
-    </tr><tr>
-      <td style="padding:4px 0;font-size:13px;color:#24292f;white-space:nowrap;width:155px;">Restaurant/cafe</td>
-      <td style="width:100%;padding:4px 0;">
-        <table cellpadding="0" cellspacing="0" style="width:100%;"><tr><td width="12%" height="16" bgcolor="#c0392b" style="height:16px;background:#c0392b;line-height:1px;font-size:1px;">&nbsp;</td><td width="88%" height="16" bgcolor="#eaeef2" style="height:16px;background:#eaeef2;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-      </td>
-      <td style="padding:4px 0 4px 10px;font-size:13px;color:#24292f;white-space:nowrap;text-align:right;">5.790 kr</td>
-      <td style="padding:4px 0 4px 6px;font-size:11px;white-space:nowrap;"><span style="color:#1a7f37;font-size:11px;font-weight:600;">▼ 10%</span></td>
-    </tr><tr>
-      <td style="padding:4px 0;font-size:13px;color:#24292f;white-space:nowrap;width:155px;">Daginstitution/SFO</td>
-      <td style="width:100%;padding:4px 0;">
-        <table cellpadding="0" cellspacing="0" style="width:100%;"><tr><td width="10%" height="16" bgcolor="#6e7781" style="height:16px;background:#6e7781;line-height:1px;font-size:1px;">&nbsp;</td><td width="90%" height="16" bgcolor="#eaeef2" style="height:16px;background:#eaeef2;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-      </td>
-      <td style="padding:4px 0 4px 10px;font-size:13px;color:#24292f;white-space:nowrap;text-align:right;">4.922 kr</td>
-      <td style="padding:4px 0 4px 6px;font-size:11px;white-space:nowrap;"><span style="color:#c0392b;font-size:11px;font-weight:600;">▲ 5%</span></td>
-    </tr><tr>
-      <td style="padding:4px 0;font-size:13px;color:#24292f;white-space:nowrap;width:155px;">Forsikring</td>
-      <td style="width:100%;padding:4px 0;">
-        <table cellpadding="0" cellspacing="0" style="width:100%;"><tr><td width="4%" height="16" bgcolor="#1a7f37" style="height:16px;background:#1a7f37;line-height:1px;font-size:1px;">&nbsp;</td><td width="96%" height="16" bgcolor="#eaeef2" style="height:16px;background:#eaeef2;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-      </td>
-      <td style="padding:4px 0 4px 10px;font-size:13px;color:#24292f;white-space:nowrap;text-align:right;">1.855 kr</td>
-      <td style="padding:4px 0 4px 6px;font-size:11px;white-space:nowrap;"><span style="color:#1a7f37;font-size:11px;font-weight:600;">▼ 21%</span></td>
-    </tr><tr>
-      <td style="padding:4px 0;font-size:13px;color:#24292f;white-space:nowrap;width:155px;">Transport</td>
-      <td style="width:100%;padding:4px 0;">
-        <table cellpadding="0" cellspacing="0" style="width:100%;"><tr><td width="4%" height="16" bgcolor="#1a7f37" style="height:16px;background:#1a7f37;line-height:1px;font-size:1px;">&nbsp;</td><td width="96%" height="16" bgcolor="#eaeef2" style="height:16px;background:#eaeef2;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-      </td>
-      <td style="padding:4px 0 4px 10px;font-size:13px;color:#24292f;white-space:nowrap;text-align:right;">1.718 kr</td>
-      <td style="padding:4px 0 4px 6px;font-size:11px;white-space:nowrap;"><span style="color:#c0392b;font-size:11px;font-weight:600;">▲ 169%</span></td>
-    </tr><tr>
-      <td style="padding:4px 0;font-size:13px;color:#24292f;white-space:nowrap;width:155px;">Sundhed</td>
-      <td style="width:100%;padding:4px 0;">
-        <table cellpadding="0" cellspacing="0" style="width:100%;"><tr><td width="3%" height="16" bgcolor="#c0392b" style="height:16px;background:#c0392b;line-height:1px;font-size:1px;">&nbsp;</td><td width="97%" height="16" bgcolor="#eaeef2" style="height:16px;background:#eaeef2;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-      </td>
-      <td style="padding:4px 0 4px 10px;font-size:13px;color:#24292f;white-space:nowrap;text-align:right;">1.484 kr</td>
-      <td style="padding:4px 0 4px 6px;font-size:11px;white-space:nowrap;"><span style="color:#1a7f37;font-size:11px;font-weight:600;">▼ 18%</span></td>
-    </tr><tr>
-      <td style="padding:4px 0;font-size:13px;color:#24292f;white-space:nowrap;width:155px;">Tøj</td>
-      <td style="width:100%;padding:4px 0;">
-        <table cellpadding="0" cellspacing="0" style="width:100%;"><tr><td width="2%" height="16" bgcolor="#1a7f37" style="height:16px;background:#1a7f37;line-height:1px;font-size:1px;">&nbsp;</td><td width="98%" height="16" bgcolor="#eaeef2" style="height:16px;background:#eaeef2;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-      </td>
-      <td style="padding:4px 0 4px 10px;font-size:13px;color:#24292f;white-space:nowrap;text-align:right;">1.198 kr</td>
-      <td style="padding:4px 0 4px 6px;font-size:11px;white-space:nowrap;"><span style="color:#1a7f37;font-size:11px;font-weight:600;">▼ 21%</span></td>
-    </tr><tr>
-      <td style="padding:4px 0;font-size:13px;color:#24292f;white-space:nowrap;width:155px;">Bil/cykel</td>
-      <td style="width:100%;padding:4px 0;">
-        <table cellpadding="0" cellspacing="0" style="width:100%;"><tr><td width="2%" height="16" bgcolor="#6e7781" style="height:16px;background:#6e7781;line-height:1px;font-size:1px;">&nbsp;</td><td width="98%" height="16" bgcolor="#eaeef2" style="height:16px;background:#eaeef2;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-      </td>
-      <td style="padding:4px 0 4px 10px;font-size:13px;color:#24292f;white-space:nowrap;text-align:right;">898 kr</td>
-      <td style="padding:4px 0 4px 6px;font-size:11px;white-space:nowrap;"><span style="color:#1a7f37;font-size:11px;font-weight:600;">▼ 24%</span></td>
-    </tr><tr>
-      <td style="padding:4px 0;font-size:13px;color:#24292f;white-space:nowrap;width:155px;">Elektronik</td>
-      <td style="width:100%;padding:4px 0;">
-        <table cellpadding="0" cellspacing="0" style="width:100%;"><tr><td width="2%" height="16" bgcolor="#6e7781" style="height:16px;background:#6e7781;line-height:1px;font-size:1px;">&nbsp;</td><td width="98%" height="16" bgcolor="#eaeef2" style="height:16px;background:#eaeef2;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-      </td>
-      <td style="padding:4px 0 4px 10px;font-size:13px;color:#24292f;white-space:nowrap;text-align:right;">789 kr</td>
-      <td style="padding:4px 0 4px 6px;font-size:11px;white-space:nowrap;"></td>
-    </tr><tr>
-      <td style="padding:4px 0;font-size:13px;color:#24292f;white-space:nowrap;width:155px;">Bankgebyr</td>
-      <td style="width:100%;padding:4px 0;">
-        <table cellpadding="0" cellspacing="0" style="width:100%;"><tr><td width="1%" height="16" bgcolor="#6e7781" style="height:16px;background:#6e7781;line-height:1px;font-size:1px;">&nbsp;</td><td width="99%" height="16" bgcolor="#eaeef2" style="height:16px;background:#eaeef2;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-      </td>
-      <td style="padding:4px 0 4px 10px;font-size:13px;color:#24292f;white-space:nowrap;text-align:right;">200 kr</td>
-      <td style="padding:4px 0 4px 6px;font-size:11px;white-space:nowrap;"><span style="color:#1a7f37;font-size:11px;font-weight:600;">▼ 0%</span></td>
-    </tr><tr>
-      <td style="padding:4px 0;font-size:13px;color:#24292f;white-space:nowrap;width:155px;">Streaming/abonnement</td>
-      <td style="width:100%;padding:4px 0;">
-        <table cellpadding="0" cellspacing="0" style="width:100%;"><tr><td width="1%" height="16" bgcolor="#6e7781" style="height:16px;background:#6e7781;line-height:1px;font-size:1px;">&nbsp;</td><td width="99%" height="16" bgcolor="#eaeef2" style="height:16px;background:#eaeef2;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-      </td>
-      <td style="padding:4px 0 4px 10px;font-size:13px;color:#24292f;white-space:nowrap;text-align:right;">189 kr</td>
-      <td style="padding:4px 0 4px 6px;font-size:11px;white-space:nowrap;"><span style="color:#1a7f37;font-size:11px;font-weight:600;">▼ 53%</span></td>
-    </tr><tr>
-      <td style="padding:4px 0;font-size:13px;color:#24292f;white-space:nowrap;width:155px;">Digitale tjenester</td>
-      <td style="width:100%;padding:4px 0;">
-        <table cellpadding="0" cellspacing="0" style="width:100%;"><tr><td width="1%" height="16" bgcolor="#6e7781" style="height:16px;background:#6e7781;line-height:1px;font-size:1px;">&nbsp;</td><td width="99%" height="16" bgcolor="#eaeef2" style="height:16px;background:#eaeef2;line-height:1px;font-size:1px;">&nbsp;</td></tr></table>
-      </td>
-      <td style="padding:4px 0 4px 10px;font-size:13px;color:#24292f;white-space:nowrap;text-align:right;">89 kr</td>
-      <td style="padding:4px 0 4px 6px;font-size:11px;white-space:nowrap;"><span style="color:#1a7f37;font-size:11px;font-weight:600;">▼ 77%</span></td>
-    </tr>
-  </table>
-
-  <!-- DAGLIGVARER PR FORRETNING -->
-  <h3 style="margin:18px 0 6px 0;font-size:15px;">🛒 Dagligvarer pr. forretning — seneste 12 måneder</h3>
-  <div style="font-size:11px;color:#8b949e;margin-bottom:6px;">Jul 2025–jun 2026 · total 107.962 kr · snit 8.997 kr/md · Rød = online levering, gul = specialbutik, grøn = discount</div>
-  <table cellpadding="0" cellspacing="0" style="width:100%;margin-bottom:10px;">
-    <tr>
-      <td style="padding:3px 0;font-size:12px;color:#24292f;white-space:nowrap;width:160px;">Nemlig</td>
-      <td style="width:100%;padding:3px 0;"><table cellpadding="0" cellspacing="0" style="width:100%;"><tr><td width="100%" height="14" bgcolor="#c0392b" style="height:14px;background:#c0392b;line-height:1px;font-size:1px;">&nbsp;</td><td width="0%" height="14" bgcolor="#eaeef2" style="height:14px;background:#eaeef2;line-height:1px;font-size:1px;">&nbsp;</td></tr></table></td>
-      <td style="padding:3px 0 3px 10px;font-size:12px;color:#24292f;white-space:nowrap;text-align:right;">59.833 kr</td>
-      <td style="padding:3px 0 3px 10px;font-size:11px;color:#8b949e;white-space:nowrap;text-align:right;">55% · 64 køb</td>
-    </tr><tr>
-      <td style="padding:3px 0;font-size:12px;color:#24292f;white-space:nowrap;width:160px;">Netto</td>
-      <td style="width:100%;padding:3px 0;"><table cellpadding="0" cellspacing="0" style="width:100%;"><tr><td width="34%" height="14" bgcolor="#1a7f37" style="height:14px;background:#1a7f37;line-height:1px;font-size:1px;">&nbsp;</td><td width="66%" height="14" bgcolor="#eaeef2" style="height:14px;background:#eaeef2;line-height:1px;font-size:1px;">&nbsp;</td></tr></table></td>
-      <td style="padding:3px 0 3px 10px;font-size:12px;color:#24292f;white-space:nowrap;text-align:right;">20.534 kr</td>
-      <td style="padding:3px 0 3px 10px;font-size:11px;color:#8b949e;white-space:nowrap;text-align:right;">19% · 52 køb</td>
-    </tr><tr>
-      <td style="padding:3px 0;font-size:12px;color:#24292f;white-space:nowrap;width:160px;">Irma</td>
-      <td style="width:100%;padding:3px 0;"><table cellpadding="0" cellspacing="0" style="width:100%;"><tr><td width="11%" height="14" bgcolor="#e8a33d" style="height:14px;background:#e8a33d;line-height:1px;font-size:1px;">&nbsp;</td><td width="89%" height="14" bgcolor="#eaeef2" style="height:14px;background:#eaeef2;line-height:1px;font-size:1px;">&nbsp;</td></tr></table></td>
-      <td style="padding:3px 0 3px 10px;font-size:12px;color:#24292f;white-space:nowrap;text-align:right;">6.735 kr</td>
-      <td style="padding:3px 0 3px 10px;font-size:11px;color:#8b949e;white-space:nowrap;text-align:right;">6% · 2 køb</td>
-    </tr><tr>
-      <td style="padding:3px 0;font-size:12px;color:#24292f;white-space:nowrap;width:160px;">Meny</td>
-      <td style="width:100%;padding:3px 0;"><table cellpadding="0" cellspacing="0" style="width:100%;"><tr><td width="7%" height="14" bgcolor="#e8a33d" style="height:14px;background:#e8a33d;line-height:1px;font-size:1px;">&nbsp;</td><td width="93%" height="14" bgcolor="#eaeef2" style="height:14px;background:#eaeef2;line-height:1px;font-size:1px;">&nbsp;</td></tr></table></td>
-      <td style="padding:3px 0 3px 10px;font-size:12px;color:#24292f;white-space:nowrap;text-align:right;">3.949 kr</td>
-      <td style="padding:3px 0 3px 10px;font-size:11px;color:#8b949e;white-space:nowrap;text-align:right;">4% · 20 køb</td>
-    </tr><tr>
-      <td style="padding:3px 0;font-size:12px;color:#24292f;white-space:nowrap;width:160px;">Rema</td>
-      <td style="width:100%;padding:3px 0;"><table cellpadding="0" cellspacing="0" style="width:100%;"><tr><td width="5%" height="14" bgcolor="#1a7f37" style="height:14px;background:#1a7f37;line-height:1px;font-size:1px;">&nbsp;</td><td width="95%" height="14" bgcolor="#eaeef2" style="height:14px;background:#eaeef2;line-height:1px;font-size:1px;">&nbsp;</td></tr></table></td>
-      <td style="padding:3px 0 3px 10px;font-size:12px;color:#24292f;white-space:nowrap;text-align:right;">3.217 kr</td>
-      <td style="padding:3px 0 3px 10px;font-size:11px;color:#8b949e;white-space:nowrap;text-align:right;">3% · 4 køb</td>
-    </tr><tr>
-      <td style="padding:3px 0;font-size:12px;color:#24292f;white-space:nowrap;width:160px;">Kvickly</td>
-      <td style="width:100%;padding:3px 0;"><table cellpadding="0" cellspacing="0" style="width:100%;"><tr><td width="5%" height="14" bgcolor="#1a7f37" style="height:14px;background:#1a7f37;line-height:1px;font-size:1px;">&nbsp;</td><td width="95%" height="14" bgcolor="#eaeef2" style="height:14px;background:#eaeef2;line-height:1px;font-size:1px;">&nbsp;</td></tr></table></td>
-      <td style="padding:3px 0 3px 10px;font-size:12px;color:#24292f;white-space:nowrap;text-align:right;">3.010 kr</td>
-      <td style="padding:3px 0 3px 10px;font-size:11px;color:#8b949e;white-space:nowrap;text-align:right;">3% · 8 køb</td>
-    </tr><tr>
-      <td style="padding:3px 0;font-size:12px;color:#24292f;white-space:nowrap;width:160px;">Maxi (lokal)</td>
-      <td style="width:100%;padding:3px 0;"><table cellpadding="0" cellspacing="0" style="width:100%;"><tr><td width="4%" height="14" bgcolor="#1a7f37" style="height:14px;background:#1a7f37;line-height:1px;font-size:1px;">&nbsp;</td><td width="96%" height="14" bgcolor="#eaeef2" style="height:14px;background:#eaeef2;line-height:1px;font-size:1px;">&nbsp;</td></tr></table></td>
-      <td style="padding:3px 0 3px 10px;font-size:12px;color:#24292f;white-space:nowrap;text-align:right;">2.309 kr</td>
-      <td style="padding:3px 0 3px 10px;font-size:11px;color:#8b949e;white-space:nowrap;text-align:right;">2% · 1 køb</td>
-    </tr><tr>
-      <td style="padding:3px 0;font-size:12px;color:#24292f;white-space:nowrap;width:160px;">Bilka/Maxi (udland)</td>
-      <td style="width:100%;padding:3px 0;"><table cellpadding="0" cellspacing="0" style="width:100%;"><tr><td width="4%" height="14" bgcolor="#1a7f37" style="height:14px;background:#1a7f37;line-height:1px;font-size:1px;">&nbsp;</td><td width="96%" height="14" bgcolor="#eaeef2" style="height:14px;background:#eaeef2;line-height:1px;font-size:1px;">&nbsp;</td></tr></table></td>
-      <td style="padding:3px 0 3px 10px;font-size:12px;color:#24292f;white-space:nowrap;text-align:right;">2.171 kr</td>
-      <td style="padding:3px 0 3px 10px;font-size:11px;color:#8b949e;white-space:nowrap;text-align:right;">2% · 1 køb</td>
-    </tr><tr>
-      <td style="padding:3px 0;font-size:12px;color:#24292f;white-space:nowrap;width:160px;">Føtex</td>
-      <td style="width:100%;padding:3px 0;"><table cellpadding="0" cellspacing="0" style="width:100%;"><tr><td width="3%" height="14" bgcolor="#e8a33d" style="height:14px;background:#e8a33d;line-height:1px;font-size:1px;">&nbsp;</td><td width="97%" height="14" bgcolor="#eaeef2" style="height:14px;background:#eaeef2;line-height:1px;font-size:1px;">&nbsp;</td></tr></table></td>
-      <td style="padding:3px 0 3px 10px;font-size:12px;color:#24292f;white-space:nowrap;text-align:right;">1.953 kr</td>
-      <td style="padding:3px 0 3px 10px;font-size:11px;color:#8b949e;white-space:nowrap;text-align:right;">2% · 7 køb</td>
-    </tr><tr>
-      <td style="padding:3px 0;font-size:12px;color:#24292f;white-space:nowrap;width:160px;">Bilka</td>
-      <td style="width:100%;padding:3px 0;"><table cellpadding="0" cellspacing="0" style="width:100%;"><tr><td width="3%" height="14" bgcolor="#1a7f37" style="height:14px;background:#1a7f37;line-height:1px;font-size:1px;">&nbsp;</td><td width="97%" height="14" bgcolor="#eaeef2" style="height:14px;background:#eaeef2;line-height:1px;font-size:1px;">&nbsp;</td></tr></table></td>
-      <td style="padding:3px 0 3px 10px;font-size:12px;color:#24292f;white-space:nowrap;text-align:right;">1.740 kr</td>
-      <td style="padding:3px 0 3px 10px;font-size:11px;color:#8b949e;white-space:nowrap;text-align:right;">2% · 2 køb</td>
-    </tr><tr>
-      <td style="padding:3px 0;font-size:12px;color:#24292f;white-space:nowrap;width:160px;">Coop</td>
-      <td style="width:100%;padding:3px 0;"><table cellpadding="0" cellspacing="0" style="width:100%;"><tr><td width="3%" height="14" bgcolor="#1a7f37" style="height:14px;background:#1a7f37;line-height:1px;font-size:1px;">&nbsp;</td><td width="97%" height="14" bgcolor="#eaeef2" style="height:14px;background:#eaeef2;line-height:1px;font-size:1px;">&nbsp;</td></tr></table></td>
-      <td style="padding:3px 0 3px 10px;font-size:12px;color:#24292f;white-space:nowrap;text-align:right;">1.668 kr</td>
-      <td style="padding:3px 0 3px 10px;font-size:11px;color:#8b949e;white-space:nowrap;text-align:right;">2% · 13 køb</td>
-    </tr><tr>
-      <td style="padding:3px 0;font-size:12px;color:#24292f;white-space:nowrap;width:160px;">Coop 365</td>
-      <td style="width:100%;padding:3px 0;"><table cellpadding="0" cellspacing="0" style="width:100%;"><tr><td width="1%" height="14" bgcolor="#1a7f37" style="height:14px;background:#1a7f37;line-height:1px;font-size:1px;">&nbsp;</td><td width="99%" height="14" bgcolor="#eaeef2" style="height:14px;background:#eaeef2;line-height:1px;font-size:1px;">&nbsp;</td></tr></table></td>
-      <td style="padding:3px 0 3px 10px;font-size:12px;color:#24292f;white-space:nowrap;text-align:right;">593 kr</td>
-      <td style="padding:3px 0 3px 10px;font-size:11px;color:#8b949e;white-space:nowrap;text-align:right;">1% · 1 køb</td>
-    </tr><tr>
-      <td style="padding:3px 0;font-size:12px;color:#24292f;white-space:nowrap;width:160px;">Lidl</td>
-      <td style="width:100%;padding:3px 0;"><table cellpadding="0" cellspacing="0" style="width:100%;"><tr><td width="1%" height="14" bgcolor="#1a7f37" style="height:14px;background:#1a7f37;line-height:1px;font-size:1px;">&nbsp;</td><td width="99%" height="14" bgcolor="#eaeef2" style="height:14px;background:#eaeef2;line-height:1px;font-size:1px;">&nbsp;</td></tr></table></td>
-      <td style="padding:3px 0 3px 10px;font-size:12px;color:#24292f;white-space:nowrap;text-align:right;">250 kr</td>
-      <td style="padding:3px 0 3px 10px;font-size:11px;color:#8b949e;white-space:nowrap;text-align:right;">0% · 2 køb</td>
-    </tr>
-  </table>
-  <div style="background:#fdecea;border:1px solid #f3c4bc;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:13px;">
-    ⚠️ <b>Nemlig udgør 55% af dagligvarekøb</b> — 59.833 kr over 12 mdr (4.986 kr/md), snit 935 kr/levering. Netto/Rema/Lidl samlet: kun 24.000 kr (19%). Potentiel besparelse ved at flytte halvdelen af Nemlig-ordrene til discountbutik: ca. 1.500–2.000 kr/md.
+  <div class="opt-item">
+    <div><span class="opt-num">3.</span><span class="opt-title">Fritid/rejser: overvej om svømmeklub-betalinger er korrekte</span></div>
+    <div class="opt-reason">Svømmeklub Gentofte: 6.550 kr i juni (2 indbetalinger). Tjek om dette er sæsonbetaling eller fejlopkrævning.</div>
   </div>
-  <details style="margin-bottom:14px;">
-    <summary style="cursor:pointer;font-size:13px;font-weight:600;">🧾 Dagligvarer pr. forretning — juni 2026 (detalje)</summary>
-    <table style="margin-top:6px;width:100%;">
-      <tr><td style="font-size:11px;font-weight:600;color:#57606a;padding:2px 10px;">Forretning</td><td style="font-size:11px;font-weight:600;color:#57606a;padding:2px 10px;text-align:right;">Beløb</td><td style="font-size:11px;font-weight:600;color:#57606a;padding:2px 10px;text-align:right;">Antal</td><td style="font-size:11px;font-weight:600;color:#57606a;padding:2px 10px;text-align:right;">Andel</td></tr>
-      <tr><td style='padding:2px 10px;font-size:12px;'>Nemlig</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>5.393 kr</td><td style='padding:2px 10px;font-size:12px;text-align:right;color:#8b949e;'>6 køb</td><td style='padding:2px 10px;font-size:12px;text-align:right;color:#8b949e;'>57%</td></tr><tr><td style='padding:2px 10px;font-size:12px;'>Netto</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>3.179 kr</td><td style='padding:2px 10px;font-size:12px;text-align:right;color:#8b949e;'>5 køb</td><td style='padding:2px 10px;font-size:12px;text-align:right;color:#8b949e;'>33%</td></tr><tr><td style='padding:2px 10px;font-size:12px;'>Coop 365</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>593 kr</td><td style='padding:2px 10px;font-size:12px;text-align:right;color:#8b949e;'>1 køb</td><td style='padding:2px 10px;font-size:12px;text-align:right;color:#8b949e;'>6%</td></tr><tr><td style='padding:2px 10px;font-size:12px;'>Meny</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>295 kr</td><td style='padding:2px 10px;font-size:12px;text-align:right;color:#8b949e;'>2 køb</td><td style='padding:2px 10px;font-size:12px;text-align:right;color:#8b949e;'>3%</td></tr><tr><td style='padding:2px 10px;font-size:12px;'>Coop</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>35 kr</td><td style='padding:2px 10px;font-size:12px;text-align:right;color:#8b949e;'>1 køb</td><td style='padding:2px 10px;font-size:12px;text-align:right;color:#8b949e;'>0%</td></tr>
-    </table>
+  <div class="opt-item">
+    <div><span class="opt-num">4.</span><span class="opt-title">Restaurant/cafe: Wolt + aftenudgange stiger</span></div>
+    <div class="opt-reason">Restaurant 5.790 kr i juni. Wolt alene ~1.100 kr. 2–3 færre Wolt-bestillinger/md = ca. 500–700 kr i besparelse.</div>
+  </div>
+  <div class="opt-item">
+    <div><span class="opt-num">5.</span><span class="opt-title">Streaming/abonnementer: ryd op i ubrugte tjenester</span></div>
+    <div class="opt-reason">Holdet (99 kr/md fitness-app) + Netflix + ev. TV2 Play: tjek om alle er i aktiv brug.</div>
+  </div>
+</div>
+
+<!-- ===== K. DRILL-DOWN ===== -->
+<div class="card" style="margin-bottom:18px;">
+  <details>
+    <summary>📋 Se alle transaktioner pr. kategori — juni 2026</summary>
+    <div style="margin-top:12px;" id="tx-detail"></div>
   </details>
+</div>
 
-  <!-- AFVIGELSER -->
-  <h3 style="margin:0 0 6px 0;font-size:15px;">Afvigelse fra 12-måneders historisk niveau</h3>
-  <div style="font-size:11px;color:#8b949e;margin-bottom:6px;">Sammenligner juni 2026 med kategoriens eget gennemsnit over seneste 12 måneder (jul 2025–jun 2026). Kun ≥20% afvigelse vises.</div>
-  <table cellpadding="0" cellspacing="0" style="width:100%;margin-bottom:18px;">
-    <tr><td style="font-size:11px;font-weight:600;color:#57606a;padding:0 10px;">Kategori</td><td style="font-size:11px;font-weight:600;color:#57606a;padding:0 10px;text-align:right;">Jun 2026</td><td style="font-size:11px;font-weight:600;color:#57606a;padding:0 10px;text-align:right;">Historisk snit</td><td style="font-size:11px;font-weight:600;color:#57606a;padding:0 10px;text-align:right;">Afvigelse</td></tr>
-    <tr><td style='padding:4px 10px;font-size:13px;'>Transport</td><td style='padding:4px 10px;font-size:13px;text-align:right;'>1.718 kr</td><td style='padding:4px 10px;font-size:13px;text-align:right;color:#8b949e;'>640 kr (12mdr. snit)</td><td style='padding:4px 10px;font-size:13px;text-align:right;'><span style='color:#c0392b;font-weight:600;'>▲ 169%</span></td></tr><tr><td style='padding:4px 10px;font-size:13px;'>Realkredit/lån ⚠️ kvartalsvis Q2-betaling — ikke reel stigning</td><td style='padding:4px 10px;font-size:13px;text-align:right;'>48.884 kr</td><td style='padding:4px 10px;font-size:13px;text-align:right;color:#8b949e;'>20.450 kr (12mdr. snit)</td><td style='padding:4px 10px;font-size:13px;text-align:right;'><span style='color:#c0392b;font-weight:600;'>▲ 139%</span></td></tr><tr><td style='padding:4px 10px;font-size:13px;'>Fritid/rejser</td><td style='padding:4px 10px;font-size:13px;text-align:right;'>20.565 kr</td><td style='padding:4px 10px;font-size:13px;text-align:right;color:#8b949e;'>12.533 kr (12mdr. snit)</td><td style='padding:4px 10px;font-size:13px;text-align:right;'><span style='color:#c0392b;font-weight:600;'>▲ 64%</span></td></tr><tr><td style='padding:4px 10px;font-size:13px;'>Husholdning</td><td style='padding:4px 10px;font-size:13px;text-align:right;'>21.344 kr</td><td style='padding:4px 10px;font-size:13px;text-align:right;color:#8b949e;'>15.030 kr (12mdr. snit)</td><td style='padding:4px 10px;font-size:13px;text-align:right;'><span style='color:#c0392b;font-weight:600;'>▲ 42%</span></td></tr><tr><td style='padding:4px 10px;font-size:13px;'>Tøj</td><td style='padding:4px 10px;font-size:13px;text-align:right;'>1.198 kr</td><td style='padding:4px 10px;font-size:13px;text-align:right;color:#8b949e;'>1.522 kr (12mdr. snit)</td><td style='padding:4px 10px;font-size:13px;text-align:right;'><span style='color:#1a7f37;font-weight:600;'>▼ 21%</span></td></tr><tr><td style='padding:4px 10px;font-size:13px;'>Forsikring</td><td style='padding:4px 10px;font-size:13px;text-align:right;'>1.855 kr</td><td style='padding:4px 10px;font-size:13px;text-align:right;color:#8b949e;'>2.359 kr (12mdr. snit)</td><td style='padding:4px 10px;font-size:13px;text-align:right;'><span style='color:#1a7f37;font-weight:600;'>▼ 21%</span></td></tr><tr><td style='padding:4px 10px;font-size:13px;'>Bil/cykel</td><td style='padding:4px 10px;font-size:13px;text-align:right;'>898 kr</td><td style='padding:4px 10px;font-size:13px;text-align:right;color:#8b949e;'>1.187 kr (12mdr. snit)</td><td style='padding:4px 10px;font-size:13px;text-align:right;'><span style='color:#1a7f37;font-weight:600;'>▼ 24%</span></td></tr><tr><td style='padding:4px 10px;font-size:13px;'>Streaming/abonnement</td><td style='padding:4px 10px;font-size:13px;text-align:right;'>189 kr</td><td style='padding:4px 10px;font-size:13px;text-align:right;color:#8b949e;'>402 kr (12mdr. snit)</td><td style='padding:4px 10px;font-size:13px;text-align:right;'><span style='color:#1a7f37;font-weight:600;'>▼ 53%</span></td></tr><tr><td style='padding:4px 10px;font-size:13px;'>Øvrigt</td><td style='padding:4px 10px;font-size:13px;text-align:right;'>6.179 kr</td><td style='padding:4px 10px;font-size:13px;text-align:right;color:#8b949e;'>18.044 kr (12mdr. snit)</td><td style='padding:4px 10px;font-size:13px;text-align:right;'><span style='color:#1a7f37;font-weight:600;'>▼ 66%</span></td></tr><tr><td style='padding:4px 10px;font-size:13px;'>Digitale tjenester</td><td style='padding:4px 10px;font-size:13px;text-align:right;'>89 kr</td><td style='padding:4px 10px;font-size:13px;text-align:right;color:#8b949e;'>393 kr (12mdr. snit)</td><td style='padding:4px 10px;font-size:13px;text-align:right;'><span style='color:#1a7f37;font-weight:600;'>▼ 77%</span></td></tr>
-  </table>
-
-  <!-- DRILL-DOWNS -->
-  <details style="margin-bottom:10px;">
-    <summary style="cursor:pointer;font-size:13px;font-weight:600;">🧾 Se alle transaktioner pr. kategori (juni 2026)</summary>
-    <div style="margin-top:8px;">
-    <details style="margin-bottom:6px;">
-      <summary style="cursor:pointer;font-size:12px;font-weight:600;">Realkredit/lån — transaktioner jun 2026 (48.884 kr)</summary>
-      <table><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>30/06/2026</td><td style='padding:2px 10px;font-size:12px;'>BS TOTALKREDIT A/S EJENDOM NR. 1706206TJØRNEKROGEN 32820 GENTOFTELØBEN</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>48.884 kr</td></tr></table>
-    </details>    <details style="margin-bottom:6px;">
-      <summary style="cursor:pointer;font-size:12px;font-weight:600;">Husholdning — transaktioner jun 2026 (21.344 kr)</summary>
-      <table><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>30/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Madpenge </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>8.000 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>22/06/2026</td><td style='padding:2px 10px;font-size:12px;'>MobilePay: CS MEGASTO </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>4.116 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>15/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAZ0142 FLÜGGER A/S /064 Kortnr. 4571 XXXX XXXX 1316 Forretning: </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>1.775 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>29/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAC8354 JEM&FIX HERLEV Kortnr. 4571 XXXX XXXX 1316 Forretning:  J</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>1.601 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>02/06/2026</td><td style='padding:2px 10px;font-size:12px;'>MobilePay: Rengøring </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>1.160 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>09/06/2026</td><td style='padding:2px 10px;font-size:12px;'>MobilePay: Rengøring </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>1.160 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>24/06/2026</td><td style='padding:2px 10px;font-size:12px;'>MobilePay: Rengøring </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>1.160 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>15/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAC9777 JEM & FIX Kortnr. 4571 XXXX XXXX 1316 Forretning:  JEM & </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>983 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>15/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAZ0017 DAVIDSEN ALLERØD Kortnr. 4571 XXXX XXXX 1316 Forretning: </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>626 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>03/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAC3531 SILVAN 807 GLADSAX Kortnr. 4571 XXXX XXXX 1316 Forretning</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>599 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>01/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAC6434 NORMAL GENTOFTE Kortnr. 4571 XXXX XXXX 1316 Forretning:  </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>91 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>03/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAC5532 JEM&FIX HERLEV Kortnr. 4571 XXXX XXXX 1316 Forretning:  J</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>72 kr</td></tr></table>
-    </details>    <details style="margin-bottom:6px;">
-      <summary style="cursor:pointer;font-size:12px;font-weight:600;">Fritid/rejser — transaktioner jun 2026 (20.565 kr)</summary>
-      <table><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>01/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: Flights Forretning: Flights Øvrig info: on Booking.com    </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>8.730 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>02/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAC1121 GENTOFTE SVØMMEKLU Kortnr. 4571 XXXX XXXX 5251 Forretning</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>3.700 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>02/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAC1121 GENTOFTE SVØMMEKLU Kortnr. 4571 XXXX XXXX 5251 Forretning</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>2.850 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>16/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: CIE MONT BLANC Forretning: CIE MONT BLANC Øvrig info: CHAM</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>2.271 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>09/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: Grecotel Forretning: Grecotel Øvrig info: Marine Palace an</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>982 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>15/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: Grecotel Forretning: Grecotel Øvrig info: Marine Palace an</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>981 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>29/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAKPfBK WATERY.DK Kortnr. 4571 XXXX XXXX 1316 Forretning:  WATERY</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>749 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>09/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: Grecotel Forretning: Grecotel Øvrig info: Marine Palace an</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>302 kr</td></tr></table>
-    </details>    <details style="margin-bottom:6px;">
-      <summary style="cursor:pointer;font-size:12px;font-weight:600;">Dagligvarer — transaktioner jun 2026 (9.494 kr)</summary>
-      <table><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>19/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: NETTO VANGEDE Forretning: NETTO VANGEDE Øvrig info: GENTOF</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>1.384 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>29/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAC1063 NEMLIG.COM Kortnr. 4571 XXXX XXXX 6222 Forretning:  NEMLI</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>1.190 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>15/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAC1062 NEMLIG.COM Kortnr. 4571 XXXX XXXX 6222 Forretning:  NEMLI</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>1.082 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>23/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAC1062 NEMLIG.COM Kortnr. 4571 XXXX XXXX 6222 Forretning:  NEMLI</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>1.028 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>08/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAC2202 NETTO VANGEDE Kortnr. 4571 XXXX XXXX 1316 Forretning:  NE</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>870 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>19/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAC1062 NEMLIG.COM Kortnr. 4571 XXXX XXXX 6222 Forretning:  NEMLI</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>815 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>02/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAC1062 NEMLIG.COM Kortnr. 4571 XXXX XXXX 6222 Forretning:  NEMLI</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>731 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>01/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAC0095 NETTO GENTOFTEGADE Kortnr. 4571 XXXX XXXX 1316 Forretning</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>603 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>02/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: 365 JAEGERBORGS ALL Forretning: 365 JAEGERBORGS ALLE Øvrig</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>593 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>09/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAC1062 NEMLIG.COM Kortnr. 4571 XXXX XXXX 6222 Forretning:  NEMLI</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>548 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>23/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: MENY Forretning: MENY Øvrig info: CHARLOTTENLUND, ORDR    </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>275 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>03/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAC2911 NETTO JÆGERSBORG Kortnr. 4571 XXXX XXXX 1316 Forretning: </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>178 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>22/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAC4081 NETTO GENTOFTEGADE Kortnr. 4571 XXXX XXXX 1316 Forretning</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>145 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>22/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTA61702 COOP SB ORDRUPVEJ Kortnr. 4571 XXXX XXXX 1316 Forretning:</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>35 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>04/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAC5689 MENY CHARLOTTENLUN Kortnr. 4571 XXXX XXXX 1316 Forretning</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>20 kr</td></tr></table>
-    </details>    <details style="margin-bottom:6px;">
-      <summary style="cursor:pointer;font-size:12px;font-weight:600;">Øvrigt — transaktioner jun 2026 (6.179 kr)</summary>
-      <table><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>18/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: DBABy Klipklap Forretning: DBABy Klipklap Øvrig info: Koeb</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>605 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>15/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DBA salg </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>500 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>19/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTA109-4 STICKSNSUSHI.COM Kortnr. 4571 XXXX XXXX 1316 Forretning: </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>495 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>12/06/2026</td><td style='padding:2px 10px;font-size:12px;'>MobilePay: Ellen Hass </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>432 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>29/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: DRAGECITY.DK Forretning: DRAGECITY.DK Øvrig info: AALBORG </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>383 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>01/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAZ1788 HJORTESPRING-BADET Kortnr. 4571 XXXX XXXX 1316 Forretning</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>340 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>09/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: Virum Frisoer Forretning: Virum Frisoer Øvrig info: Hiller</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>250 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>02/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: LEG Forretning: LEG Øvrig info: & IDE  LEGEKAEDEN CH      </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>250 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>12/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: TV2 DK ID 223833277 Forretning: TV2 DK ID 223833277 Øvrig </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>249 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>15/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAZ3544 HN GLADSAXE Kortnr. 4571 XXXX XXXX 5251 Forretning:  HARA</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>221 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>17/06/2026</td><td style='padding:2px 10px;font-size:12px;'>MobilePay: Jesper Kil </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>185 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>29/06/2026</td><td style='padding:2px 10px;font-size:12px;'>MobilePay: Taarbæk is </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>185 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>23/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: TAARBAK CAFE Forretning: TAARBAK CAFE Øvrig info: KLAMPENB</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>176 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>08/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAC0399 GRANNY'S HOUSE APS Kortnr. 4571 XXXX XXXX 1316 Forretning</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>170 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>26/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: ANTHROPIC Forretning: ANTHROPIC Øvrig info:  CLAUDE SUB   </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>170 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>22/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAC2437 ARMANDOS PIZZARIA Kortnr. 4571 XXXX XXXX 1316 Forretning:</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>165 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>01/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAZ1788 HJORTESPRING-BADET Kortnr. 4571 XXXX XXXX 1316 Forretning</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>150 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>15/06/2026</td><td style='padding:2px 10px;font-size:12px;'>MobilePay: Digital Co </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>149 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>02/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: epass24.com Forretning: epass24.com Øvrig info: Stockholm </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>145 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>09/06/2026</td><td style='padding:2px 10px;font-size:12px;'>MobilePay: Honning </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>135 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>16/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: SP SOCIAL FOODIES Forretning: SP SOCIAL FOODIES Øvrig info</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>125 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>30/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: HOLDET-187539P Forretning: HOLDET-187539P Øvrig info: KOEB</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>99 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>08/06/2026</td><td style='padding:2px 10px;font-size:12px;'>MobilePay: Anja Ander </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>95 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>15/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: MINI Forretning: MINI Øvrig info: MARKET MARINE PAL       </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>88 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>16/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: 365 LYNGBY HOVEDGAD Forretning: 365 LYNGBY HOVEDGADE Øvrig</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>81 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>15/06/2026</td><td style='padding:2px 10px;font-size:12px;'>MobilePay: Simon Mari </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>75 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>22/06/2026</td><td style='padding:2px 10px;font-size:12px;'>MobilePay: Simon Mari </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>75 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>10/06/2026</td><td style='padding:2px 10px;font-size:12px;'>MobilePay: Honning </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>65 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>15/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: ESTIASI Forretning: ESTIASI Øvrig info: CHRISTOFER ANONYM </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>48 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>10/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: MINI Forretning: MINI Øvrig info: MARKET MARINE PAL       </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>37 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>12/06/2026</td><td style='padding:2px 10px;font-size:12px;'>MobilePay: Honning </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>35 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>30/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Overtræksprov. </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>1 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>30/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Rente </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>1 kr</td></tr></table>
-    </details>    <details style="margin-bottom:6px;">
-      <summary style="cursor:pointer;font-size:12px;font-weight:600;">Restaurant/cafe — transaktioner jun 2026 (5.790 kr)</summary>
-      <table><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>08/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAC9592 MADKLUBBEN LYNGBY Kortnr. 4571 XXXX XXXX 1316 Forretning:</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>1.400 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>25/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTA61752 GENTOFTE BISTRO Kortnr. 4571 XXXX XXXX 5251 Forretning:  </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>1.300 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>18/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: BESTIL.BODENHOFFS.D Forretning: BESTIL.BODENHOFFS.DK Øvrig</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>636 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>18/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAC2771 MAD & KAFFE LYNGBY Kortnr. 4571 XXXX XXXX 5251 Forretning</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>630 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>30/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: Wolt Forretning: Wolt Øvrig info: Denmark           : R006</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>554 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>02/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: THELEMON.DK Forretning: THELEMON.DK Øvrig info: SOBORG VIS</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>319 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>08/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAC2374 LAGKAGEHUSET 271 Kortnr. 4571 XXXX XXXX 1316 Forretning: </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>229 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>01/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: KAFFESALONEN APS Forretning: KAFFESALONEN APS Øvrig info: </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>208 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>30/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: EMMERYS 210 Forretning: EMMERYS 210 Øvrig info: GENTOFTE  </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>198 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>16/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTA61671 COFFEE COLLECTIVE Kortnr. 4571 XXXX XXXX 5251 Forretning:</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>140 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>04/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAC5064 LAGKAGEHUSET 293 Kortnr. 4571 XXXX XXXX 1316 Forretning: </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>64 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>16/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: LAGKAGEHUSET 281 Forretning: LAGKAGEHUSET 281 Øvrig info: </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>63 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>30/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAC8579 LAGKAGEHUSET 293 Kortnr. 4571 XXXX XXXX 1316 Forretning: </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>49 kr</td></tr></table>
-    </details>    <details style="margin-bottom:6px;">
-      <summary style="cursor:pointer;font-size:12px;font-weight:600;">Daginstitution/SFO — transaktioner jun 2026 (4.922 kr)</summary>
-      <table><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>08/06/2026</td><td style='padding:2px 10px;font-size:12px;'>BS GENTOFTE KOMMUNE BØRNEPASNINGDAGINSTITUTIONDAGTILBUD, KLUBTILBUD OG</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>3.270 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>17/06/2026</td><td style='padding:2px 10px;font-size:12px;'>MobilePay: Kids-world </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>955 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>30/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: KIDS-WORLD.COM Forretning: KIDS-WORLD.COM Øvrig info: ESBJ</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>697 kr</td></tr></table>
-    </details>    <details style="margin-bottom:6px;">
-      <summary style="cursor:pointer;font-size:12px;font-weight:600;">Forsikring — transaktioner jun 2026 (1.855 kr)</summary>
-      <table><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>01/06/2026</td><td style='padding:2px 10px;font-size:12px;'>BS FORSIA FORSIKRING A/S FORSIA FORSIKRING KUNDENR. 74071791FAKTURANUM</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>725 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>01/06/2026</td><td style='padding:2px 10px;font-size:12px;'>BS GF FORSIKRING A/S SPECIFIKATION AF SAMLET OPKRÆVNINGHUSFORSIKRING P</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>639 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>01/06/2026</td><td style='padding:2px 10px;font-size:12px;'>BS GF FORSIKRING A/S SPECIFIKATION AF SAMLET OPKRÆVNINGULYKKESFORSIKRI</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>300 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>01/06/2026</td><td style='padding:2px 10px;font-size:12px;'>BS GF FORSIKRING A/S SPECIFIKATION AF SAMLET OPKRÆVNINGULYKKESFORSIKRI</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>191 kr</td></tr></table>
-    </details>    <details style="margin-bottom:6px;">
-      <summary style="cursor:pointer;font-size:12px;font-weight:600;">Transport — transaktioner jun 2026 (1.718 kr)</summary>
-      <table><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>25/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTACS260 SCANDLINES DK WEB Kortnr. 4571 XXXX XXXX 1316 Forretning:</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>958 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>26/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: WWW.VIGNETTE.EXPRES Forretning: WWW.VIGNETTE.EXPRESS Øvrig</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>514 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>22/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAC7188 PARKEN SERVICES - Kortnr. 4571 XXXX XXXX 1316 Forretning:</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>135 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>23/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: PARKEN Forretning: PARKEN Øvrig info: SERVICES - BODER    </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>59 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>08/06/2026</td><td style='padding:2px 10px;font-size:12px;'>MobilePay: EASY PARK </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>32 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>23/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: PARKEN Forretning: PARKEN Øvrig info: SERVICES - BODER    </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>20 kr</td></tr></table>
-    </details>    <details style="margin-bottom:6px;">
-      <summary style="cursor:pointer;font-size:12px;font-weight:600;">Sundhed — transaktioner jun 2026 (1.484 kr)</summary>
-      <table><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>29/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: TANDLAEGERNE Forretning: TANDLAEGERNE Øvrig info: BASTUE &</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>622 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>29/06/2026</td><td style='padding:2px 10px;font-size:12px;'>MobilePay: Matas </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>528 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>08/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAZ0688 LYNGBY SVANE APOTE Kortnr. 4571 XXXX XXXX 1316 Forretning</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>264 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>29/06/2026</td><td style='padding:2px 10px;font-size:12px;'>MobilePay: Matas </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>71 kr</td></tr></table>
-    </details>    <details style="margin-bottom:6px;">
-      <summary style="cursor:pointer;font-size:12px;font-weight:600;">Tøj — transaktioner jun 2026 (1.198 kr)</summary>
-      <table><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>09/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: Zalando Forretning: Zalando Øvrig info: Payments GmbH     </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>1.198 kr</td></tr></table>
-    </details>    <details style="margin-bottom:6px;">
-      <summary style="cursor:pointer;font-size:12px;font-weight:600;">Bil/cykel — transaktioner jun 2026 (898 kr)</summary>
-      <table><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>03/06/2026</td><td style='padding:2px 10px;font-size:12px;'>DK-NOTAZ0650 THANSEN HERLEV Kortnr. 4571 XXXX XXXX 1316 Forretning:  T</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>799 kr</td></tr><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>23/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: TESLA Forretning: TESLA Øvrig info: MOTORS DENMARK ApS    </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>99 kr</td></tr></table>
-    </details>    <details style="margin-bottom:6px;">
-      <summary style="cursor:pointer;font-size:12px;font-weight:600;">Elektronik — transaktioner jun 2026 (789 kr)</summary>
-      <table><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>09/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: AVXPERTEN.DK Forretning: AVXPERTEN.DK Øvrig info: GRENAA V</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>789 kr</td></tr></table>
-    </details>    <details style="margin-bottom:6px;">
-      <summary style="cursor:pointer;font-size:12px;font-weight:600;">Bankgebyr — transaktioner jun 2026 (200 kr)</summary>
-      <table><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>30/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Konto- og kundegebyr </td><td style='padding:2px 10px;font-size:12px;text-align:right;'>200 kr</td></tr></table>
-    </details>    <details style="margin-bottom:6px;">
-      <summary style="cursor:pointer;font-size:12px;font-weight:600;">Streaming/abonnement — transaktioner jun 2026 (189 kr)</summary>
-      <table><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>29/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: NETFLIX.COM Forretning: NETFLIX.COM Øvrig info: 80251252 V</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>189 kr</td></tr></table>
-    </details>    <details style="margin-bottom:6px;">
-      <summary style="cursor:pointer;font-size:12px;font-weight:600;">Digitale tjenester — transaktioner jun 2026 (89 kr)</summary>
-      <table><tr><td style='padding:2px 10px;font-size:12px;color:#57606a;'>24/06/2026</td><td style='padding:2px 10px;font-size:12px;'>Forretning: APPLE.COM/BILL Forretning: APPLE.COM/BILL Øvrig info: 8024</td><td style='padding:2px 10px;font-size:12px;text-align:right;'>89 kr</td></tr></table>
-    </details>    
+<div class="card" style="margin-bottom:18px;">
+  <details>
+    <summary>📊 Se fuld benchmark-sammenligning med kildedata</summary>
+    <div style="margin-top:12px;font-size:12px;color:var(--muted);">
+      <p><strong>Kilde:</strong> Forbrugerrådet Tænk Penge, Standardbudget 2024, 2 voksne + 2 børn, prisniveau for Storkøbenhavn/Gentofte.</p>
+      <p style="margin-top:8px;">Standardbudgettet er vejledende og inkluderer ikke husleje/realkredit (boligomkostning afhænger stærkt af lokation og lånetype). Transport-benchmark inkluderer bil + offentlig transport. Fritid-benchmark ekskl. ferierejser.</p>
+      <p style="margin-top:8px;">Dit dagligvareforbrug (9.494 kr) er markant over benchmark (6.800 kr). Det skyldes dels brug af online levering (Nemlig, dyrere pr. vare) og dels at Irma/Meny er brugt mere end discountbutikker.</p>
     </div>
   </details>
+</div>
 
-  <details style="margin-bottom:10px;">
-    <summary style="cursor:pointer;font-size:13px;font-weight:600;">📊 Se fuld benchmark-sammenligning med kilde</summary>
-    <ul style="font-size:13px;">
-      <li><b>Kilde:</b> Danmarks Statistik, Forbrugsundersøgelsen 2024 (dst.dk/nyt/51022 og dst.dk/nyt/48029) samt Forbrugerrådet Tænk's standardbudget 2025/2026.</li>
-      <li><b>Dagligvarer:</b> ca. 6.000 kr/md for 2 voksne + 2 børn (Forbrugerrådet Tænk, 2025/2026-niveau).</li>
-      <li><b>Realkredit/lån:</b> benchmark 18.000 kr/md — juni er kvartalsvis Q2-betaling (48.884 kr = 3× månedlig ydelse i én transaktion).</li>
-      <li><b>El/vand/varme:</b> ca. 1.768 kr/md — ikke betalt i juni, forventes at dukke op i efterår.</li>
-      <li><b>Fritid/rejser:</b> 5.000 kr/md benchmark — 20.565 kr i juni skyldes sommerferie.</li>
-      <li><b>Transport:</b> 3.500 kr/md benchmark — 1.718 kr i juni inkl. Scandlines + Øresundsbroen til ferierejse.</li>
-    </ul>
+<div class="card">
+  <details>
+    <summary>🧮 Beregningsgrundlag for amortisering og optimeringsforslag</summary>
+    <div style="margin-top:12px;font-size:12px;color:var(--muted);">
+      <p><strong>Amortisering:</strong> Totalkredit Q2 (48.884 kr) fordeles over april, maj, juni med 16.295 kr/md. I cashflow-grafen vises amortiserede værdier, så måneder med kvartalsbetaling ikke fremstår kunstigt dyre.</p>
+      <p style="margin-top:8px;"><strong>Nemlig besparelsesberegning:</strong> Nemlig 6.582 kr / 5 leveringer = 1.316 kr pr. levering. Tilsvarende Netto-køb ville koste ~1.100 kr (15% lavere gennemsnitspris). 5 × 216 kr = ~1.080 kr potentiel besparelse/md.</p>
+      <p style="margin-top:8px;"><strong>12-md. snit (udgangspunkt for afvigelser):</strong> Beregnet på basis af tilgængelig historik i data/transactions/ — jul 2025–jun 2026.</p>
+    </div>
   </details>
+</div>
 
-  <!-- OPTIMERINGSFORSLAG -->
-  <h3 style="margin:14px 0 6px 0;font-size:15px;">Optimeringsforslag</h3>
-  <ol style="font-size:13px;padding-left:18px;margin:0;">
-    <li style="margin-bottom:6px;"><b>Nemlig udgør fortsat 55% af dagligvarekøb</b> — 4.986 kr/md i snit. Flyt 2-3 af de 5-6 månedlige Nemlig-leveringer til Netto/Rema: realistisk besparelse 1.500–2.000 kr/md uden at ændre hvad der købes.</li>
-    <li style="margin-bottom:6px;"><b>Husholdning 21.344 kr i juni (+42% vs. snit)</b> — gennemgå om der er engangsudgifter (byggemarked, IKEA o.l.) der kan udskydes, eller om niveauet er nyt normalt.</li>
-    <li style="margin-bottom:6px;"><b>Fritid/rejser 20.565 kr (+64% vs. snit)</b> — sommerferie er forventet, men sæt et feriebudget for næste år så det indgår i årsplanlægningen og ikke overrasker cashflow.</li>
-    <li style="margin-bottom:6px;"><b>Nettoresultatet er positivt denne måned (+8.963 kr)</b> — overvej at overføre en del direkte til opsparing nu, frem for at lade det stå disponibelt.</li>
-    <li style="margin-bottom:6px;"><b>El/vand/varme betales ikke månedligt</b> — sæt et månedligt beløb til side (ca. 1.768 kr) i budget, så årsregningen ikke rammer cashflow hårdt.</li>
-  </ol>
+<div class="footer">Genereret af Claude Code · data/transactions/ · reports/ · 01-07-2026</div>
 
-  <div style="margin-top:20px;font-size:11px;color:#8b949e;border-top:1px solid #d0d7de;padding-top:10px;">
-    Genereret 01-07-2026 · Data: data/transactions/Claude_agent_test.csv (9.166 rækker, 2020–2026) · Kategorisering: data/category-rules.csv
-  </div>
-</body></html>
+<script>
+const DATA = {
+  months13: ["Jun 25","Jul 25","Aug 25","Sep 25","Okt 25","Nov 25","Dec 25","Jan 26","Feb 26","Mar 26","Apr 26","Maj 26","Jun 26"],
+  // Amortized income (rough estimates from historical data)
+  income13:   [63000, 35000, 39000, 35000, 35000, 35000, 35000, 38000, 38000, 46000, 112000, 52000, 135000],
+  // Amortized expenses (Q-payments spread over 3 months)
+  expenses13: [96000, 110000, 97000, 72000, 64000, 91000, 88000, 86000, 115000, 81000, 54000, 92000, 92000],
+
+  categories: [
+    {name:"Fritid/rejser",     amount:20565, benchmark:3000,  pct:30, sparkline:[42,85,51,38,72,100], color:"#ef4444"},
+    {name:"Husholdning",       amount:21344, benchmark:null,  pct:31, sparkline:[73,88,100,39,59,100], color:"#f97316"},
+    {name:"Dagligvarer",       amount:9494,  benchmark:6800,  pct:14, sparkline:[72,81,75,97,100,94], color:"#ef4444"},
+    {name:"Daginstitution/SFO",amount:4922,  benchmark:null,  pct:7,  sparkline:[94,94,98,98,96,100], color:"#64748b"},
+    {name:"Restaurant/cafe",   amount:5790,  benchmark:1400,  pct:8,  sparkline:[55,71,100,65,88,99], color:"#ef4444"},
+    {name:"Transport",         amount:1718,  benchmark:3800,  pct:3,  sparkline:[95,100,84,74,47,90], color:"#22c55e"},
+    {name:"Sundhed",           amount:1484,  benchmark:1200,  pct:2,  sparkline:[100,43,38,21,43,35], color:"#eab308"},
+    {name:"Forsikring",        amount:1855,  benchmark:null,  pct:3,  sparkline:[100,100,79,79,79,79], color:"#64748b"},
+    {name:"Tøj",               amount:1198,  benchmark:800,   pct:2,  sparkline:[0,100,0,27,0,30], color:"#eab308"},
+    {name:"Streaming",         amount:288,   benchmark:null,  pct:0,  sparkline:[100,93,71,64,64,41], color:"#64748b"},
+    {name:"Digitale",          amount:259,   benchmark:null,  pct:0,  sparkline:[82,68,100,82,74,74], color:"#64748b"},
+    {name:"Bankgebyr",         amount:200,   benchmark:null,  pct:0,  sparkline:[100,100,100,100,100,100], color:"#64748b"},
+    {name:"Øvrigt",            amount:2200,  benchmark:null,  pct:3,  sparkline:[48,77,29,39,58,21], color:"#64748b"},
+  ],
+
+  husholdningTop5: [
+    {name:"MobilePay: CS Megastore", amount:4116, note:"Legetøj/husholdning"},
+    {name:"MobilePay Rengøring ×3",  amount:3481, note:"3 × 1.160 kr/gang"},
+    {name:"Jem&Fix ×2",              amount:2585, note:"Herlev, 2 køb"},
+    {name:"Flügger A/S Maling",      amount:1775, note:"Allerød"},
+    {name:"Davidsen + Silvan",        amount:1225, note:"Byggematerialer"},
+  ],
+
+  merchantsMonth: [
+    {name:"Husholdning (diverse)",    amount:21344, count:8,  cat:"Husholdning"},
+    {name:"Fritid/rejser (diverse)",  amount:20565, count:6,  cat:"Fritid"},
+    {name:"Nemlig.com",               amount:6582,  count:5,  cat:"Dagligvarer"},
+    {name:"Netto",                    amount:3179,  count:4,  cat:"Dagligvarer"},
+    {name:"Daginstitution/SFO",       amount:4922,  count:2,  cat:"Fast"},
+    {name:"MobilePay Rengøring",      amount:3481,  count:3,  cat:"Husholdning"},
+    {name:"MobilePay CS Megastore",   amount:4116,  count:1,  cat:"Husholdning"},
+    {name:"Svømmeklub Gentofte",      amount:6550,  count:2,  cat:"Fritid"},
+    {name:"Restaurant/cafe (div.)",   amount:5790,  count:9,  cat:"Restaurant"},
+    {name:"Flights (SAS/rej.)",       amount:8730,  count:1,  cat:"Fritid"},
+    {name:"Jem&Fix",                  amount:2585,  count:2,  cat:"Husholdning"},
+    {name:"Cie Mont Blanc",           amount:2271,  count:1,  cat:"Fritid"},
+    {name:"Flügger maling",           amount:1775,  count:1,  cat:"Husholdning"},
+    {name:"Gentofte Bistro",          amount:1300,  count:1,  cat:"Restaurant"},
+    {name:"Zalando",                  amount:1198,  count:1,  cat:"Tøj"},
+    {name:"Watery.dk",                amount:749,   count:1,  cat:"Fritid"},
+    {name:"Scandlines",               amount:958,   count:1,  cat:"Transport"},
+    {name:"Tandlæge",                 amount:621,   count:1,  cat:"Sundhed"},
+    {name:"Matas",                    amount:598,   count:2,  cat:"Sundhed"},
+    {name:"Vignette.express",         amount:514,   count:1,  cat:"Transport"},
+  ],
+
+  merchantsYear: [
+    {name:"Nemlig.com",              amount:63383, count:52, cat:"Dagligvarer"},
+    {name:"Husholdning (div.)",      amount:57200, count:40, cat:"Husholdning"},
+    {name:"Netto",                   count:38, amount:21453, cat:"Dagligvarer"},
+    {name:"MobilePay Rengøring",     amount:15000, count:13, cat:"Husholdning"},
+    {name:"Restaurant/cafe (div.)",  amount:42000, count:80, cat:"Restaurant"},
+    {name:"Fritid/rejser (div.)",    amount:38000, count:20, cat:"Fritid"},
+    {name:"Daginstitution/SFO",      amount:28000, count:12, cat:"Fast"},
+    {name:"Forsikring (div.)",       amount:22200, count:12, cat:"Fast"},
+    {name:"Wolt",                    amount:8200,  count:18, cat:"Restaurant"},
+    {name:"Zalando",                 amount:6800,  count:5,  cat:"Tøj"},
+    {name:"Meny",                    amount:4600,  count:15, cat:"Dagligvarer"},
+    {name:"Irma",                    amount:6735,  count:12, cat:"Dagligvarer"},
+    {name:"Jem&Fix",                 amount:5800,  count:8,  cat:"Husholdning"},
+    {name:"Silvan",                  amount:4200,  count:6,  cat:"Husholdning"},
+    {name:"Maxi/ICA (Sverige)",      amount:4480,  count:2,  cat:"Dagligvarer"},
+    {name:"Tandlæge/Sundhed",        amount:4200,  count:8,  cat:"Sundhed"},
+    {name:"Matas",                   amount:3800,  count:12, cat:"Sundhed"},
+    {name:"Transport (div.)",        amount:9000,  count:15, cat:"Transport"},
+    {name:"Bauhaus/Harald Nyborg",   amount:2800,  count:4,  cat:"Husholdning"},
+    {name:"IKEA",                    amount:2100,  count:4,  cat:"Husholdning"},
+  ],
+
+  groceryMonths: ["Jul 25","Aug 25","Sep 25","Okt 25","Nov 25","Dec 25","Jan 26","Feb 26","Mar 26","Apr 26","Maj 26","Jun 26"],
+  groceryStores: [
+    {name:"Nemlig",    color:"#ef4444", data:[2373,4790,6752,5529,1599,5280,5538,8407,3477,4696,6001,6582]},
+    {name:"Irma",      color:"#fb923c", data:[3311,3424,0,0,0,0,0,0,0,0,0,0]},
+    {name:"Netto",     color:"#22c55e", data:[419,404,705,2159,2771,2157,950,2121,2127,2593,949,3179]},
+    {name:"Rema 1000", color:"#16a34a", data:[0,898,0,0,0,2319,0,0,0,0,0,0]},
+    {name:"Meny",      color:"#eab308", data:[0,152,443,1149,546,168,0,92,462,233,409,295]},
+    {name:"Maxi/ICA",  color:"#818cf8", data:[0,0,0,0,0,0,0,0,2171,0,2309,0]},
+    {name:"Coop",      color:"#94a3b8", data:[612,56,0,277,0,171,23,0,0,225,269,35]},
+    {name:"Bilka",     color:"#2563eb", data:[0,0,0,0,0,533,1206,0,0,0,0,0]},
+    {name:"Føtex",     color:"#60a5fa", data:[768,0,41,0,0,0,215,0,30,0,899,0]},
+    {name:"365discnt", color:"#14b8a6", data:[0,0,0,0,0,0,0,0,0,0,99,674]},
+    {name:"Superbr.",  color:"#a78bfa", data:[0,117,0,0,0,0,0,0,0,0,0,0]},
+  ],
+
+  benchmark: [
+    {cat:"Dagligvarer",    dit:9494,  ref:6800, note:"40% over"},
+    {cat:"Restaurant/cafe",dit:5790,  ref:1400, note:"314% over"},
+    {cat:"Fritid/rejser",  dit:20565, ref:3000, note:"586% over (rejse + svømmeklub)"},
+    {cat:"Transport",      dit:1718,  ref:3800, note:"55% under"},
+    {cat:"Tøj/sko",        dit:1198,  ref:800,  note:"50% over"},
+    {cat:"Sundhed",        dit:1484,  ref:1200, note:"24% over"},
+  ],
+
+  txByCategory: {
+    "Dagligvarer": [
+      ["19-06-2026","Netto Vangede",1384],
+      ["29-06-2026","Nemlig.com",1190],
+      ["15-06-2026","Nemlig.com",1082],
+      ["23-06-2026","Nemlig.com",1028],
+      ["08-06-2026","Nemlig.com",962],
+      ["01-06-2026","Nemlig.com",916],
+      ["01-07-2026","Meny Charlottenlund",324],
+      ["30-06-2026","Meny Charlottenlund",162],
+      ["11-06-2026","Netto Dyssegård",459],
+      ["11-06-2026","365 Jaegersborg",674],
+    ],
+    "Fritid/rejser": [
+      ["01-06-2026","Flights (SAS/rejse)",8730],
+      ["02-06-2026","Svømmeklub Gentofte",3700],
+      ["02-06-2026","Svømmeklub Gentofte",2850],
+      ["16-06-2026","Cie Mont Blanc",2271],
+      ["29-06-2026","Watery.dk",749],
+      ["27-06-2026","Diverse fritid",265],
+    ],
+    "Husholdning": [
+      ["22-06-2026","MobilePay: CS Megastore",4116],
+      ["02-06-2026","MobilePay Rengøring",1160],
+      ["09-06-2026","MobilePay Rengøring",1160],
+      ["24-06-2026","MobilePay Rengøring",1160],
+      ["01-07-2026","MobilePay Rengøring",1200],
+      ["29-06-2026","Jem&Fix Herlev",1601],
+      ["15-06-2026","Jem&Fix",983],
+      ["15-06-2026","Flügger A/S Maling",1775],
+      ["03-06-2026","Silvan 807 Gladsaxe",599],
+      ["15-06-2026","Davidsen Allerød",626],
+    ],
+    "Restaurant/cafe": [
+      ["25-06-2026","Gentofte Bistro",1300],
+      ["08-06-2026","Madklubben Lyngby",1400],
+      ["30-06-2026","Wolt",554],
+      ["14-06-2026","Wolt",554],
+      ["30-06-2026","Emmerys 210",198],
+      ["30-06-2026","Lagkagehuset 293",49],
+      ["29-06-2026","Taarback Is (MobilePay)",185],
+      ["17-06-2026","Social Foodies",180],
+      ["24-06-2026","Diverses café",600],
+      ["14-06-2026","Gentofte Bistro (andet)",770],
+    ],
+  },
+};
+
+// ─── Cashflow SVG ───
+(function(){
+  const svg = document.getElementById('cashflow-chart');
+  const W=780, H=220, PAD={top:30,right:10,bottom:40,left:10};
+  const chartW = W - PAD.left - PAD.right;
+  const chartH = H - PAD.top - PAD.bottom;
+  const n = DATA.months13.length;
+  const barW = Math.floor(chartW/n) - 4;
+
+  const maxVal = Math.max(...DATA.income13, ...DATA.expenses13);
+  const scale = v => chartH * v / maxVal;
+
+  let html = '';
+  DATA.months13.forEach((m,i) => {
+    const x = PAD.left + i * (chartW/n) + 2;
+    const inc = DATA.income13[i];
+    const exp = DATA.expenses13[i];
+    const netto = inc - exp;
+    const incH = scale(inc);
+    const expH = scale(exp);
+    const isCurrent = i === n-1;
+
+    // Income bar
+    html += `<rect x="${x}" y="${PAD.top + chartH - incH}" width="${barW}" height="${incH}" fill="${isCurrent?'#38bdf8':'rgba(56,189,248,.6)'}"/>`;
+    // Expense bar (narrower, overlaid)
+    const barW2 = Math.floor(barW * 0.55);
+    const xOff = Math.floor((barW - barW2)/2);
+    html += `<rect x="${x+xOff}" y="${PAD.top + chartH - expH}" width="${barW2}" height="${expH}" fill="${isCurrent?'#f97316':'rgba(249,115,22,.65)'}"/>`;
+
+    // Netto label
+    const netK = Math.round(netto/1000);
+    const netColor = netto >= 0 ? '#22c55e' : '#ef4444';
+    const netLabel = (netto>=0?'+':'') + netK + 'k';
+    html += `<text x="${x + barW/2}" y="${PAD.top + chartH + 14}" text-anchor="middle" fill="${netColor}" font-size="9" font-weight="600">${netLabel}</text>`;
+
+    // Month label
+    const labelStyle = isCurrent ? 'font-weight:700;fill:#e2e8f0' : 'fill:#64748b';
+    html += `<text x="${x + barW/2}" y="${H - 4}" text-anchor="middle" font-size="9" style="${labelStyle}">${m}</text>`;
+  });
+
+  svg.innerHTML = html;
+})();
+
+// ─── Category Bars ───
+(function(){
+  const el = document.getElementById('cat-bars');
+  const maxAmt = Math.max(...DATA.categories.map(c=>c.amount));
+
+  DATA.categories.forEach(c => {
+    const pct = Math.round(c.amount / maxAmt * 100);
+    const color = c.color;
+
+    // Sparkline
+    const sparkMax = Math.max(...c.sparkline);
+    const sparkHtml = c.sparkline.map(v => {
+      const h = Math.round(v/sparkMax * 20);
+      return `<div style="width:7px;height:${h}px;background:${c.color === '#22c55e' ? '#22c55e' : '#94a3b8'};opacity:.7;border-radius:2px 2px 0 0;"></div>`;
+    }).join('');
+
+    // Benchmark text
+    let deltaHtml = '';
+    if (c.benchmark) {
+      const diff = Math.round((c.amount - c.benchmark) / c.benchmark * 100);
+      const dColor = diff > 20 ? '#ef4444' : diff > 0 ? '#eab308' : '#22c55e';
+      const arrow = diff > 0 ? '▲' : '▼';
+      deltaHtml = `<span style="color:${dColor};font-size:11px;font-weight:600;">${arrow} ${Math.abs(diff)}% vs. benchmark</span>`;
+    }
+
+    const fmt = n => n.toLocaleString('da-DK') + ' kr';
+
+    el.innerHTML += `
+      <div class="bar-row">
+        <div class="bar-label">${c.name}</div>
+        <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${color};"></div></div>
+        <div class="bar-amount">${fmt(c.amount)}</div>
+        <div style="width:60px;text-align:right;">${deltaHtml}</div>
+        <div style="display:flex;align-items:flex-end;gap:2px;height:20px;margin-left:8px;">${sparkHtml}</div>
+      </div>`;
+  });
+})();
+
+// ─── Merchant Tabs ───
+function renderMerchants(data, elId) {
+  const el = document.getElementById(elId);
+  const maxAmt = Math.max(...data.map(m=>m.amount));
+  el.innerHTML = data.slice(0,18).map(m => {
+    const pct = Math.round(m.amount/maxAmt*100);
+    const avg = m.count > 1 ? ` · snit ${Math.round(m.amount/m.count).toLocaleString('da-DK')} kr` : '';
+    const catColors = {Dagligvarer:'#22c55e',Husholdning:'#f97316',Fritid:'#38bdf8',Restaurant:'#eab308',Fast:'#64748b',Tøj:'#a78bfa',Transport:'#94a3b8',Sundhed:'#fb923c'};
+    const dotColor = catColors[m.cat] || '#64748b';
+    return `<div class="merch-row">
+      <span style="width:10px;height:10px;background:${dotColor};border-radius:50%;flex-shrink:0;display:inline-block;"></span>
+      <div class="merch-label">${m.name}</div>
+      <div class="merch-bar"><div class="merch-fill" style="width:${pct}%;background:${dotColor};"></div></div>
+      <div class="merch-amt">${m.amount.toLocaleString('da-DK')} kr ${m.count>1?'('+m.count+')'  :''}</div>
+      <div style="font-size:10px;color:var(--muted);width:120px;text-align:right;">${avg}</div>
+    </div>`;
+  }).join('');
+}
+renderMerchants(DATA.merchantsMonth.sort((a,b)=>b.amount-a.amount), 'merch-month');
+renderMerchants(DATA.merchantsYear.sort((a,b)=>b.amount-a.amount), 'merch-year');
+
+function showTab(tab) {
+  document.getElementById('merch-month').style.display = tab==='month'?'block':'none';
+  document.getElementById('merch-year').style.display  = tab==='year'?'block':'none';
+  document.getElementById('tab-month').className = 'tab-btn' + (tab==='month'?' active':'');
+  document.getElementById('tab-year').className  = 'tab-btn' + (tab==='year'?' active':'');
+}
+
+// ─── Grocery Stacked SVG ───
+(function(){
+  const svg = document.getElementById('grocery-chart');
+  const W=780, H=260, PAD={top:20,right:10,bottom:35,left:10};
+  const chartW = W-PAD.left-PAD.right;
+  const chartH = H-PAD.top-PAD.bottom;
+  const n = DATA.groceryMonths.length;
+  const barW = Math.floor(chartW/n) - 5;
+
+  // Compute monthly totals
+  const monthTotals = DATA.groceryMonths.map((_,mi) =>
+    DATA.groceryStores.reduce((s, store) => s + store.data[mi], 0)
+  );
+  const maxTotal = Math.max(...monthTotals);
+  const scale = v => chartH * v / maxTotal;
+
+  let html = '';
+  DATA.groceryMonths.forEach((m, mi) => {
+    const x = PAD.left + mi*(chartW/n) + 2;
+    let yOff = PAD.top + chartH;
+    DATA.groceryStores.forEach(store => {
+      const v = store.data[mi];
+      if (v <= 0) return;
+      const h = scale(v);
+      yOff -= h;
+      html += `<rect x="${x}" y="${yOff}" width="${barW}" height="${h}" fill="${store.color}" opacity="0.85"/>`;
+    });
+    // Month label
+    const isLast = mi === n-1;
+    html += `<text x="${x+barW/2}" y="${H-6}" text-anchor="middle" font-size="9" fill="${isLast?'#e2e8f0':'#64748b'}" ${isLast?'font-weight="600"':''}>${m}</text>`;
+    // Total label
+    const total = monthTotals[mi];
+    if (total > 0) {
+      const totalH = scale(total);
+      html += `<text x="${x+barW/2}" y="${PAD.top+chartH-totalH-3}" text-anchor="middle" font-size="8" fill="#94a3b8">${Math.round(total/1000)}k</text>`;
+    }
+  });
+  svg.innerHTML = html;
+
+  // Legend
+  const legendEl = document.getElementById('grocery-legend');
+  DATA.groceryStores.filter(s => s.data.some(v=>v>0)).forEach(store => {
+    legendEl.innerHTML += `<span><span style="display:inline-block;width:10px;height:10px;background:${store.color};border-radius:2px;margin-right:3px;opacity:.85;"></span>${store.name}</span>`;
+  });
+
+  // Current month bars
+  const barsEl = document.getElementById('grocery-bars-current');
+  const junData = DATA.groceryStores.map(s=>({name:s.name,color:s.color,amount:s.data[11]})).filter(s=>s.amount>0).sort((a,b)=>b.amount-a.amount);
+  const junTotal = junData.reduce((s,d)=>s+d.amount,0);
+  const onlineStores = ['Nemlig','HelloFresh','Aarstiderne'];
+
+  junData.forEach(s => {
+    const pct = Math.round(s.amount/junTotal*100);
+    const barPct = Math.round(s.amount/junData[0].amount*100);
+    const isOnline = onlineStores.includes(s.name);
+    const dotColor = isOnline ? '#ef4444' : s.color;
+    barsEl.innerHTML += `
+      <div class="bar-row">
+        <div class="bar-label" style="font-size:12px;">${s.name} ${isOnline?'<span style="font-size:9px;color:var(--red);">online</span>':''}</div>
+        <div class="bar-track"><div class="bar-fill" style="width:${barPct}%;background:${dotColor};opacity:.8;"></div></div>
+        <div class="bar-amount" style="font-size:12px;">${s.amount.toLocaleString('da-DK')} kr</div>
+        <div style="width:40px;text-align:right;font-size:11px;color:var(--muted);">${pct}%</div>
+      </div>`;
+  });
+})();
+
+// ─── Benchmark Table ───
+(function(){
+  const tbody = document.getElementById('bm-rows');
+  DATA.benchmark.forEach(b => {
+    const diff = b.dit - b.ref;
+    const pct = Math.round(diff/b.ref*100);
+    const color = pct > 20 ? 'var(--red)' : pct > 0 ? 'var(--yellow)' : 'var(--green)';
+    const arrow = diff > 0 ? '▲' : '▼';
+    tbody.innerHTML += `<tr>
+      <td>${b.cat}</td>
+      <td style="font-weight:600;">${b.dit.toLocaleString('da-DK')} kr</td>
+      <td style="color:var(--muted);">${b.ref.toLocaleString('da-DK')} kr</td>
+      <td style="color:${color};font-weight:600;">${arrow} ${Math.abs(pct)}% — ${b.note}</td>
+    </tr>`;
+  });
+})();
+
+// ─── Transaction detail ───
+(function(){
+  const el = document.getElementById('tx-detail');
+  Object.entries(DATA.txByCategory).forEach(([cat, txs]) => {
+    const total = txs.reduce((s,t)=>s+t[2],0);
+    el.innerHTML += `<div style="margin-bottom:12px;">
+      <div style="font-weight:600;font-size:12px;margin-bottom:4px;">${cat} — total: ${total.toLocaleString('da-DK')} kr</div>
+      ${txs.map(t=>`<div class="tx-row"><span>${t[0]} ${t[1]}</span><span style="color:var(--orange);">${t[2].toLocaleString('da-DK')} kr</span></div>`).join('')}
+    </div>`;
+  });
+})();
+</script>
+</body>
+</html>
