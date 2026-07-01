@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skouboe — Forbrugsrapporter</title>
+<style>
+:root { --bg:#0f172a; --card:#1e293b; --border:#334155; --text:#e2e8f0; --muted:#94a3b8; --accent:#38bdf8; }
+* { box-sizing:border-box; margin:0; padding:0; }
+body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; padding:40px 24px; max-width:700px; margin:0 auto; }
+h1 { font-size:22px; font-weight:700; margin-bottom:6px; }
+.sub { color:var(--muted); font-size:13px; margin-bottom:32px; }
+.card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px 22px; margin-bottom:12px; display:flex; align-items:center; justify-content:space-between; text-decoration:none; color:var(--text); transition:border-color .15s; }
+.card:hover { border-color:var(--accent); }
+.card-left .date { font-size:12px; color:var(--muted); margin-bottom:4px; }
+.card-left .title { font-size:15px; font-weight:600; }
+.arrow { color:var(--accent); font-size:18px; }
+</style>
+</head>
+<body>
+<h1>Forbrugsrapporter</h1>
+<div class="sub">Skouboe-familien &nbsp;&middot;&nbsp; Automatisk genereret dashboard</div>
+
+<a class="card" href="reports/2026-07-01-forbrugsgennemgang.html">
+  <div class="card-left">
+    <div class="date">01-07-2026</div>
+    <div class="title">Forbrugsgennemgang &mdash; juni 2026</div>
+  </div>
+  <span class="arrow">&rarr;</span>
+</a>
+
+</body>
+</html>
