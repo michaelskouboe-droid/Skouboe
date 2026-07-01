@@ -63,6 +63,15 @@ en kategori som "Øvrigt" — det kan give en useriøs/negativ sum. Uklassificer
 positive beløb skal i stedet vises i et separat "anden indtægt"-felt, ikke trækkes fra
 udgiftskategorien.
 
+**"Husholdning"-kategorien skal altid specificeres:** Kategorien "Husholdning" dækker
+indkøb til hjemmet: møbler, rengøringsmidler, isenkram, byggematerialer, dekoration,
+haveartikler og håndværkerudgifter. Da beløbet kan svinge meget, skal dashboardet
+ALDRIG vise Husholdning som én lukket linje. Vis altid:
+- Kategoritotal øverst
+- En udfoldet liste med de 5 største transaktioner (forretning + beløb) direkte i
+  kortet — ikke bag et fold-ud element
+- Tooltip/label: "Husholdning = møbler, rengøring, byggematerialer, haveartikler, VVS"
+
 ## 3. Beregn cashflow og udvikling
 
 - Sum af indtægter, faste omkostninger, variabelt forbrug, og nettoresultat for perioden.
@@ -78,6 +87,22 @@ tilgængelig historik hvis kortere). Sammenlign den aktuelle måned mod dette ge
 historiske norm som "skiller sig ud". Vis en 12-måneders sparkline/trendlinje pr.
 hovedkategori, så brugeren kan se om en afvigelse er et engangsudsving (f.eks.
 kvartalsvis realkreditbetaling) eller en ny vedvarende tendens.
+
+**Kvartalsvise og årslige betalinger — amortisering:**
+Detektér kvartalsvise og årslige engangsbetalinger, der ellers ville forvrænge den
+aktuelle måneds tal. En betaling betragtes som kvartalvis/periodisk hvis:
+- Transaktionsbeløbet er ≥ 2,5 × kategoriets historiske månedlige gennemsnit, OG/ELLER
+- Beskrivelsen indeholder mønstre som "KVARTAL", "Q1", "Q2", "Q3", "Q4", "PERIODE",
+  "HALVÅR", "HELÅR", "ÅRSOPKRÆVNING", eller lignende periodeangivelser.
+
+Når en periodisk betaling detekteres:
+1. Spread beløbet over 3 måneder (kvartalsvis) eller 12 måneder (årslig).
+2. Brug den amortiserede månedlige andel i cashflow-diagrammer og kategoribjælker.
+3. Vis begge tal i dashboardet: "Amortiseret: 3.200 kr/md (faktisk betalt: 9.600 kr)"
+4. Tilføj et info-kort "Kvartalsvise/periodiske betalinger" der lister alle amortiserede
+   poster med fuldt beløb og fordeling, så brugeren ved hvad der skjuler sig bag tallene.
+5. I 12-måneders cashflow-diagrammet: brug altid amortiserede værdier for at undgå
+   kunstige toppe.
 
 **Dagligvarer pr. forretning (fast del af hver gennemgang):** Dagligvarer er et af de
 områder familien kan ændre på kort bane, og brugeren vil løbende kunne se *hvor* pengene
@@ -114,51 +139,137 @@ Giv 3-5 konkrete, prioriterede forslag til at reducere omkostninger, baseret på
 - Stigende trends
 - Abonnementer/faste omkostninger der ikke er blevet brugt for nylig (hvis det kan ses)
 
-## 6. Byg rapporten som visuel HTML — ikke som tekstblokke
+## 6. Byg rapporten som interaktivt HTML-dashboard
 
-Rapporten skal kunne overskues på under 30 sekunder, med mulighed for at folde
-detaljer ud. Brug HTML + inline CSS (ingen eksterne billeder/chart-APIs, da data
-er finansielle og private — byg visualiseringer som rene `<div>`-bjælker/farver).
+Rapporten gemmes som en selvstændig HTML-fil i `reports/YYYY-MM-DD-forbrugsgennemgang.html`.
+Dashboardet skal fungere i en browser uden netadgang — brug kun inline `<style>` og
+`<script>` blokke. Ingen eksterne CDN, ingen billeder.
 
-Gem den fulde HTML i `reports/YYYY-MM-DD-forbrugsgennemgang.html` og brug samme
-indhold som `htmlBody` i Gmail-udkastet. Følg denne struktur:
+### Designprincipper (dark-mode dashboard)
 
-**A. Overblik (altid synligt, ingen scrolling for at forstå helheden)**
-- 4 KPI-"kort" side om side (brug en HTML-tabel eller flex-div med `display:inline-block`,
-  da Gmail har begrænset CSS-støtte): Indtægt, Faste omkostninger, Variabelt forbrug, Netto.
-  Hvert kort: stort tal + lille delta vs. forrige periode (grøn ▲/rød ▼ med procent).
-- Et lille badge/ikon-linje med op til 3 vigtigste afvigelser ("⚠️ Transport +28%
-  vs. sidste periode"), kun de vigtigste — ikke en fuld liste.
+Brug CSS-variabler med følgende farvepalette:
+```css
+--bg: #0f172a;        /* baggrund */
+--card: #1e293b;      /* kortbaggrund */
+--border: #334155;    /* kant */
+--text: #e2e8f0;      /* primær tekst */
+--muted: #94a3b8;     /* sekundær tekst */
+--accent: #38bdf8;    /* accentfarve (blå) */
+--green: #22c55e;     /* positiv/god */
+--yellow: #eab308;    /* advarsel */
+--red: #ef4444;       /* negativ/dårlig */
+--orange: #f97316;    /* udgifter */
+```
 
-**B. Visuel kategori-fordeling**
-- For hver kategori: en bjælke bygget af en `<div>` med `background` og `width:XX%`
-  der viser andel af totalt forbrug, plus beløb. Farvekod efter benchmark-status:
-  grøn = under/på niveau med benchmark, gul = let over, rød = markant over (>20%).
-- Brug samme bjælke-stil til at vise trend over de sidste 3-4 perioder per kategori
-  (en række af korte bjælker = simpel "sparkline" i CSS).
+Layout: CSS Grid med `grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))` for
+responsive kortlayout. Brug `border-radius: 12px` og `padding: 20px` på kort.
 
-**C. Drill-down detaljer (skal være foldet sammen som udgangspunkt)**
-Brug `<details><summary>...</summary>...</details>` for hver sektion herunder, så
-e-mailen er kort ved første åbning, men detaljerne er ét klik væk:
+### Sektioner i dashboardet (i rækkefølge)
+
+**A. KPI-bjælke (altid synlig øverst)**
+4 kort side om side: Indtægt, Faste omkostninger, Variabelt forbrug, Netto.
+Hvert kort: stort tal (28px bold) + delta vs. 12-måneders snit (grøn ▲/rød ▼ + %).
+Netto-kortet farves grønt hvis positivt, rødt hvis negativt.
+
+**B. Afvigelsesadvarsler**
+Maks. 5 badges i en vandret linje: "⚠️ Transport +28% vs. snit" — kun kategorier der
+afviger >20% fra historisk snit. Brug amortiserede værdier.
+
+**C. Kvartalsvise betalinger (vis kun hvis der er detekterede)**
+Et informationskort med liste: "Realkredit Q2: 9.600 kr betalt → 3.200 kr/md amortiseret
+over 3 måneder." Forklar at cashflow-tal bruger amortiserede værdier.
+
+**D. 13-måneders cashflow-diagram**
+Stacked SVG-søjlediagram (inline SVG, ingen canvas-API).
+- X-akse: 13 måneder (indeværende + 12 tidligere)
+- Y-akse: DKK, auto-skaleret
+- Blå søjle = Indtægt, Orange søjle = Udgifter (amortiserede tal)
+- Grønt tal under søjle = positiv netto, rødt = negativ netto
+Byg diagrammet med JavaScript der injiceres med data som en JSON-konstant øverst i
+script-blokken.
+
+**E. Kategorifordeling**
+For hver kategori: en bjælke (CSS `width: X%`) med:
+- Kategori-navn + beløb (amortiseret) til venstre
+- Procent af totalt variabelt forbrug til højre
+- Farvekod: grøn = under/på benchmark, gul = let over, rød = markant over (>20%)
+- En sparkline af de seneste 6 måneder som en række af 6 mini-bjælker
+
+**F. Husholdning — altid udfoldet**
+Udover den normale kategoribjælke: et udvidet kort specifikt for Husholdning der viser:
+- Total med amortisering hvis relevant
+- Top 5 transaktioner (forretning + beløb) listet direkte — IKKE bag et fold-ud
+- Tooltip under kortets titel: "Møbler · Rengøring · Byggematerialer · Haveartikler · VVS"
+
+**G. Forbrug pr. forretning — månedsoverblik**
+Et interaktivt kort med to tab-knapper: "Denne måned" og "Seneste 12 måneder".
+JavaScript toggle viser/skjuler de relevante data.
+For hver visning: rangeret liste med bjælker — forretning, beløb, antal transaktioner,
+snit pr. køb. Brug inline JavaScript med data embeddet som JSON-objekt i script-blokken.
+Sorter efter beløb (højeste først). Vis top 20 forretninger.
+
+**H. Dagligvarer pr. forretning pr. måned — 12 måneder**
+Et stacked SVG-søjlediagram (inline SVG):
+- X-akse: 12 måneder
+- Y-akse: DKK
+- Hver søjle opdelt i farvelagte segmenter pr. butikskæde
+- Farvepalette pr. kæde: Nemlig=#ef4444, HelloFresh=#f97316, Netto=#22c55e,
+  Rema=#16a34a, Lidl=#15803d, Føtex=#3b82f6, Bilka=#2563eb, Meny=#eab308,
+  Coop=#a3a3a3, Øvrige=#64748b
+- En legend under diagrammet med farve + kædenavn
+- Under diagrammet: eksisterende enkelt-periode breakdown med bjælker pr. forretning
+  (rød=online levering, gul=mellemkæde, grøn=discount)
+
+**I. Benchmark-sammenligning**
+Kompakt tabel: Kategori | Dit forbrug | Benchmark | Forskel. Kilde noteret.
+
+**J. Optimeringsforslag**
+Nummereret liste (1-5): fed overskrift per forslag + én linje begrundelse.
+
+**K. Drill-down detaljer (foldet som udgangspunkt)**
+`<details><summary>` for:
 - "Se alle transaktioner pr. kategori"
 - "Se fuld benchmark-sammenligning med kilde"
 - "Se beregningsgrundlag for optimeringsforslag"
-(Gmail folder `<details>` sammen visuelt i de fleste klienter, men hvis det ikke
-understøttes, er det acceptabelt at det falder tilbage til synligt — vigtigst er
-at overblikket (A+B) står først og er kort.)
 
-**D. Optimeringsforslag**
-- Vis som en kort, nummereret liste med fed overskrift per forslag og én linje
-  begrundelse — ikke lange afsnit. Detaljeret begrundelse hører under drill-down (C).
+### JavaScript-data injection
+
+Øverst i `<script>`-blokken defineres alle data som konstanter:
+```js
+const DATA = {
+  months: [...],           // 13 måneds-labels
+  income: [...],           // 13 tal (amortiseret)
+  expenses: [...],         // 13 tal (amortiseret)
+  categories: [...],       // [{name, amount, benchmark, sparkline:[6]}]
+  merchants: {
+    thisMonth: [...],      // [{name, amount, count}]
+    last12: [...]          // [{name, amount, count}]
+  },
+  groceryByStore: {        // [{store, color, months:[12 tal]}]
+    stores: [...],
+    months: [...]
+  },
+  amortized: [...]         // [{description, actual, monthly, months}]
+};
+```
 
 Skriv så lidt løbende tekst som muligt — foretræk tal, bjælker, farver og korte
 labels over sætninger. Brug dansk sprog og danske tal-/valutaformater (kr., 1.234,56).
 
 ## 7. Send til brugeren
 
+Gem den fulde HTML i `reports/YYYY-MM-DD-forbrugsgennemgang.html`.
+
 Opret et Gmail-udkast (`mcp__Gmail__create_draft`) til michaelskouboe@gmail.com med
-emnet "Forbrugsgennemgang <dato>" og den visuelle HTML-rapport fra trin 6 som
-`htmlBody`. Gmail-integrationen kan kun oprette udkast, ikke sende automatisk —
+emnet "Forbrugsgennemgang <dato>". Gmail-udkastet skal være en **kompakt opsummering**
+(ikke det fulde dashboard — Gmail understøtter ikke komplekse scripts):
+
+- 4 KPI-kort som en enkel HTML-tabel (inline styles, ingen scripts)
+- Top 5 afvigelser som en punktliste
+- En tekstlinje: "Det fulde interaktive dashboard ligger i reports/YYYY-MM-DD-forbrugsgennemgang.html"
+- Optionelt: 1-2 vigtigste optimeringsforslag
+
+Gmail-integrationen kan kun oprette udkast, ikke sende automatisk —
 informer brugeren om, at udkastet ligger klar til afsendelse.
 
 ## Noter
@@ -168,3 +279,7 @@ informer brugeren om, at udkastet ligger klar til afsendelse.
   bekræftelse undervejs.
 - Commit nye/opdaterede filer i `reports/` og `data/category-rules.csv` til git, så
   historikken er bevaret til næste gennemgang.
+- KRITISK: Opret aldrig mere end ét Gmail-udkast pr. kørsel. Kontrollér om et udkast
+  allerede eksisterer med samme dato i emnefeltet (brug `mcp__Gmail__list_drafts`)
+  inden du opretter et nyt. Hvis et eksisterende udkast findes, opdater det i stedet
+  eller spring oprettelsen over og informer brugeren.
