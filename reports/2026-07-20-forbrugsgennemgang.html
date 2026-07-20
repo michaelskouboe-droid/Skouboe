@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<title>Forbrugsgennemgang — 20. juli 2026</title>
+<style>
+  :root {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --border: #334155;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --accent: #38bdf8;
+    --yellow: #eab308;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    margin: 0;
+    padding: 32px 20px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  h1 { font-size: 22px; margin-bottom: 4px; }
+  .sub { color: var(--muted); font-size: 14px; margin-bottom: 28px; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .badge {
+    display: inline-block;
+    background: rgba(234,179,8,0.15);
+    color: var(--yellow);
+    border: 1px solid var(--yellow);
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  ul { margin: 8px 0 0 0; padding-left: 20px; color: var(--text); }
+  li { margin-bottom: 6px; }
+  a { color: var(--accent); }
+  .muted { color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Forbrugsgennemgang — 20. juli 2026</h1>
+  <div class="sub">Planlagt biweekly gennemgang</div>
+
+  <div class="card">
+    <span class="badge">⚠️ Ingen nye data</span>
+    <p>
+      Der er ikke fundet nye transaktioner i <code>data/transactions/</code>
+      siden sidste gennemgang. Begge kildefiler
+      (<code>Claude_agent_test.csv</code> og
+      <code>Claude_agent_export (1).csv</code>) stopper ved
+      <strong>01-07-2026</strong> — samme dato som den seneste rapport
+      (<a href="2026-07-01-forbrugsgennemgang.html">2026-07-01-forbrugsgennemgang.html</a>).
+    </p>
+    <p>Der er derfor ikke genereret et nyt dashboard eller udkast for denne
+      periode, for ikke at gætte på tal eller vise en misvisende gentagelse
+      af juni-rapporten.</p>
+    <ul>
+      <li>Seneste transaktionsdato i data: 01-07-2026</li>
+      <li>Seneste rapport: 01-07-2026 (juni 2026)</li>
+      <li>Dage uden nye data: 19</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <strong>Næste skridt</strong>
+    <p class="muted">
+      Upload en ny CSV-eksport fra netbanken til
+      <code>data/transactions/</code>, så den næste planlagte gennemgang
+      (hver anden mandag) kan vise juli-forbrug.
+    </p>
+  </div>
+</div>
+</body>
+</html>
