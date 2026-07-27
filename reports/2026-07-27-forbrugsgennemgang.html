@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<title>Forbrugsgennemgang — 27. juli 2026</title>
+<style>
+  :root {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --border: #334155;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --accent: #38bdf8;
+    --green: #22c55e;
+    --yellow: #eab308;
+    --red: #ef4444;
+    --orange: #f97316;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 32px;
+    line-height: 1.5;
+  }
+  h1 { font-size: 22px; margin-bottom: 4px; }
+  .sub { color: var(--muted); font-size: 14px; margin-bottom: 28px; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 640px;
+  }
+  .status {
+    display: inline-block;
+    background: rgba(234, 179, 8, 0.15);
+    color: var(--yellow);
+    border: 1px solid var(--yellow);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  p { margin: 0 0 14px 0; }
+  .muted { color: var(--muted); font-size: 14px; }
+  code {
+    background: rgba(148, 163, 184, 0.12);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+  ul { margin: 0 0 14px 0; padding-left: 20px; }
+</style>
+</head>
+<body>
+  <h1>Forbrugsgennemgang — 27. juli 2026</h1>
+  <div class="sub">Planlagt biweekly gennemgang (hver anden mandag)</div>
+
+  <div class="card">
+    <div class="status">⚠️ Ingen nye transaktionsdata</div>
+    <p>
+      Der er ikke tilføjet nye transaktionsfiler i <code>data/transactions/</code>
+      siden den seneste gennemgang. Begge eksisterende kildefiler slutter
+      d. <strong>01-07-2026</strong>, som allerede er dækket fuldt ud i den
+      forrige rapport.
+    </p>
+    <p class="muted">
+      Seneste fulde gennemgang: <strong>2026-07-01</strong>
+      (<code>reports/2026-07-01-forbrugsgennemgang.html</code>), som dækkede
+      juni 2026 og allerede indeholder amortiseret cashflow, kategorifordeling,
+      dagligvarer pr. forretning, benchmark og optimeringsforslag.
+    </p>
+    <p>
+      For at denne biweekly gennemgang (27. juli) kan give nyt indblik,
+      mangler et opdateret CSV-eksport fra netbanken der dækker perioden
+      efter 01-07-2026 (dvs. juli måned). Læg filen i
+      <code>data/transactions/</code>, så bliver den inkluderet ved næste
+      kørsel af skillet.
+    </p>
+    <p class="muted">
+      Der er oprettet et kort Gmail-udkast med denne status, så den ikke
+      drukner i indbakken.
+    </p>
+  </div>
+</body>
+</html>
