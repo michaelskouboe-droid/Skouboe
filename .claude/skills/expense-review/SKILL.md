@@ -12,18 +12,24 @@ en gennemsnitlig dansk familie med 2 børn.
 
 ## 1. Find datakilden
 
-Transaktionsdata ligger som CSV-filer i `data/transactions/`. Hver fil dækker typisk
-en måned eller en periode og er eksporteret fra netbank. Forventede kolonner (navne
-kan variere lidt mellem banker — match efter bedste evne):
+Transaktionsdata ligger som CSV-filer i `~/Documents/Claude - Co/Forbrugs dashboard/`.
+Hver fil dækker typisk en måned eller en periode og er eksporteret fra netbank.
+Forventede kolonner (navne kan variere lidt mellem banker — match efter bedste evne):
 
 - Dato (dato for transaktionen)
 - Tekst / beskrivelse
 - Beløb (negativ = udgift, positiv = indtægt)
 - evt. Saldo
 
-Hvis `data/transactions/` er tom eller der ikke er nye filer siden sidste gennemgang
-(se `reports/` for seneste rapport-dato), så sig det klart til brugeren i rapporten
-i stedet for at gætte på tal.
+Læs filerne med den absolutte sti: `~/Documents/Claude - Co/Forbrugs dashboard/`.
+Brug `ls` eller `Glob` til at finde alle CSV-filer i mappen, sorteret efter dato.
+
+Kategorireglerne (`category-rules.csv`) ligger fortsat i repoen under `data/category-rules.csv`
+og opdateres/commites til git som tidligere.
+
+Hvis `~/Documents/Claude - Co/Forbrugs dashboard/` er tom eller ikke indeholder nye
+filer siden sidste gennemgang (se `reports/` for seneste rapport-dato), så sig det
+klart til brugeren i rapporten i stedet for at gætte på tal.
 
 ## 2. Kategoriser forbrug
 
