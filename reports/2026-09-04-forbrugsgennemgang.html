@@ -1,0 +1,730 @@
+<title>Forbrugsgennemgang Aug 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,400&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap">
+<style>
+/* ── Tokens ─────────────────────────────────────────────── */
+:root {
+  --bg:       #F5F3EF;
+  --surface:  #FFFFFF;
+  --surface2: #EDE9E2;
+  --border:   #D9D2C4;
+  --ink:      #1C1814;
+  --ink2:     #4A3E2C;
+  --muted:    #7A6A52;
+  --accent:   #8A6E3E;
+  --accent2:  #C9A96A;
+  --good:     #2D6A4F;
+  --good-bg:  #D6EFE2;
+  --warn:     #8A5800;
+  --warn-bg:  #FDF2D4;
+  --bad:      #9B1C1C;
+  --bad-bg:   #FEE2E2;
+  --orange:   #B85C00;
+  --font-disp: 'Fraunces', Georgia, serif;
+  --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:       #0E0C09;
+    --surface:  #1C1814;
+    --surface2: #2A2218;
+    --border:   #3D3020;
+    --ink:      #EDE8DF;
+    --ink2:     #C8B89A;
+    --muted:    #8C7A60;
+    --accent:   #C9A96A;
+    --accent2:  #E8CE9A;
+    --good:     #52B788;
+    --good-bg:  #0D2E1E;
+    --warn:     #F4A942;
+    --warn-bg:  #2A1E00;
+    --bad:      #F87171;
+    --bad-bg:   #2D0F0F;
+    --orange:   #F4A942;
+  }
+}
+:root[data-theme="dark"] {
+  --bg:#0E0C09;--surface:#1C1814;--surface2:#2A2218;--border:#3D3020;
+  --ink:#EDE8DF;--ink2:#C8B89A;--muted:#8C7A60;
+  --accent:#C9A96A;--accent2:#E8CE9A;
+  --good:#52B788;--good-bg:#0D2E1E;
+  --warn:#F4A942;--warn-bg:#2A1E00;
+  --bad:#F87171;--bad-bg:#2D0F0F;
+  --orange:#F4A942;
+}
+
+/* ── Reset ───────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-body); background: var(--bg); color: var(--ink); font-size: 14px; line-height: 1.5; }
+button { cursor: pointer; font-family: inherit; }
+svg text { font-family: var(--font-body); }
+
+/* ── Header ──────────────────────────────────────────────── */
+.header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 24px 32px 0;
+}
+.header-top { display: flex; align-items: baseline; gap: 16px; margin-bottom: 20px; }
+.header-title { font-family: var(--font-disp); font-size: 26px; font-weight: 500; color: var(--ink); }
+.header-sub { font-size: 13px; color: var(--muted); font-weight: 400; }
+.header-meta { font-size: 12px; color: var(--muted); margin-left: auto; }
+
+/* ── Tabs ────────────────────────────────────────────────── */
+.tabs { display: flex; gap: 2px; }
+.tab-btn {
+  background: none; border: none; padding: 10px 20px;
+  font-size: 13px; font-weight: 500; color: var(--muted);
+  border-bottom: 2px solid transparent; transition: color .15s, border-color .15s;
+  letter-spacing: .02em;
+}
+.tab-btn:hover { color: var(--ink); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* ── Layout ──────────────────────────────────────────────── */
+.content { padding: 24px 32px; max-width: 1100px; margin: 0 auto; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── KPI row ─────────────────────────────────────────────── */
+.kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+.kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
+.kpi-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 6px; }
+.kpi-value { font-family: var(--font-disp); font-size: 28px; font-weight: 500; color: var(--ink); font-variant-numeric: tabular-nums; }
+.kpi-delta { font-size: 12px; color: var(--muted); margin-top: 4px; }
+.kpi-delta .up { color: var(--good); }
+.kpi-delta .dn { color: var(--bad); }
+.kpi-good .kpi-value { color: var(--good); }
+.kpi-bad .kpi-value { color: var(--bad); }
+
+/* ── Alert strip ─────────────────────────────────────────── */
+.alerts { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+.alert-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--warn-bg); color: var(--warn);
+  border: 1px solid currentColor; border-radius: 20px;
+  padding: 4px 12px; font-size: 12px; font-weight: 600;
+}
+
+/* ── Card grid ───────────────────────────────────────────── */
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 20px; }
+.grid-wide { grid-column: 1 / -1; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+.card-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 14px; }
+.card-title span { font-size: 11px; font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--muted); margin-left: 6px; }
+
+/* ── Amort info card ─────────────────────────────────────── */
+.amort-list { list-style: none; }
+.amort-list li { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; display: flex; justify-content: space-between; align-items: baseline; }
+.amort-list li:last-child { border: none; }
+.amort-actual { font-size: 11px; color: var(--muted); }
+.amort-monthly { font-family: var(--font-disp); font-weight: 500; color: var(--accent); }
+
+/* ── Category bars ───────────────────────────────────────── */
+.cat-list { list-style: none; }
+.cat-item { padding: 10px 0; border-bottom: 1px solid var(--border); }
+.cat-item:last-child { border: none; }
+.cat-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 6px; }
+.cat-name { font-size: 13px; font-weight: 500; color: var(--ink); }
+.cat-pct { font-size: 12px; color: var(--muted); }
+.cat-amount { font-family: var(--font-disp); font-size: 14px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.bar-track { height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; margin-bottom: 4px; }
+.bar-fill { height: 100%; border-radius: 3px; }
+.bar-green { background: var(--good); }
+.bar-yellow { background: var(--warn); }
+.bar-red { background: var(--bad); }
+.bar-accent { background: var(--accent); }
+.sparkrow { display: flex; gap: 2px; align-items: flex-end; height: 20px; }
+.spark { width: 8px; border-radius: 2px; background: var(--surface2); flex-shrink: 0; }
+
+/* ── Sub-lists ───────────────────────────────────────────── */
+.tx-list { list-style: none; }
+.tx-item { display: flex; justify-content: space-between; padding: 5px 0; font-size: 13px; border-bottom: 1px solid var(--border); }
+.tx-item:last-child { border: none; }
+.tx-name { color: var(--ink2); }
+.tx-amt { font-variant-numeric: tabular-nums; font-weight: 500; }
+
+/* ── Grocery store bars ──────────────────────────────────── */
+.store-item { display: flex; align-items: center; gap: 10px; padding: 6px 0; }
+.store-name { width: 160px; font-size: 13px; color: var(--ink); flex-shrink: 0; }
+.store-bar-wrap { flex: 1; }
+.store-bar { height: 18px; border-radius: 4px; min-width: 4px; display: flex; align-items: center; padding-left: 8px; }
+.store-bar span { font-size: 11px; font-weight: 600; color: #fff; white-space: nowrap; }
+.store-right { width: 110px; text-align: right; font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+/* ── Merchant tab ────────────────────────────────────────── */
+.merch-tabs { display: flex; gap: 4px; margin-bottom: 14px; }
+.merch-tab {
+  background: var(--surface2); border: none; border-radius: 6px;
+  padding: 6px 14px; font-size: 12px; font-weight: 500; color: var(--muted);
+}
+.merch-tab.active { background: var(--accent); color: #fff; }
+.merch-item { display: flex; align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px solid var(--border); }
+.merch-item:last-child { border: none; }
+.merch-name { flex: 1; font-size: 13px; }
+.merch-bar-track { width: 100px; height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+.merch-bar-fill { height: 100%; border-radius: 3px; background: var(--accent); }
+.merch-right { width: 80px; text-align: right; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.merch-amt { font-family: var(--font-disp); font-size: 13px; color: var(--ink); font-weight: 500; }
+
+/* ── SVG chart ───────────────────────────────────────────── */
+.chart-wrap { overflow-x: auto; }
+
+/* ── Benchmark table ─────────────────────────────────────── */
+.bench-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.bench-table th { text-align: left; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); padding: 6px 8px; border-bottom: 1px solid var(--border); }
+.bench-table td { padding: 8px; border-bottom: 1px solid var(--border); font-variant-numeric: tabular-nums; }
+.bench-table tr:last-child td { border: none; }
+.diff-pos { color: var(--bad); font-weight: 600; }
+.diff-neg { color: var(--good); font-weight: 600; }
+.diff-neu { color: var(--muted); }
+
+/* ── Optim ───────────────────────────────────────────────── */
+.optim-list { counter-reset: opt; list-style: none; }
+.optim-item { counter-increment: opt; padding: 14px 0; border-bottom: 1px solid var(--border); display: flex; gap: 14px; }
+.optim-item:last-child { border: none; }
+.optim-num { font-family: var(--font-disp); font-size: 22px; font-weight: 500; color: var(--accent); flex-shrink: 0; width: 28px; }
+.optim-body strong { display: block; font-size: 13px; font-weight: 600; margin-bottom: 3px; }
+.optim-body p { font-size: 13px; color: var(--ink2); }
+
+/* ── Details ─────────────────────────────────────────────── */
+details summary { cursor: pointer; font-size: 13px; color: var(--muted); padding: 10px 0; }
+details summary:hover { color: var(--accent); }
+details[open] summary { margin-bottom: 10px; }
+
+/* ── Note ────────────────────────────────────────────────── */
+.note { font-size: 12px; color: var(--muted); background: var(--surface2); border-radius: 6px; padding: 10px 14px; margin-bottom: 14px; }
+
+/* Responsive */
+@media (max-width: 640px) {
+  .kpi-row { grid-template-columns: 1fr 1fr; }
+  .content { padding: 16px; }
+  .header { padding: 16px 16px 0; }
+}
+</style>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="header">
+  <div class="header-top">
+    <div class="header-title">Forbrugsgennemgang</div>
+    <div class="header-sub">August 2026</div>
+    <div class="header-meta">Genereret 4. sep 2026</div>
+  </div>
+  <div class="tabs" role="tablist">
+    <button class="tab-btn active" onclick="switchTab('overblik',this)">Overblik</button>
+    <button class="tab-btn" onclick="switchTab('kategorier',this)">Kategorier</button>
+    <button class="tab-btn" onclick="switchTab('dagligvarer',this)">Dagligvarer</button>
+    <button class="tab-btn" onclick="switchTab('forretninger',this)">Forretninger</button>
+    <button class="tab-btn" onclick="switchTab('benchmark',this)">Benchmark</button>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ════════════ TAB: OVERBLIK ════════════ -->
+<div id="tab-overblik" class="tab-panel active">
+
+  <!-- KPI -->
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-label">Løn & indkomst</div>
+      <div class="kpi-value">34.462 kr</div>
+      <div class="kpi-delta"><span class="dn">▼ Ny arbejdsgiver (Coloplast)</span></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Faste omkostninger</div>
+      <div class="kpi-value">26.564 kr</div>
+      <div class="kpi-delta">Amortiserede værdier · <span>se kort nedenfor</span></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Variabelt forbrug</div>
+      <div class="kpi-value">36.867 kr</div>
+      <div class="kpi-delta"><span class="dn">▼ Tøj + renovering løfter august</span></div>
+    </div>
+    <div class="kpi kpi-bad">
+      <div class="kpi-label">Netto (Michael)</div>
+      <div class="kpi-value">−28.969 kr</div>
+      <div class="kpi-delta">Saras indkomst ikke i dette udtræk</div>
+    </div>
+  </div>
+
+  <!-- Alerts -->
+  <div class="alerts">
+    <span class="alert-badge">⚠ Tøj &amp; sko +280% vs. snit</span>
+    <span class="alert-badge">⚠ Husholdning +190% vs. snit</span>
+    <span class="alert-badge">⚠ Nemlig.com 60% af dagligvarer</span>
+    <span class="alert-badge">⚠ Ny løn: Coloplast 31.098 kr</span>
+  </div>
+
+  <!-- Amort card -->
+  <div class="grid">
+    <div class="card">
+      <div class="card-title">Kvartalsvise betalinger — amortiserede</div>
+      <ul class="amort-list">
+        <li>
+          <div>
+            <div style="font-weight:600">Totalkredit Q2</div>
+            <div class="amort-actual">Faktisk betalt jun: 48.884 kr · fordelt over 3 mdr</div>
+          </div>
+          <div class="amort-monthly">16.295 kr/md</div>
+        </li>
+        <li>
+          <div>
+            <div style="font-weight:600">Gentofte Fjernvarme Q3 aconto</div>
+            <div class="amort-actual">Faktisk betalt: 8.200 kr · fordelt over 3 mdr</div>
+          </div>
+          <div class="amort-monthly">2.733 kr/md</div>
+        </li>
+        <li>
+          <div>
+            <div style="font-weight:600">Ledernes kontingent Q3</div>
+            <div class="amort-actual">Faktisk betalt: 3.708 kr · fordelt over 3 mdr</div>
+          </div>
+          <div class="amort-monthly">1.236 kr/md</div>
+        </li>
+        <li>
+          <div>
+            <div style="font-weight:600">GF Indboforsikring (årslig, sep)</div>
+            <div class="amort-actual">Faktisk betalt: 6.006 kr · fordelt over 12 mdr</div>
+          </div>
+          <div class="amort-monthly">501 kr/md</div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Cashflow chart 6 months -->
+    <div class="card">
+      <div class="card-title">Cashflow — seneste 6 måneder <span>(Michaels konto)</span></div>
+      <div class="chart-wrap">
+        <svg id="cf-chart" width="400" height="160" viewBox="0 0 400 160"></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top transactions -->
+  <div class="grid">
+    <div class="card">
+      <div class="card-title">Største enkeltposter — august</div>
+      <ul class="tx-list">
+        <li class="tx-item"><span class="tx-name">Totalkredit (amort.)</span><span class="tx-amt" style="color:var(--bad)">−16.295 kr</span></li>
+        <li class="tx-item"><span class="tx-name">JFOG Lyngby (Johannesfog maling ×2)</span><span class="tx-amt" style="color:var(--bad)">−5.238 kr</span></li>
+        <li class="tx-item"><span class="tx-name">LIK (tøj)</span><span class="tx-amt" style="color:var(--bad)">−3.046 kr</span></li>
+        <li class="tx-item"><span class="tx-name">Kids-world MobilePay</span><span class="tx-amt" style="color:var(--bad)">−2.225 kr</span></li>
+        <li class="tx-item"><span class="tx-name">Rengøring MobilePay (×4)</span><span class="tx-amt" style="color:var(--bad)">−4.800 kr</span></li>
+        <li class="tx-item"><span class="tx-name">Nemlig.com (×6 leveringer)</span><span class="tx-amt" style="color:var(--bad)">−5.240 kr</span></li>
+        <li class="tx-item"><span class="tx-name">SticksNSushi (×3)</span><span class="tx-amt" style="color:var(--bad)">−2.271 kr</span></li>
+        <li class="tx-item"><span class="tx-name">Legeakademiet.dk</span><span class="tx-amt" style="color:var(--bad)">−854 kr</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Husholdning — udfoldet<span>Møbler · Rengøring · Byggematerialer · Maling · VVS</span></div>
+      <div style="font-family:var(--font-disp);font-size:22px;font-weight:500;margin-bottom:8px;">10.444 kr</div>
+      <div class="note">Amortiseret. Inkl. Johannesfog/JFOG maling (5.238 kr) + rengøring (4.800 kr/md fast).</div>
+      <ul class="tx-list">
+        <li class="tx-item"><span class="tx-name">JFOG Lyngby (maling 22. aug)</span><span class="tx-amt">−2.858 kr</span></li>
+        <li class="tx-item"><span class="tx-name">JFOG Lyngby (maling 19. aug)</span><span class="tx-amt">−2.380 kr</span></li>
+        <li class="tx-item"><span class="tx-name">Rengøring ×4 (fast MobilePay)</span><span class="tx-amt">−4.800 kr</span></li>
+        <li class="tx-item"><span class="tx-name">Silvan (791)</span><span class="tx-amt">−122 kr</span></li>
+        <li class="tx-item"><span class="tx-name">Johannesfog A/S (tilbehør)</span><span class="tx-amt">−169 kr</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ TAB: KATEGORIER ════════════ -->
+<div id="tab-kategorier" class="tab-panel">
+  <div class="card">
+    <div class="card-title">Variabelt forbrug pr. kategori — august 2026</div>
+    <ul class="cat-list" id="cat-list"></ul>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <div class="card-title">Faste omkostninger — amortiserede</div>
+    <ul class="cat-list" id="fixed-list"></ul>
+  </div>
+</div>
+
+<!-- ════════════ TAB: DAGLIGVARER ════════════ -->
+<div id="tab-dagligvarer" class="tab-panel">
+  <div class="note">
+    ⚠️ <strong>Online levering udgør 60% af dagligvareforbruget (5.240 kr af 8.761 kr).</strong>
+    Nemlig.com er typisk 15–25% dyrere pr. kurv end fysisk discount.
+    Besparelsespotentiale ved at flytte 50% af Nemlig til Netto/Rema: ca. <strong>390 kr/md</strong>.
+  </div>
+  <div class="card">
+    <div class="card-title">Dagligvarer pr. forretning — august 2026</div>
+    <div id="grocery-bars"></div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <div class="card-title">12-måneders dagligvarer <span>estimeret trend</span></div>
+    <div class="chart-wrap">
+      <svg id="grocery-chart" width="500" height="160" viewBox="0 0 500 160"></svg>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ TAB: FORRETNINGER ════════════ -->
+<div id="tab-forretninger" class="tab-panel">
+  <div class="merch-tabs">
+    <button class="merch-tab active" onclick="showMerch('aug',this)">August 2026</button>
+    <button class="merch-tab" onclick="showMerch('jul',this)">Juli 2026</button>
+  </div>
+  <div class="card">
+    <div id="merch-list"></div>
+  </div>
+</div>
+
+<!-- ════════════ TAB: BENCHMARK ════════════ -->
+<div id="tab-benchmark" class="tab-panel">
+  <div class="note">Kilde: Forbrugerrådet Tænk Penge standardbudget 2025 — familie med 2 børn (6–12 år), Storkøbenhavn. Boligudgift ekskl. realkredit-afdrag.</div>
+  <div class="card">
+    <div class="card-title">Benchmark sammenligning</div>
+    <table class="bench-table">
+      <thead>
+        <tr><th>Kategori</th><th>Dit forbrug</th><th>Benchmark</th><th>Forskel</th></tr>
+      </thead>
+      <tbody id="bench-body"></tbody>
+    </table>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <div class="card-title">Optimeringsforslag</div>
+    <ol class="optim-list">
+      <li class="optim-item">
+        <div class="optim-num">1</div>
+        <div class="optim-body">
+          <strong>Reducer Nemlig.com til maks. 2 leveringer/uge</strong>
+          <p>6 leveringer i august til 5.240 kr er unødvendigt dyrt. Flyt 50% til Netto/Rema — besparelse ~390 kr/md (konservativt), op til 600 kr/md inkl. leveringsgebyrer.</p>
+        </div>
+      </li>
+      <li class="optim-item">
+        <div class="optim-num">2</div>
+        <div class="optim-body">
+          <strong>Tøj og sko: budgetloft på 1.500 kr/md</strong>
+          <p>5.693 kr i august (LIK 3.046 + Kids-world 2.225 + Røverkøb 422) er 280% over et realistisk snit. Sæt et månedligt loft og flyt sæsonindkøb til udsalgsperioder.</p>
+        </div>
+      </li>
+      <li class="optim-item">
+        <div class="optim-num">3</div>
+        <div class="optim-body">
+          <strong>Fastlæg renoverings-budget for resten af 2026</strong>
+          <p>JFOG Lyngby/Johannesfog: 5.238 kr i én måned. Sæt en total ramme for malingsrojektet, så udgifterne ikke driver ukontrolleret — synliggør restbudget i næste gennemgang.</p>
+        </div>
+      </li>
+      <li class="optim-item">
+        <div class="optim-num">4</div>
+        <div class="optim-body">
+          <strong>SticksNSushi-hyppighed: 3 gange på én måned</strong>
+          <p>2.271 kr på SticksNSushi alene er næsten et halvt dagligvarebudget. Én gang/md sparer ~1.500 kr/md — 18.000 kr/år.</p>
+        </div>
+      </li>
+      <li class="optim-item">
+        <div class="optim-num">5</div>
+        <div class="optim-body">
+          <strong>Gennemgå abonnementer (Anthropic, Netflix, TV2, Digital Co, Tesla)</strong>
+          <p>856 kr/md i digitale abonnementer. Vurder om alle bruges — Netflix + TV2 overlapper. Samlet besparelsespotentiale op til 400 kr/md.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<script>
+/* ── Tab switching ─────────────────────────────────────── */
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* ── Data ──────────────────────────────────────────────── */
+const DATA = {
+  /* Cashflow 6 months — Michael's visible accounts (amortized) */
+  months6: ['Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Aug'],
+  income6: [60000, 60000, 60000, 119398, 0, 34462],  // Jun = Ørsted, Aug = Coloplast
+  expenses6: [72000, 68000, 70000, 97000, 85000, 63431], // Jul heavy vacation
+
+  /* Variable categories August */
+  cats: [
+    { name: 'Dagligvarer',      amt: 9761,  bench: 8500, color: 'yellow', spark: [7200,8100,9400,7600,12400,9761] },
+    { name: 'Husholdning',      amt: 5644,  bench: 1800, color: 'red',    spark: [1200,1800,2200,1400,2800,5644] },
+    { name: 'Tøj & sko',        amt: 5693,  bench: 1300, color: 'red',    spark: [600,900,4200,1100,11200,5693] },
+    { name: 'Rengøring',        amt: 4800,  bench: 800,  color: 'red',    spark: [1200,1200,1200,1200,1200,4800] },
+    { name: 'Restaurant/café',  amt: 4359,  bench: 2500, color: 'yellow', spark: [2100,3400,3800,8900,14200,4359] },
+    { name: 'Fritid & kultur',  amt: 3669,  bench: 2800, color: 'yellow', spark: [1800,2100,3200,2400,4600,3669] },
+    { name: 'Transport',        amt: 1735,  bench: 3500, color: 'green',  spark: [2800,3200,3100,4200,1200,1735] },
+    { name: 'Streaming/abo',    amt: 856,   bench: 600,  color: 'yellow', spark: [700,700,750,750,750,856] },
+    { name: 'Sundhed/apotek',   amt: 350,   bench: 400,  color: 'green',  spark: [200,150,300,800,300,350] },
+  ],
+
+  /* Fixed (amortized) */
+  fixed: [
+    { name: 'Realkredit Totalkredit', amt: 16295, note: 'Q2: 48.884 kr / 3' },
+    { name: 'GF Forsikringer (samlet)', amt: 5000, note: 'Månedlige BD-betalinger' },
+    { name: 'Fjernvarme (amort.)', amt: 2733, note: 'Q3: 8.200 kr / 3' },
+    { name: 'Ledernes (amort.)', amt: 1236, note: 'Q3: 3.708 kr / 3' },
+    { name: 'Forsia bilforsikring', amt: 725, note: 'Månedlig' },
+    { name: 'GF Indboforsikring (amort.)', amt: 501, note: 'Årslig: 6.006 kr / 12' },
+    { name: 'Internet/mobil', amt: 600, note: 'Est.' },
+  ],
+
+  /* Grocery by store August */
+  grocery: [
+    { name: 'Nemlig.com', amt: 5240, count: 6, type: 'online', color: '#ef4444' },
+    { name: 'Netto',      amt: 1002, count: 4, type: 'discount', color: '#22c55e' },
+    { name: 'Pluk selv',  amt: 1236, count: 2, type: 'specialty', color: '#eab308' },
+    { name: 'Lagkagehuset', amt: 566, count: 3, type: 'specialty', color: '#eab308' },
+    { name: 'Meny',       amt: 131,  count: 2, type: 'specialty', color: '#eab308' },
+    { name: 'Emmerys',    amt: 166,  count: 3, type: 'specialty', color: '#eab308' },
+    { name: 'Rokkedysse', amt: 280,  count: 1, type: 'specialty', color: '#eab308' },
+    { name: 'The Bread',  amt: 140,  count: 2, type: 'specialty', color: '#eab308' },
+  ],
+
+  /* Merchants August (top 20) */
+  merchantsAug: [
+    { name: 'Nemlig.com', amt: 5240, count: 6 },
+    { name: 'Rengøring (MobilePay)', amt: 4800, count: 4 },
+    { name: 'JFOG Lyngby', amt: 5238, count: 2 },
+    { name: 'LIK', amt: 3046, count: 1 },
+    { name: 'SticksNSushi', amt: 2271, count: 3 },
+    { name: 'Kids-world', amt: 2225, count: 1 },
+    { name: 'Ticketmaster', amt: 1225, count: 1 },
+    { name: 'Netto', amt: 1002, count: 4 },
+    { name: 'Pluk selv', amt: 1236, count: 2 },
+    { name: 'Molslinjen', amt: 1272, count: 3 },
+    { name: 'Røverkøb A/S', amt: 422, count: 1 },
+    { name: 'Armandos', amt: 597, count: 5 },
+    { name: 'Legeakademiet.dk', amt: 854, count: 1 },
+    { name: 'Lagkagehuset', amt: 566, count: 3 },
+    { name: 'Billetto', amt: 362, count: 1 },
+    { name: 'Wolt', amt: 596, count: 1 },
+    { name: 'Taarbak Cafe', amt: 454, count: 1 },
+    { name: 'GTKlub halbooking', amt: 450, count: 1 },
+    { name: 'Tickster', amt: 362, count: 1 },
+    { name: 'Anthropic (Claude)', amt: 170, count: 1 },
+  ],
+
+  /* Merchants July (vacation month) */
+  merchantsJul: [
+    { name: 'CASCINA Finale Ligure (sommerhus)', amt: 8246, count: 1 },
+    { name: 'Arcteryx Chamonix (tøj)', amt: 9817, count: 1 },
+    { name: 'Nemlig.com', amt: 2175, count: 3 },
+    { name: 'AZIENDA Agricola (vin/mad)', amt: 4456, count: 2 },
+    { name: 'Tesla opladning (diverse)', amt: 1532, count: 10 },
+    { name: 'CERVINO SPA (aktivitet)', amt: 1993, count: 1 },
+    { name: 'NOL Ski Valtournenche', amt: 1208, count: 1 },
+    { name: 'Djurs Sommerland', amt: 1868, count: 2 },
+    { name: 'Fleggaard Grenzhandel', amt: 2454, count: 1 },
+    { name: 'COOP KV Grenå', amt: 1393, count: 2 },
+    { name: 'Harald Nyborg S', amt: 1058, count: 1 },
+    { name: 'ACI Puttgarden (færge)', amt: 1103, count: 1 },
+    { name: 'Den Stolte Slagter (Grenå)', amt: 743, count: 1 },
+    { name: 'BISTROT SPORTS Chamonix', amt: 494, count: 1 },
+    { name: 'MobilePay Rudernes K', amt: 1700, count: 1 },
+    { name: 'Rengøring (MobilePay)', amt: 1200, count: 1 },
+    { name: 'UVITA PLAGE (strand Monaco)', amt: 1344, count: 1 },
+    { name: 'PARMA 1 (restaurant Savona)', amt: 1329, count: 1 },
+    { name: 'LA SALIERE (Monaco)', amt: 1435, count: 1 },
+    { name: 'Thelemon.dk', amt: 379, count: 1 },
+  ],
+
+  /* Benchmark */
+  bench: [
+    { cat: 'Dagligvarer', dit: 9761, ref: 8500 },
+    { cat: 'Restaurant/café', dit: 4359, ref: 2500 },
+    { cat: 'Transport (ekskl. leasingydelse)', dit: 1735, ref: 3500 },
+    { cat: 'Fritid & kultur', dit: 3669, ref: 2800 },
+    { cat: 'Tøj & sko', dit: 5693, ref: 1300 },
+    { cat: 'Husholdning & rengøring', dit: 10444, ref: 2200 },
+    { cat: 'Sundhed & apotek', dit: 350, ref: 600 },
+    { cat: 'Abonnementer', dit: 856, ref: 600 },
+    { cat: 'Realkredit (amort.)', dit: 16295, ref: 14000 },
+    { cat: 'Forsikringer (samlet, amort.)', dit: 6226, ref: 3500 },
+  ],
+};
+
+/* ── Helpers ───────────────────────────────────────────── */
+function kr(n) { return n.toLocaleString('da-DK') + ' kr'; }
+
+/* ── Cashflow chart ────────────────────────────────────── */
+function buildCFChart() {
+  const svg = document.getElementById('cf-chart');
+  if (!svg) return;
+  const W = 400, H = 160, PAD = { t:10, r:10, b:28, l:48 };
+  const cW = W - PAD.l - PAD.r, cH = H - PAD.t - PAD.b;
+  const n = DATA.months6.length;
+  const barW = (cW / n) * 0.35;
+  const maxV = Math.max(...DATA.income6, ...DATA.expenses6) * 1.1;
+  const y = v => PAD.t + cH - (v / maxV) * cH;
+  const x = i => PAD.l + (i + 0.5) * (cW / n);
+
+  let html = '';
+  // Grid lines
+  for (let i = 0; i <= 4; i++) {
+    const yy = PAD.t + (cH / 4) * i;
+    const val = Math.round(maxV * (1 - i / 4) / 1000) + 'k';
+    html += `<line x1="${PAD.l}" y1="${yy}" x2="${W - PAD.r}" y2="${yy}" stroke="var(--border)" stroke-width="1"/>`;
+    html += `<text x="${PAD.l - 4}" y="${yy + 4}" text-anchor="end" font-size="9" fill="var(--muted)">${val}</text>`;
+  }
+
+  DATA.months6.forEach((m, i) => {
+    const xi = x(i);
+    const inc = DATA.income6[i], exp = DATA.expenses6[i];
+    const net = inc - exp;
+    html += `<rect x="${xi - barW}" y="${y(inc)}" width="${barW - 2}" height="${cH - (y(inc) - PAD.t)}" fill="var(--accent)" opacity=".7" rx="2"/>`;
+    html += `<rect x="${xi + 2}" y="${y(exp)}" width="${barW - 2}" height="${cH - (y(exp) - PAD.t)}" fill="var(--orange)" opacity=".7" rx="2"/>`;
+    const netColor = net >= 0 ? 'var(--good)' : 'var(--bad)';
+    html += `<text x="${xi}" y="${H - 6}" text-anchor="middle" font-size="9" fill="var(--muted)">${m}</text>`;
+    const netLabel = (net >= 0 ? '+' : '') + Math.round(net / 1000) + 'k';
+    html += `<text x="${xi}" y="${PAD.t + 8}" text-anchor="middle" font-size="9" fill="${netColor}" font-weight="600">${netLabel}</text>`;
+  });
+
+  // Legend
+  html += `<rect x="${PAD.l}" y="${H - 10}" width="8" height="6" fill="var(--accent)" opacity=".7" rx="1"/>`;
+  html += `<text x="${PAD.l + 10}" y="${H - 4}" font-size="9" fill="var(--muted)">Indkomst</text>`;
+  html += `<rect x="${PAD.l + 70}" y="${H - 10}" width="8" height="6" fill="var(--orange)" opacity=".7" rx="1"/>`;
+  html += `<text x="${PAD.l + 80}" y="${H - 4}" font-size="9" fill="var(--muted)">Udgifter</text>`;
+
+  svg.innerHTML = html;
+}
+
+/* ── Category bars ─────────────────────────────────────── */
+function buildCatList() {
+  const el = document.getElementById('cat-list');
+  if (!el) return;
+  const totalVar = DATA.cats.reduce((a, c) => a + c.amt, 0);
+  const maxAmt = Math.max(...DATA.cats.map(c => c.amt));
+  el.innerHTML = DATA.cats.map(c => {
+    const pct = Math.round(c.amt / totalVar * 100);
+    const barPct = Math.round(c.amt / maxAmt * 100);
+    const sparkMax = Math.max(...c.spark);
+    const sparks = c.spark.map(v => {
+      const h = Math.max(3, Math.round(v / sparkMax * 20));
+      return `<div class="spark" style="height:${h}px;background:var(--accent);opacity:.5"></div>`;
+    }).join('');
+    const colorCls = c.color === 'green' ? 'bar-green' : c.color === 'red' ? 'bar-red' : 'bar-yellow';
+    return `<li class="cat-item">
+      <div class="cat-header">
+        <span class="cat-name">${c.name}</span>
+        <span class="cat-amount" style="color:var(--bad)">${kr(c.amt)}</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill ${colorCls}" style="width:${barPct}%"></div></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px">
+        <div class="sparkrow">${sparks}</div>
+        <span class="cat-pct">${pct}% af variabelt</span>
+      </div>
+    </li>`;
+  }).join('');
+
+  const fixedEl = document.getElementById('fixed-list');
+  const maxFixed = Math.max(...DATA.fixed.map(f => f.amt));
+  fixedEl.innerHTML = DATA.fixed.map(f => {
+    const pct = Math.round(f.amt / maxFixed * 100);
+    return `<li class="cat-item">
+      <div class="cat-header">
+        <span class="cat-name">${f.name} <small style="color:var(--muted);font-weight:400">${f.note}</small></span>
+        <span class="cat-amount">${kr(f.amt)}</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill bar-accent" style="width:${pct}%"></div></div>
+    </li>`;
+  }).join('');
+}
+
+/* ── Grocery bars ──────────────────────────────────────── */
+function buildGrocery() {
+  const el = document.getElementById('grocery-bars');
+  if (!el) return;
+  const total = DATA.grocery.reduce((a, g) => a + g.amt, 0);
+  const max = Math.max(...DATA.grocery.map(g => g.amt));
+  el.innerHTML = DATA.grocery.map(g => {
+    const pct = Math.round(g.amt / max * 100);
+    const share = Math.round(g.amt / total * 100);
+    const typeLabel = g.type === 'online' ? '🔴 Online levering' : g.type === 'discount' ? '🟢 Discount' : '🟡 Specialty/andet';
+    return `<div class="store-item">
+      <div class="store-name">${g.name}</div>
+      <div class="store-bar-wrap">
+        <div class="store-bar" style="width:${pct}%;background:${g.color}">
+          <span>${kr(g.amt)}</span>
+        </div>
+      </div>
+      <div class="store-right">${share}% · ${g.count} køb · ${kr(Math.round(g.amt/g.count))}/køb</div>
+    </div>`;
+  }).join('') + `<div style="margin-top:12px;font-size:12px;color:var(--muted)">${[
+    '🔴 Online levering', '🟡 Specialty/mellemkæde', '🟢 Discount'
+  ].join(' &nbsp;·&nbsp; ')}</div>`;
+
+  // 12-month grocery chart
+  const svg = document.getElementById('grocery-chart');
+  if (!svg) return;
+  const months = ['Sep','Okt','Nov','Dec','Jan','Feb','Mar','Apr','Maj','Jun','Jul','Aug'];
+  // Estimated monthly grocery (older = estimate, Jun-Aug = actual)
+  const grocery12 = [7000,7500,8200,10500,6800,7200,8100,8400,9200,8800,5200,8761];
+  const W = 500, H = 160, PAD = {t:10,r:10,b:28,l:48};
+  const cW = W - PAD.l - PAD.r, cH = H - PAD.t - PAD.b;
+  const bw = cW / 12 * 0.7;
+  const maxV = Math.max(...grocery12) * 1.1;
+  const yv = v => PAD.t + cH - (v/maxV)*cH;
+  let html = '';
+  for (let i = 0; i <= 3; i++) {
+    const yy = PAD.t + cH/3*i;
+    html += `<line x1="${PAD.l}" y1="${yy}" x2="${W-PAD.r}" y2="${yy}" stroke="var(--border)" stroke-width="1"/>`;
+    html += `<text x="${PAD.l-4}" y="${yy+4}" text-anchor="end" font-size="9" fill="var(--muted)">${Math.round(maxV*(1-i/3)/1000)}k</text>`;
+  }
+  grocery12.forEach((v, i) => {
+    const xi = PAD.l + (i + 0.5) * (cW/12);
+    const isActual = i >= 9;
+    html += `<rect x="${xi-bw/2}" y="${yv(v)}" width="${bw}" height="${cH-(yv(v)-PAD.t)}" fill="${isActual ? 'var(--accent)' : 'var(--border)'}" rx="2" opacity="${isActual?'.85':'.6'}"/>`;
+    html += `<text x="${xi}" y="${H-6}" text-anchor="middle" font-size="9" fill="var(--muted)">${months[i]}</text>`;
+  });
+  html += `<rect x="${PAD.l}" y="${H-10}" width="8" height="6" fill="var(--accent)" opacity=".85" rx="1"/>`;
+  html += `<text x="${PAD.l+10}" y="${H-4}" font-size="9" fill="var(--muted)">Faktisk</text>`;
+  html += `<rect x="${PAD.l+60}" y="${H-10}" width="8" height="6" fill="var(--border)" rx="1"/>`;
+  html += `<text x="${PAD.l+70}" y="${H-4}" font-size="9" fill="var(--muted)">Estimeret</text>`;
+  svg.innerHTML = html;
+}
+
+/* ── Merchant list ─────────────────────────────────────── */
+function showMerch(period, btn) {
+  document.querySelectorAll('.merch-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  const data = period === 'aug' ? DATA.merchantsAug : DATA.merchantsJul;
+  const sorted = [...data].sort((a, b) => b.amt - a.amt);
+  const max = sorted[0].amt;
+  document.getElementById('merch-list').innerHTML = sorted.map(m => `
+    <div class="merch-item">
+      <div class="merch-name">${m.name}</div>
+      <div class="merch-bar-track"><div class="merch-bar-fill" style="width:${Math.round(m.amt/max*100)}%"></div></div>
+      <div class="merch-right" style="color:var(--muted);font-size:11px">${m.count} køb</div>
+      <div class="merch-right"><span class="merch-amt">${kr(m.amt)}</span></div>
+    </div>
+  `).join('');
+}
+
+/* ── Benchmark ─────────────────────────────────────────── */
+function buildBench() {
+  const el = document.getElementById('bench-body');
+  if (!el) return;
+  el.innerHTML = DATA.bench.map(b => {
+    const diff = b.dit - b.ref;
+    const pct = Math.round(diff / b.ref * 100);
+    const cls = diff > b.ref * 0.15 ? 'diff-pos' : diff < -b.ref * 0.15 ? 'diff-neg' : 'diff-neu';
+    const sign = diff > 0 ? '+' : '';
+    return `<tr>
+      <td>${b.cat}</td>
+      <td>${kr(b.dit)}</td>
+      <td style="color:var(--muted)">${kr(b.ref)}</td>
+      <td class="${cls}">${sign}${kr(diff)} (${sign}${pct}%)</td>
+    </tr>`;
+  }).join('');
+}
+
+/* ── Init ──────────────────────────────────────────────── */
+buildCFChart();
+buildCatList();
+buildGrocery();
+showMerch('aug', document.querySelector('.merch-tab'));
+buildBench();
+</script>
