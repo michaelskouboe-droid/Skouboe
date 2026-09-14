@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>Forbrugsgennemgang — status 14. september 2026</title>
+<style>
+  :root {
+    --bg: #0f172a; --card: #1e293b; --border: #334155;
+    --text: #e2e8f0; --muted: #94a3b8; --accent: #38bdf8;
+    --green: #22c55e; --yellow: #eab308; --red: #ef4444; --orange: #f97316;
+  }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; margin: 0; padding: 32px 20px; }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  h1 { font-size: 22px; margin-bottom: 4px; }
+  .sub { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+  .card h2 { font-size: 15px; margin: 0 0 10px; color: var(--accent); }
+  .card p { font-size: 13px; line-height: 1.7; color: var(--text); margin: 6px 0; }
+  .muted { color: var(--muted); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  td { padding: 5px 10px 5px 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+  td:first-child { color: var(--muted); width: 45%; }
+  .badge { display: inline-block; border-radius: 6px; padding: 3px 9px; font-size: 12px; font-weight: 600; margin: 2px 4px 2px 0; }
+  .badge-red { border: 1px solid rgba(239,68,68,.4); color: var(--red); }
+  .badge-yellow { border: 1px solid rgba(234,179,8,.4); color: var(--yellow); }
+  code { background: var(--border); padding: 1px 6px; border-radius: 4px; font-size: 12px; }
+  ol { font-size: 13px; line-height: 1.9; padding-left: 20px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Forbrugsgennemgang — status</h1>
+  <div class="sub">Planlagt biweekly kørsel · 14. september 2026 · Ingen ny gennemgang produceret</div>
+
+  <div class="card">
+    <h2>⚠️ Denne kørsel kunne ikke lave en opdateret gennemgang</h2>
+    <p>Datastien i skillet blev den 4. september 2026 ændret fra det Git-versionerede <code>data/transactions/</code>
+    til en lokal mappe: <code>~/Documents/Claude - Co/Forbrugs dashboard/</code>. Den ændring virkede samme dag,
+    fordi den gennemgang blev kørt i en session med adgang til din lokale computer.</p>
+    <p>Denne planlagte kørsel foregår derimod i et <strong>isoleret cloud-miljø</strong> uden forbindelse til din
+    lokale disk. Mappen <code>~/Documents/Claude - Co/Forbrugs dashboard/</code> findes slet ikke der — det er
+    ikke et spørgsmål om manglende filer, men om at stien er strukturelt utilgængelig fra en automatisk/planlagt
+    kørsel.</p>
+    <p>Konsekvens: <strong>hver eneste fremtidige automatiske biweekly-kørsel vil fejle på samme måde</strong>,
+    uanset hvor mange nye CSV-filer der ligger i den lokale mappe.</p>
+  </div>
+
+  <div class="card">
+    <h2>Status</h2>
+    <table>
+      <tr><td>Seneste fulde rapport</td><td><strong>August 2026</strong> (genereret 4. september 2026, lokal kørsel)</td></tr>
+      <tr><td>Data i <code>data/transactions/</code> (denne kørsels eneste tilgængelige kilde)</td><td>Slutter stadig <strong>01-07-2026</strong> — uændret siden juni</td></tr>
+      <tr><td><code>~/Documents/Claude - Co/Forbrugs dashboard/</code> fra dette miljø</td><td><span class="badge badge-red">Utilgængelig (findes ikke i cloud-sessionen)</span></td></tr>
+      <tr><td>Dage siden sidste reelle gennemgang</td><td>10 dage</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Anbefalet løsning (vælg én)</h2>
+    <ol>
+      <li><strong>Læg en kopi af CSV-eksporterne i <code>data/transactions/</code> i repoet</strong> (det gamle,
+      Git-versionerede flow) — så kan både lokale og cloud-kørsler læse dataen.</li>
+      <li><strong>Kør gennemgangen manuelt lokalt</strong> hver anden mandag i stedet for at stole på den
+      planlagte cloud-trigger, hvis den lokale mappe skal blive ved med at være kilden.</li>
+      <li><strong>Peg den planlagte trigger på et cloud-tilgængeligt sted</strong>, f.eks. en Google Drive-forbindelse
+      eller en mail til dig selv med CSV-vedhæftning, som skillet kan slå op i uanset miljø.</li>
+    </ol>
+  </div>
+
+  <p class="muted" style="font-size:12px">Genereret automatisk af expense-review skillet · ingen transaktionsfiler ændret i dette run · næste planlagte kørsel: 28. september 2026 (hvis hver anden mandag holdes)</p>
+</div>
+</body>
+</html>
