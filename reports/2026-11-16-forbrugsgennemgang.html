@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>Forbrugsgennemgang — 16. november 2026 (status)</title>
+<style>
+  :root {
+    --bg: #0f172a; --card: #1e293b; --border: #334155;
+    --text: #e2e8f0; --muted: #94a3b8; --accent: #38bdf8;
+    --yellow: #eab308; --red: #ef4444;
+  }
+  body { background: var(--bg); color: var(--text); font-family: system-ui, sans-serif; margin: 0; padding: 32px; line-height: 1.6; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; max-width: 720px; margin: 0 auto 20px; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .muted { color: var(--muted); font-size: 14px; }
+  .badge { display: inline-block; background: rgba(234,179,8,0.15); color: var(--yellow); border: 1px solid var(--yellow); border-radius: 999px; padding: 2px 10px; font-size: 12px; margin-bottom: 12px; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 14px; }
+  td { padding: 6px 12px 6px 0; border-bottom: 1px solid var(--border); }
+  td:first-child { color: var(--muted); white-space: nowrap; }
+  ol { padding-left: 20px; }
+  code { background: #0b1220; padding: 1px 5px; border-radius: 4px; font-size: 13px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <span class="badge">Kørsel kunne ikke fuldføres</span>
+    <h1>Forbrugsgennemgang — 16. november 2026</h1>
+    <p class="muted">Biweekly automatisk kørsel af expense-review skillet i cloud-miljø.</p>
+
+    <p>Blokeringen fra 14. september er stadig ikke løst, nu ni uger senere. Den eneste datakilde
+    cloud-kørslen kan læse er <code>data/transactions/</code>, og den stopper stadig
+    <strong>01-07-2026</strong>. Skillets datasti, <code>~/Documents/Claude - Co/Forbrugs dashboard/</code>,
+    findes ikke i cloud-sessionen. Der er heller ingen CSV-vedhæftninger i Gmail siden 1. september.</p>
+
+    <table>
+      <tr><td>Seneste fulde rapport med reelle tal:</td><td><strong>August 2026</strong> (4. september, lokal kørsel)</td></tr>
+      <tr><td>Data i data/transactions/:</td><td>Stopper 01-07-2026, uændret</td></tr>
+      <tr><td>~/Documents/.../Forbrugs dashboard/ fra cloud:</td><td><strong>Findes ikke</strong></td></tr>
+      <tr><td>CSV-vedhæftninger i Gmail siden 01-09-2026:</td><td>Ingen</td></tr>
+      <tr><td>Manglende måneder:</td><td>Juli (delvist), august, september, oktober og november 2026</td></tr>
+    </table>
+
+    <p><strong>Du skal vælge én af disse løsninger</strong>, ellers fejler alle fremtidige kørsler på samme måde:</p>
+    <ol>
+      <li>Læg CSV-eksporterne i <code>data/transactions/</code> i repoet (nemmest).</li>
+      <li>Send CSV-eksporten til dig selv på mail. Kørslen kan så hente den derfra.</li>
+      <li>Kør gennemgangen lokalt hver anden mandag og stop cloud-triggeren.</li>
+    </ol>
+
+    <p class="muted" style="font-size:12px">Genereret automatisk af expense-review skillet · ingen transaktionsfiler ændret i dette run.</p>
+  </div>
+</body>
+</html>
